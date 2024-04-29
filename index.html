@@ -10,8 +10,8 @@
         <link rel="stylesheet" href="css/L.Control.Layers.Tree.css">
         <link rel="stylesheet" href="css/qgis2web.css">
         <link rel="stylesheet" href="css/fontawesome-all.min.css">
-        <link rel="stylesheet" href="css/MarkerCluster.css">
-        <link rel="stylesheet" href="css/MarkerCluster.Default.css">
+        <link rel="stylesheet" href="css/filter.css">
+<link rel="stylesheet" href="css/nouislider.min.css">
         <style>
         html, body, #map {
             width: 100%;
@@ -35,23 +35,24 @@
         <script src="js/rbush.min.js"></script>
         <script src="js/labelgun.min.js"></script>
         <script src="js/labels.js"></script>
-        <script src="js/leaflet.markercluster.js"></script>
-        <script src="data/BPE_1.js"></script>
-        <script src="data/Nombredindividu_2.js"></script>
-        <script src="data/Bicyclerental_3.js"></script>
-        <script src="data/Bicycleparking_4.js"></script>
-        <script src="data/Pedestrianareas_5.js"></script>
-        <script src="data/sidewalks_6.js"></script>
-        <script src="data/Parkingspace_7.js"></script>
-        <script src="data/Motorcycleparking_8.js"></script>
-        <script src="data/Parking_9.js"></script>
-        <script src="data/Carchargingstation_10.js"></script>
-        <script src="data/Pistescyclablesetcouloirsdebus_11.js"></script>
-        <script src="data/BusStop_12.js"></script>
-        <script src="data/Arrondissements_13.js"></script>
-        <script src="data/Ecoquartier_14.js"></script>
-        <script src="data/IRISEcoquartier_15.js"></script>
-        <script src="data/IRIS17meArrondissement_16.js"></script>
+        <script src="js/tailDT.js"></script>
+<script src="js/nouislider.min.js"></script>
+<script src="js/wNumb.js"></script>
+        <script src="data/Arrondissements_1.js"></script>
+        <script src="data/Ecoquartier_2.js"></script>
+        <script src="data/IRISEcoquartier_3.js"></script>
+        <script src="data/IRIS17meArrondissement_4.js"></script>
+        <script src="data/BPE_5.js"></script>
+        <script src="data/Bicyclerental_6.js"></script>
+        <script src="data/Bicycleparking_7.js"></script>
+        <script src="data/Pedestrianareas_8.js"></script>
+        <script src="data/sidewalks_9.js"></script>
+        <script src="data/Parkingspace_10.js"></script>
+        <script src="data/Motorcycleparking_11.js"></script>
+        <script src="data/Parking_12.js"></script>
+        <script src="data/Carchargingstation_13.js"></script>
+        <script src="data/BuslaneandBikelane_14.js"></script>
+        <script src="data/BusStop_15.js"></script>
         <script>
         var map = L.map('map', {
             zoomControl:true, maxZoom:28, minZoom:1
@@ -100,10 +101,55 @@
         });
         layer_OSMStandard_0;
         map.addLayer(layer_OSMStandard_0);
-        function pop_BPE_1(feature, layer) {
+        function pop_Arrondissements_1(feature, layer) {
+            var popupContent = '<table>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+            var popup = layer.getPopup();
+            var content = popup.getContent();
+            var updatedContent = removeEmptyRowsFromPopupContent(content, feature);
+            popup.setContent(updatedContent);
+        }
+
+        function style_Arrondissements_1_0() {
+            return {
+                pane: 'pane_Arrondissements_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 2.0,
+                fillOpacity: 0,
+                interactive: false,
+            }
+        }
+        map.createPane('pane_Arrondissements_1');
+        map.getPane('pane_Arrondissements_1').style.zIndex = 401;
+        map.getPane('pane_Arrondissements_1').style['mix-blend-mode'] = 'normal';
+        var layer_Arrondissements_1 = new L.geoJson(json_Arrondissements_1, {
+            attribution: '',
+            interactive: false,
+            dataVar: 'json_Arrondissements_1',
+            layerName: 'layer_Arrondissements_1',
+            pane: 'pane_Arrondissements_1',
+            onEachFeature: pop_Arrondissements_1,
+            style: style_Arrondissements_1_0,
+        });
+        bounds_group.addLayer(layer_Arrondissements_1);
+        map.addLayer(layer_Arrondissements_1);
+        function pop_Ecoquartier_2(feature, layer) {
             var popupContent = '<table>\
                     <tr>\
-                        <td colspan="2">' + (feature.properties['typequtxt'] !== null ? autolinker.link(feature.properties['typequtxt'].toLocaleString()) : '') + '</td>\
+                        <th scope="row">nom</th>\
+                        <td>' + (feature.properties['nom'] !== null ? autolinker.link(feature.properties['nom'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['descr'] !== null ? autolinker.link(feature.properties['descr'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">typeop</th>\
+                        <td>' + (feature.properties['typeop'] !== null ? autolinker.link(feature.properties['typeop'].toLocaleString()) : '') + '</td>\
                     </tr>\
                 </table>';
             layer.bindPopup(popupContent, {maxHeight: 400});
@@ -113,2139 +159,133 @@
             popup.setContent(updatedContent);
         }
 
-        function style_BPE_1_0(feature) {
-            switch(String(feature.properties['typequtxt'])) {
-                case 'ADULTES HANDICAPÉS : ACCUEIL/HÉBERGEMENT':
-                    return {
-                pane: 'pane_BPE_1',
-                radius: 4.0,
-                opacity: 1,
-                color: 'rgba(35,35,35,1.0)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1,
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(124,201,240,1.0)',
-                interactive: true,
-            }
-                    break;
-                case 'ADULTES HANDICAPÉS : SERVICES D’AIDE':
-                    return {
-                pane: 'pane_BPE_1',
-                radius: 4.0,
-                opacity: 1,
-                color: 'rgba(35,35,35,1.0)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1,
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(101,229,111,1.0)',
-                interactive: true,
-            }
-                    break;
-                case 'ADULTES HANDICAPÉS : SERVICES DE SOINS À DOMICILE':
-                    return {
-                pane: 'pane_BPE_1',
-                radius: 4.0,
-                opacity: 1,
-                color: 'rgba(35,35,35,1.0)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1,
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(228,62,123,1.0)',
-                interactive: true,
-            }
-                    break;
-                case 'AGENCE DE TRAVAIL TEMPORAIRE':
-                    return {
-                pane: 'pane_BPE_1',
-                radius: 4.0,
-                opacity: 1,
-                color: 'rgba(35,35,35,1.0)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1,
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(59,204,127,1.0)',
-                interactive: true,
-            }
-                    break;
-                case 'AGENCE DE VOYAGE':
-                    return {
-                pane: 'pane_BPE_1',
-                radius: 4.0,
-                opacity: 1,
-                color: 'rgba(35,35,35,1.0)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1,
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(203,57,13,1.0)',
-                interactive: true,
-            }
-                    break;
-                case 'AGENCE IMMOBILIÈRE':
-                    return {
-                pane: 'pane_BPE_1',
-                radius: 4.0,
-                opacity: 1,
-                color: 'rgba(35,35,35,1.0)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1,
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(62,204,239,1.0)',
-                interactive: true,
-            }
-                    break;
-                case 'AMBULANCE':
-                    return {
-                pane: 'pane_BPE_1',
-                radius: 4.0,
-                opacity: 1,
-                color: 'rgba(35,35,35,1.0)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1,
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(227,97,160,1.0)',
-                interactive: true,
-            }
-                    break;
-                case 'ARTS DU SPECTACLE':
-                    return {
-                pane: 'pane_BPE_1',
-                radius: 4.0,
-                opacity: 1,
-                color: 'rgba(35,35,35,1.0)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1,
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(97,226,170,1.0)',
-                interactive: true,
-            }
-                    break;
-                case 'ATHLÉTISME':
-                    return {
-                pane: 'pane_BPE_1',
-                radius: 4.0,
-                opacity: 1,
-                color: 'rgba(35,35,35,1.0)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1,
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(208,89,168,1.0)',
-                interactive: true,
-            }
-                    break;
-                case 'AUDIO PROTHÉSISTE':
-                    return {
-                pane: 'pane_BPE_1',
-                radius: 4.0,
-                opacity: 1,
-                color: 'rgba(35,35,35,1.0)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1,
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(200,105,156,1.0)',
-                interactive: true,
-            }
-                    break;
-                case 'AUTRE FORMATION CONTINUE':
-                    return {
-                pane: 'pane_BPE_1',
-                radius: 4.0,
-                opacity: 1,
-                color: 'rgba(35,35,35,1.0)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1,
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(202,95,76,1.0)',
-                interactive: true,
-            }
-                    break;
-                case 'AUTRE FORMATION POST BAC NON UNIVERSITAIRE':
-                    return {
-                pane: 'pane_BPE_1',
-                radius: 4.0,
-                opacity: 1,
-                color: 'rgba(35,35,35,1.0)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1,
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(205,119,139,1.0)',
-                interactive: true,
-            }
-                    break;
-                case 'AUTRES ÉTABLISSEMENTS POUR ADULTES ET FAMILLES EN DIFFICULTÉ':
-                    return {
-                pane: 'pane_BPE_1',
-                radius: 4.0,
-                opacity: 1,
-                color: 'rgba(35,35,35,1.0)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1,
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(26,40,231,1.0)',
-                interactive: true,
-            }
-                    break;
-                case 'BANQUE, CAISSE D’ÉPARGNE':
-                    return {
-                pane: 'pane_BPE_1',
-                radius: 4.0,
-                opacity: 1,
-                color: 'rgba(35,35,35,1.0)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1,
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(96,66,228,1.0)',
-                interactive: true,
-            }
-                    break;
-                case 'BASSIN DE NATATION':
-                    return {
-                pane: 'pane_BPE_1',
-                radius: 4.0,
-                opacity: 1,
-                color: 'rgba(35,35,35,1.0)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1,
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(209,61,177,1.0)',
-                interactive: true,
-            }
-                    break;
-                case 'BIBLIOTHÈQUE':
-                    return {
-                pane: 'pane_BPE_1',
-                radius: 4.0,
-                opacity: 1,
-                color: 'rgba(35,35,35,1.0)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1,
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(212,65,55,1.0)',
-                interactive: true,
-            }
-                    break;
-                case 'BOUCHERIE CHARCUTERIE':
-                    return {
-                pane: 'pane_BPE_1',
-                radius: 4.0,
-                opacity: 1,
-                color: 'rgba(35,35,35,1.0)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1,
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(33,226,91,1.0)',
-                interactive: true,
-            }
-                    break;
-                case 'BOULANGERIE':
-                    return {
-                pane: 'pane_BPE_1',
-                radius: 4.0,
-                opacity: 1,
-                color: 'rgba(35,35,35,1.0)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1,
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(103,212,145,1.0)',
-                interactive: true,
-            }
-                    break;
-                case 'BOULODROME':
-                    return {
-                pane: 'pane_BPE_1',
-                radius: 4.0,
-                opacity: 1,
-                color: 'rgba(35,35,35,1.0)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1,
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(115,223,180,1.0)',
-                interactive: true,
-            }
-                    break;
-                case 'BOWLING':
-                    return {
-                pane: 'pane_BPE_1',
-                radius: 4.0,
-                opacity: 1,
-                color: 'rgba(35,35,35,1.0)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1,
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(116,35,239,1.0)',
-                interactive: true,
-            }
-                    break;
-                case 'BUREAU D’AIDE JURIDICTIONNELLE (BAJ)':
-                    return {
-                pane: 'pane_BPE_1',
-                radius: 4.0,
-                opacity: 1,
-                color: 'rgba(35,35,35,1.0)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1,
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(64,230,31,1.0)',
-                interactive: true,
-            }
-                    break;
-                case 'BUREAU DE POSTE':
-                    return {
-                pane: 'pane_BPE_1',
-                radius: 4.0,
-                opacity: 1,
-                color: 'rgba(35,35,35,1.0)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1,
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(22,220,125,1.0)',
-                interactive: true,
-            }
-                    break;
-                case 'CENTRE DE FORMATION D’APPRENTIS HORS AGRICULTURE':
-                    return {
-                pane: 'pane_BPE_1',
-                radius: 4.0,
-                opacity: 1,
-                color: 'rgba(35,35,35,1.0)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1,
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(141,219,72,1.0)',
-                interactive: true,
-            }
-                    break;
-                case 'CENTRE DE SANTÉ':
-                    return {
-                pane: 'pane_BPE_1',
-                radius: 4.0,
-                opacity: 1,
-                color: 'rgba(35,35,35,1.0)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1,
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(100,219,187,1.0)',
-                interactive: true,
-            }
-                    break;
-                case 'CHIRURGIEN DENTISTE':
-                    return {
-                pane: 'pane_BPE_1',
-                radius: 4.0,
-                opacity: 1,
-                color: 'rgba(35,35,35,1.0)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1,
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(22,215,212,1.0)',
-                interactive: true,
-            }
-                    break;
-                case 'CHRS : CENTRE D’HÉBERGEMENT ET DE RÉINSERTION SOCIALE':
-                    return {
-                pane: 'pane_BPE_1',
-                radius: 4.0,
-                opacity: 1,
-                color: 'rgba(35,35,35,1.0)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1,
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(88,217,116,1.0)',
-                interactive: true,
-            }
-                    break;
-                case 'CINÉMA':
-                    return {
-                pane: 'pane_BPE_1',
-                radius: 4.0,
-                opacity: 1,
-                color: 'rgba(35,35,35,1.0)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1,
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(205,73,40,1.0)',
-                interactive: true,
-            }
-                    break;
-                case 'COIFFURE':
-                    return {
-                pane: 'pane_BPE_1',
-                radius: 4.0,
-                opacity: 1,
-                color: 'rgba(35,35,35,1.0)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1,
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(116,131,216,1.0)',
-                interactive: true,
-            }
-                    break;
-                case 'COLLÈGE':
-                    return {
-                pane: 'pane_BPE_1',
-                radius: 4.0,
-                opacity: 1,
-                color: 'rgba(35,35,35,1.0)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1,
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(237,132,134,1.0)',
-                interactive: true,
-            }
-                    break;
-                case 'CONSEIL DÉPARTEMENTAL D’ACCÈS AU DROIT (CDAD)':
-                    return {
-                pane: 'pane_BPE_1',
-                radius: 4.0,
-                opacity: 1,
-                color: 'rgba(35,35,35,1.0)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1,
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(68,215,120,1.0)',
-                interactive: true,
-            }
-                    break;
-                case 'CONSERVATOIRE':
-                    return {
-                pane: 'pane_BPE_1',
-                radius: 4.0,
-                opacity: 1,
-                color: 'rgba(35,35,35,1.0)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1,
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(207,26,132,1.0)',
-                interactive: true,
-            }
-                    break;
-                case 'CONTRÔLE TECHNIQUE AUTOMOBILE':
-                    return {
-                pane: 'pane_BPE_1',
-                radius: 4.0,
-                opacity: 1,
-                color: 'rgba(35,35,35,1.0)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1,
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(240,104,147,1.0)',
-                interactive: true,
-            }
-                    break;
-                case 'DIALYSE':
-                    return {
-                pane: 'pane_BPE_1',
-                radius: 4.0,
-                opacity: 1,
-                color: 'rgba(35,35,35,1.0)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1,
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(236,19,62,1.0)',
-                interactive: true,
-            }
-                    break;
-                case 'DIÉTÉTICIEN':
-                    return {
-                pane: 'pane_BPE_1',
-                radius: 4.0,
-                opacity: 1,
-                color: 'rgba(35,35,35,1.0)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1,
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(34,200,147,1.0)',
-                interactive: true,
-            }
-                    break;
-                case 'DRFIP (DIRECTION RÉGIONALE  DES FINANCES PUBLIQUES)':
-                    return {
-                pane: 'pane_BPE_1',
-                radius: 4.0,
-                opacity: 1,
-                color: 'rgba(35,35,35,1.0)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1,
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(81,194,214,1.0)',
-                interactive: true,
-            }
-                    break;
-                case 'DROGUERIE QUINCAILLERIE BRICOLAGE':
-                    return {
-                pane: 'pane_BPE_1',
-                radius: 4.0,
-                opacity: 1,
-                color: 'rgba(35,35,35,1.0)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1,
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(116,234,57,1.0)',
-                interactive: true,
-            }
-                    break;
-                case 'ÉCOLE DE CONDUITE':
-                    return {
-                pane: 'pane_BPE_1',
-                radius: 4.0,
-                opacity: 1,
-                color: 'rgba(35,35,35,1.0)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1,
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(146,25,221,1.0)',
-                interactive: true,
-            }
-                    break;
-                case 'ÉCOLE ÉLÉMENTAIRE':
-                    return {
-                pane: 'pane_BPE_1',
-                radius: 4.0,
-                opacity: 1,
-                color: 'rgba(35,35,35,1.0)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1,
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(118,162,215,1.0)',
-                interactive: true,
-            }
-                    break;
-                case 'ÉCOLE MATERNELLE':
-                    return {
-                pane: 'pane_BPE_1',
-                radius: 4.0,
-                opacity: 1,
-                color: 'rgba(35,35,35,1.0)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1,
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(110,230,188,1.0)',
-                interactive: true,
-            }
-                    break;
-                case 'ÉLECTRICIEN':
-                    return {
-                pane: 'pane_BPE_1',
-                radius: 4.0,
-                opacity: 1,
-                color: 'rgba(35,35,35,1.0)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1,
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(228,170,108,1.0)',
-                interactive: true,
-            }
-                    break;
-                case 'ENFANTS HANDICAPÉS : HÉBERGEMENT':
-                    return {
-                pane: 'pane_BPE_1',
-                radius: 4.0,
-                opacity: 1,
-                color: 'rgba(35,35,35,1.0)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1,
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(195,58,208,1.0)',
-                interactive: true,
-            }
-                    break;
-                case 'ENSEIGNEMENT GÉNÉRAL SUPÉRIEUR PRIVÉ':
-                    return {
-                pane: 'pane_BPE_1',
-                radius: 4.0,
-                opacity: 1,
-                color: 'rgba(35,35,35,1.0)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1,
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(220,181,54,1.0)',
-                interactive: true,
-            }
-                    break;
-                case 'ENTREPRISE GÉNÉRALE DU BÂTIMENT':
-                    return {
-                pane: 'pane_BPE_1',
-                radius: 4.0,
-                opacity: 1,
-                color: 'rgba(35,35,35,1.0)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1,
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(121,28,202,1.0)',
-                interactive: true,
-            }
-                    break;
-                case 'ÉPICERIE':
-                    return {
-                pane: 'pane_BPE_1',
-                radius: 4.0,
-                opacity: 1,
-                color: 'rgba(35,35,35,1.0)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1,
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(145,234,50,1.0)',
-                interactive: true,
-            }
-                    break;
-                case 'ERGOTHÉRAPEUTE':
-                    return {
-                pane: 'pane_BPE_1',
-                radius: 4.0,
-                opacity: 1,
-                color: 'rgba(35,35,35,1.0)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1,
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(232,69,213,1.0)',
-                interactive: true,
-            }
-                    break;
-                case 'ÉTABLISSEMENT D’ACCUEIL DU JEUNE ENFANT (EAJE)':
-                    return {
-                pane: 'pane_BPE_1',
-                radius: 4.0,
-                opacity: 1,
-                color: 'rgba(35,35,35,1.0)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1,
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(130,220,135,1.0)',
-                interactive: true,
-            }
-                    break;
-                case 'ÉTABLISSEMENT PSYCHIATRIQUE':
-                    return {
-                pane: 'pane_BPE_1',
-                radius: 4.0,
-                opacity: 1,
-                color: 'rgba(35,35,35,1.0)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1,
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(108,236,73,1.0)',
-                interactive: true,
-            }
-                    break;
-                case 'ÉTABLISSEMENT SANTÉ COURT SÉJOUR':
-                    return {
-                pane: 'pane_BPE_1',
-                radius: 4.0,
-                opacity: 1,
-                color: 'rgba(35,35,35,1.0)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1,
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(39,210,84,1.0)',
-                interactive: true,
-            }
-                    break;
-                case 'ÉTABLISSEMENT SANTÉ MOYEN SÉJOUR':
-                    return {
-                pane: 'pane_BPE_1',
-                radius: 4.0,
-                opacity: 1,
-                color: 'rgba(35,35,35,1.0)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1,
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(150,93,225,1.0)',
-                interactive: true,
-            }
-                    break;
-                case 'EXPOSITION ET MEDIATION CULTURELLE':
-                    return {
-                pane: 'pane_BPE_1',
-                radius: 4.0,
-                opacity: 1,
-                color: 'rgba(35,35,35,1.0)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1,
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(211,232,24,1.0)',
-                interactive: true,
-            }
-                    break;
-                case 'FLEURISTE-JARDINERIE-ANIMALERIE':
-                    return {
-                pane: 'pane_BPE_1',
-                radius: 4.0,
-                opacity: 1,
-                color: 'rgba(35,35,35,1.0)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1,
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(211,31,181,1.0)',
-                interactive: true,
-            }
-                    break;
-                case 'FORMATION COMMERCE':
-                    return {
-                pane: 'pane_BPE_1',
-                radius: 4.0,
-                opacity: 1,
-                color: 'rgba(35,35,35,1.0)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1,
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(238,178,48,1.0)',
-                interactive: true,
-            }
-                    break;
-                case 'FORMATION SANTÉ':
-                    return {
-                pane: 'pane_BPE_1',
-                radius: 4.0,
-                opacity: 1,
-                color: 'rgba(35,35,35,1.0)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1,
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(227,179,96,1.0)',
-                interactive: true,
-            }
-                    break;
-                case 'GARE DE VOYAGEURS D’INTÉRÊT RÉGIONAL':
-                    return {
-                pane: 'pane_BPE_1',
-                radius: 4.0,
-                opacity: 1,
-                color: 'rgba(35,35,35,1.0)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1,
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(17,190,202,1.0)',
-                interactive: true,
-            }
-                    break;
-                case 'GRANDE SURFACE DE BRICOLAGE':
-                    return {
-                pane: 'pane_BPE_1',
-                radius: 4.0,
-                opacity: 1,
-                color: 'rgba(35,35,35,1.0)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1,
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(219,126,68,1.0)',
-                interactive: true,
-            }
-                    break;
-                case 'GRETA':
-                    return {
-                pane: 'pane_BPE_1',
-                radius: 4.0,
-                opacity: 1,
-                color: 'rgba(35,35,35,1.0)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1,
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(157,107,210,1.0)',
-                interactive: true,
-            }
-                    break;
-                case 'HORLOGERIE-BIJOUTERIE':
-                    return {
-                pane: 'pane_BPE_1',
-                radius: 4.0,
-                opacity: 1,
-                color: 'rgba(35,35,35,1.0)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1,
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(97,77,227,1.0)',
-                interactive: true,
-            }
-                    break;
-                case 'HÔTEL':
-                    return {
-                pane: 'pane_BPE_1',
-                radius: 4.0,
-                opacity: 1,
-                color: 'rgba(35,35,35,1.0)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1,
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(239,123,204,1.0)',
-                interactive: true,
-            }
-                    break;
-                case 'HYPERMARCHÉ':
-                    return {
-                pane: 'pane_BPE_1',
-                radius: 4.0,
-                opacity: 1,
-                color: 'rgba(35,35,35,1.0)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1,
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(75,104,220,1.0)',
-                interactive: true,
-            }
-                    break;
-                case 'INFIRMIER':
-                    return {
-                pane: 'pane_BPE_1',
-                radius: 4.0,
-                opacity: 1,
-                color: 'rgba(35,35,35,1.0)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1,
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(229,53,214,1.0)',
-                interactive: true,
-            }
-                    break;
-                case 'INFORMATION TOURISTIQUE':
-                    return {
-                pane: 'pane_BPE_1',
-                radius: 4.0,
-                opacity: 1,
-                color: 'rgba(35,35,35,1.0)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1,
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(21,126,232,1.0)',
-                interactive: true,
-            }
-                    break;
-                case 'INSTITUT DE BEAUTÉ-ONGLERIE':
-                    return {
-                pane: 'pane_BPE_1',
-                radius: 4.0,
-                opacity: 1,
-                color: 'rgba(35,35,35,1.0)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1,
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(112,222,75,1.0)',
-                interactive: true,
-            }
-                    break;
-                case 'LABORATOIRE D ANALYSES ET DE BIOLOGIE MÉDICALE':
-                    return {
-                pane: 'pane_BPE_1',
-                radius: 4.0,
-                opacity: 1,
-                color: 'rgba(35,35,35,1.0)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1,
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(203,122,145,1.0)',
-                interactive: true,
-            }
-                    break;
-                case 'LIBRAIRIE, PAPETERIE, JOURNAUX':
-                    return {
-                pane: 'pane_BPE_1',
-                radius: 4.0,
-                opacity: 1,
-                color: 'rgba(35,35,35,1.0)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1,
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(218,220,129,1.0)',
-                interactive: true,
-            }
-                    break;
-                case 'LIVRES ET PRESSE':
-                    return {
-                pane: 'pane_BPE_1',
-                radius: 4.0,
-                opacity: 1,
-                color: 'rgba(35,35,35,1.0)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1,
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(34,148,214,1.0)',
-                interactive: true,
-            }
-                    break;
-                case 'LOCATION AUTO-UTILITAIRES LÉGERS':
-                    return {
-                pane: 'pane_BPE_1',
-                radius: 4.0,
-                opacity: 1,
-                color: 'rgba(35,35,35,1.0)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1,
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(80,218,80,1.0)',
-                interactive: true,
-            }
-                    break;
-                case 'LYCÉE D’ENSEIGNEMENT GÉNÉRAL ET/OU TECHNOLOGIQUE':
-                    return {
-                pane: 'pane_BPE_1',
-                radius: 4.0,
-                opacity: 1,
-                color: 'rgba(35,35,35,1.0)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1,
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(208,104,213,1.0)',
-                interactive: true,
-            }
-                    break;
-                case 'LYCÉE D’ENSEIGNEMENT PROFESSIONNEL':
-                    return {
-                pane: 'pane_BPE_1',
-                radius: 4.0,
-                opacity: 1,
-                color: 'rgba(35,35,35,1.0)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1,
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(193,100,211,1.0)',
-                interactive: true,
-            }
-                    break;
-                case 'MAÇON':
-                    return {
-                pane: 'pane_BPE_1',
-                radius: 4.0,
-                opacity: 1,
-                color: 'rgba(35,35,35,1.0)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1,
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(200,24,95,1.0)',
-                interactive: true,
-            }
-                    break;
-                case 'MAGASIN D’ARTICLES DE SPORTS ET DE LOISIRS':
-                    return {
-                pane: 'pane_BPE_1',
-                radius: 4.0,
-                opacity: 1,
-                color: 'rgba(35,35,35,1.0)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1,
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(64,209,45,1.0)',
-                interactive: true,
-            }
-                    break;
-                case 'MAGASIN D’ÉLECTROMÉNAGER ET DE MAT. AUDIO-VIDEO':
-                    return {
-                pane: 'pane_BPE_1',
-                radius: 4.0,
-                opacity: 1,
-                color: 'rgba(35,35,35,1.0)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1,
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(173,209,83,1.0)',
-                interactive: true,
-            }
-                    break;
-                case 'MAGASIN D’ÉQUIPEMENTS DU FOYER':
-                    return {
-                pane: 'pane_BPE_1',
-                radius: 4.0,
-                opacity: 1,
-                color: 'rgba(35,35,35,1.0)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1,
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(211,33,167,1.0)',
-                interactive: true,
-            }
-                    break;
-                case 'MAGASIN D’OPTIQUE':
-                    return {
-                pane: 'pane_BPE_1',
-                radius: 4.0,
-                opacity: 1,
-                color: 'rgba(35,35,35,1.0)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1,
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(129,124,217,1.0)',
-                interactive: true,
-            }
-                    break;
-                case 'MAGASIN DE CHAUSSURES':
-                    return {
-                pane: 'pane_BPE_1',
-                radius: 4.0,
-                opacity: 1,
-                color: 'rgba(35,35,35,1.0)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1,
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(159,212,126,1.0)',
-                interactive: true,
-            }
-                    break;
-                case 'MAGASIN DE MATÉRIEL MÉDICAL ET ORTHOPÉDIQUE':
-                    return {
-                pane: 'pane_BPE_1',
-                radius: 4.0,
-                opacity: 1,
-                color: 'rgba(35,35,35,1.0)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1,
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(175,113,202,1.0)',
-                interactive: true,
-            }
-                    break;
-                case 'MAGASIN DE MEUBLES':
-                    return {
-                pane: 'pane_BPE_1',
-                radius: 4.0,
-                opacity: 1,
-                color: 'rgba(35,35,35,1.0)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1,
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(215,175,17,1.0)',
-                interactive: true,
-            }
-                    break;
-                case 'MAGASIN DE REVÊTEMENTS MURS ET SOLS':
-                    return {
-                pane: 'pane_BPE_1',
-                radius: 4.0,
-                opacity: 1,
-                color: 'rgba(35,35,35,1.0)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1,
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(83,43,214,1.0)',
-                interactive: true,
-            }
-                    break;
-                case 'MAGASIN DE VÊTEMENTS':
-                    return {
-                pane: 'pane_BPE_1',
-                radius: 4.0,
-                opacity: 1,
-                color: 'rgba(35,35,35,1.0)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1,
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(60,148,220,1.0)',
-                interactive: true,
-            }
-                    break;
-                case 'MAISON DE JUSTICE ET DU DROIT':
-                    return {
-                pane: 'pane_BPE_1',
-                radius: 4.0,
-                opacity: 1,
-                color: 'rgba(35,35,35,1.0)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1,
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(221,178,113,1.0)',
-                interactive: true,
-            }
-                    break;
-                case 'MASSEUR KINÉSITHÉRAPEUTE':
-                    return {
-                pane: 'pane_BPE_1',
-                radius: 4.0,
-                opacity: 1,
-                color: 'rgba(35,35,35,1.0)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1,
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(222,219,40,1.0)',
-                interactive: true,
-            }
-                    break;
-                case 'MATERNITÉ':
-                    return {
-                pane: 'pane_BPE_1',
-                radius: 4.0,
-                opacity: 1,
-                color: 'rgba(35,35,35,1.0)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1,
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(216,199,42,1.0)',
-                interactive: true,
-            }
-                    break;
-                case 'MÉDECIN GÉNÉRALISTE':
-                    return {
-                pane: 'pane_BPE_1',
-                radius: 4.0,
-                opacity: 1,
-                color: 'rgba(35,35,35,1.0)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1,
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(69,233,54,1.0)',
-                interactive: true,
-            }
-                    break;
-                case 'MENUISIER CHARPENTIER SERRURIER':
-                    return {
-                pane: 'pane_BPE_1',
-                radius: 4.0,
-                opacity: 1,
-                color: 'rgba(35,35,35,1.0)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1,
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(238,81,63,1.0)',
-                interactive: true,
-            }
-                    break;
-                case 'ORTHOPHONISTE':
-                    return {
-                pane: 'pane_BPE_1',
-                radius: 4.0,
-                opacity: 1,
-                color: 'rgba(35,35,35,1.0)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1,
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(152,56,225,1.0)',
-                interactive: true,
-            }
-                    break;
-                case 'ORTHOPTISTE':
-                    return {
-                pane: 'pane_BPE_1',
-                radius: 4.0,
-                opacity: 1,
-                color: 'rgba(35,35,35,1.0)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1,
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(121,215,81,1.0)',
-                interactive: true,
-            }
-                    break;
-                case 'PARFUMERIE-COSMÉTIQUE':
-                    return {
-                pane: 'pane_BPE_1',
-                radius: 4.0,
-                opacity: 1,
-                color: 'rgba(35,35,35,1.0)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1,
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(227,132,224,1.0)',
-                interactive: true,
-            }
-                    break;
-                case 'PÉDICURE-PODOLOGUE':
-                    return {
-                pane: 'pane_BPE_1',
-                radius: 4.0,
-                opacity: 1,
-                color: 'rgba(35,35,35,1.0)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1,
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(135,224,25,1.0)',
-                interactive: true,
-            }
-                    break;
-                case 'PERSONNES ÂGÉES : HÉBERGEMENT':
-                    return {
-                pane: 'pane_BPE_1',
-                radius: 4.0,
-                opacity: 1,
-                color: 'rgba(35,35,35,1.0)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1,
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(238,143,27,1.0)',
-                interactive: true,
-            }
-                    break;
-                case 'PERSONNES ÂGÉES : SERVICES D’AIDE':
-                    return {
-                pane: 'pane_BPE_1',
-                radius: 4.0,
-                opacity: 1,
-                color: 'rgba(35,35,35,1.0)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1,
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(225,49,225,1.0)',
-                interactive: true,
-            }
-                    break;
-                case 'PERSONNES ÂGÉES : SOINS À DOMICILE':
-                    return {
-                pane: 'pane_BPE_1',
-                radius: 4.0,
-                opacity: 1,
-                color: 'rgba(35,35,35,1.0)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1,
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(182,205,90,1.0)',
-                interactive: true,
-            }
-                    break;
-                case 'PHARMACIE':
-                    return {
-                pane: 'pane_BPE_1',
-                radius: 4.0,
-                opacity: 1,
-                color: 'rgba(35,35,35,1.0)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1,
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(223,84,93,1.0)',
-                interactive: true,
-            }
-                    break;
-                case 'PLATEAUX ET TERRAINS DE JEUX EXTÉRIEURS':
-                    return {
-                pane: 'pane_BPE_1',
-                radius: 4.0,
-                opacity: 1,
-                color: 'rgba(35,35,35,1.0)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1,
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(207,88,162,1.0)',
-                interactive: true,
-            }
-                    break;
-                case 'PLÂTRIER PEINTRE':
-                    return {
-                pane: 'pane_BPE_1',
-                radius: 4.0,
-                opacity: 1,
-                color: 'rgba(35,35,35,1.0)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1,
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(84,155,205,1.0)',
-                interactive: true,
-            }
-                    break;
-                case 'PLOMBIER COUVREUR CHAUFFAGISTE':
-                    return {
-                pane: 'pane_BPE_1',
-                radius: 4.0,
-                opacity: 1,
-                color: 'rgba(35,35,35,1.0)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1,
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(71,114,224,1.0)',
-                interactive: true,
-            }
-                    break;
-                case 'POISSONNERIE':
-                    return {
-                pane: 'pane_BPE_1',
-                radius: 4.0,
-                opacity: 1,
-                color: 'rgba(35,35,35,1.0)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1,
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(190,118,216,1.0)',
-                interactive: true,
-            }
-                    break;
-                case 'POLICE':
-                    return {
-                pane: 'pane_BPE_1',
-                radius: 4.0,
-                opacity: 1,
-                color: 'rgba(35,35,35,1.0)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1,
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(175,219,108,1.0)',
-                interactive: true,
-            }
-                    break;
-                case 'PRESSING-LAVERIE AUTOMATIQUE':
-                    return {
-                pane: 'pane_BPE_1',
-                radius: 4.0,
-                opacity: 1,
-                color: 'rgba(35,35,35,1.0)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1,
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(71,126,236,1.0)',
-                interactive: true,
-            }
-                    break;
-                case 'PRODUITS SURGELÉS':
-                    return {
-                pane: 'pane_BPE_1',
-                radius: 4.0,
-                opacity: 1,
-                color: 'rgba(35,35,35,1.0)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1,
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(181,221,49,1.0)',
-                interactive: true,
-            }
-                    break;
-                case 'PROTECTION DE L’ENFANCE - HÉBERGEMENT':
-                    return {
-                pane: 'pane_BPE_1',
-                radius: 4.0,
-                opacity: 1,
-                color: 'rgba(35,35,35,1.0)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1,
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(211,39,238,1.0)',
-                interactive: true,
-            }
-                    break;
-                case 'PSYCHOLOGUE':
-                    return {
-                pane: 'pane_BPE_1',
-                radius: 4.0,
-                opacity: 1,
-                color: 'rgba(35,35,35,1.0)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1,
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(122,203,214,1.0)',
-                interactive: true,
-            }
-                    break;
-                case 'PSYCHOMOTRICIEN':
-                    return {
-                pane: 'pane_BPE_1',
-                radius: 4.0,
-                opacity: 1,
-                color: 'rgba(35,35,35,1.0)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1,
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(81,224,205,1.0)',
-                interactive: true,
-            }
-                    break;
-                case 'RELAIS POSTE':
-                    return {
-                pane: 'pane_BPE_1',
-                radius: 4.0,
-                opacity: 1,
-                color: 'rgba(35,35,35,1.0)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1,
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(210,224,131,1.0)',
-                interactive: true,
-            }
-                    break;
-                case 'RÉPARATION AUTOMOBILE ET DE MATÉRIEL AGRICOLE':
-                    return {
-                pane: 'pane_BPE_1',
-                radius: 4.0,
-                opacity: 1,
-                color: 'rgba(35,35,35,1.0)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1,
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(192,224,123,1.0)',
-                interactive: true,
-            }
-                    break;
-                case 'RÉSEAU DE PROXIMITÉ PÔLE EMPLOI':
-                    return {
-                pane: 'pane_BPE_1',
-                radius: 4.0,
-                opacity: 1,
-                color: 'rgba(35,35,35,1.0)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1,
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(75,60,207,1.0)',
-                interactive: true,
-            }
-                    break;
-                case 'RÉSIDENCE UNIVERSITAIRE':
-                    return {
-                pane: 'pane_BPE_1',
-                radius: 4.0,
-                opacity: 1,
-                color: 'rgba(35,35,35,1.0)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1,
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(84,224,79,1.0)',
-                interactive: true,
-            }
-                    break;
-                case 'RESTAURANT UNIVERSITAIRE':
-                    return {
-                pane: 'pane_BPE_1',
-                radius: 4.0,
-                opacity: 1,
-                color: 'rgba(35,35,35,1.0)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1,
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(230,32,121,1.0)',
-                interactive: true,
-            }
-                    break;
-                case 'RESTAURANT- RESTAURATION RAPIDE':
-                    return {
-                pane: 'pane_BPE_1',
-                radius: 4.0,
-                opacity: 1,
-                color: 'rgba(35,35,35,1.0)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1,
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(129,233,237,1.0)',
-                interactive: true,
-            }
-                    break;
-                case 'ROLLER-SKATE-VÉLO BICROSS OU FREESTYLE':
-                    return {
-                pane: 'pane_BPE_1',
-                radius: 4.0,
-                opacity: 1,
-                color: 'rgba(35,35,35,1.0)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1,
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(109,238,225,1.0)',
-                interactive: true,
-            }
-                    break;
-                case 'SAGE-FEMME':
-                    return {
-                pane: 'pane_BPE_1',
-                radius: 4.0,
-                opacity: 1,
-                color: 'rgba(35,35,35,1.0)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1,
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(159,203,82,1.0)',
-                interactive: true,
-            }
-                    break;
-                case 'SALLES DE COMBAT':
-                    return {
-                pane: 'pane_BPE_1',
-                radius: 4.0,
-                opacity: 1,
-                color: 'rgba(35,35,35,1.0)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1,
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(117,203,154,1.0)',
-                interactive: true,
-            }
-                    break;
-                case 'SALLES DE REMISE EN FORME':
-                    return {
-                pane: 'pane_BPE_1',
-                radius: 4.0,
-                opacity: 1,
-                color: 'rgba(35,35,35,1.0)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1,
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(62,60,209,1.0)',
-                interactive: true,
-            }
-                    break;
-                case 'SALLES MULTISPORTS (GYMNASES)':
-                    return {
-                pane: 'pane_BPE_1',
-                radius: 4.0,
-                opacity: 1,
-                color: 'rgba(35,35,35,1.0)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1,
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(29,104,210,1.0)',
-                interactive: true,
-            }
-                    break;
-                case 'SALLES NON SPÉCIALISÉES':
-                    return {
-                pane: 'pane_BPE_1',
-                radius: 4.0,
-                opacity: 1,
-                color: 'rgba(35,35,35,1.0)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1,
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(20,227,189,1.0)',
-                interactive: true,
-            }
-                    break;
-                case 'SALLES SPÉCIALISÉES':
-                    return {
-                pane: 'pane_BPE_1',
-                radius: 4.0,
-                opacity: 1,
-                color: 'rgba(35,35,35,1.0)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1,
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(102,225,14,1.0)',
-                interactive: true,
-            }
-                    break;
-                case 'SEP SECTION D’ENSEIGNEMENT PROFESSIONNEL':
-                    return {
-                pane: 'pane_BPE_1',
-                radius: 4.0,
-                opacity: 1,
-                color: 'rgba(35,35,35,1.0)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1,
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(46,218,178,1.0)',
-                interactive: true,
-            }
-                    break;
-                case 'SERVICES FUNÉRAIRES':
-                    return {
-                pane: 'pane_BPE_1',
-                radius: 4.0,
-                opacity: 1,
-                color: 'rgba(35,35,35,1.0)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1,
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(237,218,109,1.0)',
-                interactive: true,
-            }
-                    break;
-                case 'SPÉCIALISTE EN CARDIOLOGIE':
-                    return {
-                pane: 'pane_BPE_1',
-                radius: 4.0,
-                opacity: 1,
-                color: 'rgba(35,35,35,1.0)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1,
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(14,69,231,1.0)',
-                interactive: true,
-            }
-                    break;
-                case 'SPÉCIALISTE EN DERMATOLOGIE VÉNÉRÉOLOGIE':
-                    return {
-                pane: 'pane_BPE_1',
-                radius: 4.0,
-                opacity: 1,
-                color: 'rgba(35,35,35,1.0)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1,
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(210,198,30,1.0)',
-                interactive: true,
-            }
-                    break;
-                case 'SPÉCIALISTE EN GASTRO-ENTÉROLOGIE HÉPATOLOGIE':
-                    return {
-                pane: 'pane_BPE_1',
-                radius: 4.0,
-                opacity: 1,
-                color: 'rgba(35,35,35,1.0)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1,
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(212,130,235,1.0)',
-                interactive: true,
-            }
-                    break;
-                case 'SPÉCIALISTE EN GYNÉCOLOGIE (MÉDICALE ET/OU OBSTÉTRIQUE)':
-                    return {
-                pane: 'pane_BPE_1',
-                radius: 4.0,
-                opacity: 1,
-                color: 'rgba(35,35,35,1.0)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1,
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(212,82,27,1.0)',
-                interactive: true,
-            }
-                    break;
-                case 'SPÉCIALISTE EN OPHTALMOLOGIE':
-                    return {
-                pane: 'pane_BPE_1',
-                radius: 4.0,
-                opacity: 1,
-                color: 'rgba(35,35,35,1.0)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1,
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(239,176,121,1.0)',
-                interactive: true,
-            }
-                    break;
-                case 'SPÉCIALISTE EN OTO-RHINO-LARYNGOLOGIE':
-                    return {
-                pane: 'pane_BPE_1',
-                radius: 4.0,
-                opacity: 1,
-                color: 'rgba(35,35,35,1.0)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1,
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(20,27,228,1.0)',
-                interactive: true,
-            }
-                    break;
-                case 'SPÉCIALISTE EN PÉDIATRIE':
-                    return {
-                pane: 'pane_BPE_1',
-                radius: 4.0,
-                opacity: 1,
-                color: 'rgba(35,35,35,1.0)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1,
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(49,169,217,1.0)',
-                interactive: true,
-            }
-                    break;
-                case 'SPÉCIALISTE EN PNEUMOLOGIE':
-                    return {
-                pane: 'pane_BPE_1',
-                radius: 4.0,
-                opacity: 1,
-                color: 'rgba(35,35,35,1.0)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1,
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(226,85,82,1.0)',
-                interactive: true,
-            }
-                    break;
-                case 'SPÉCIALISTE EN PSYCHIATRIE':
-                    return {
-                pane: 'pane_BPE_1',
-                radius: 4.0,
-                opacity: 1,
-                color: 'rgba(35,35,35,1.0)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1,
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(208,165,55,1.0)',
-                interactive: true,
-            }
-                    break;
-                case 'SPÉCIALISTE EN RADIODIAGNOSTIC ET IMAGERIE MÉDICALE':
-                    return {
-                pane: 'pane_BPE_1',
-                radius: 4.0,
-                opacity: 1,
-                color: 'rgba(35,35,35,1.0)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1,
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(234,55,82,1.0)',
-                interactive: true,
-            }
-                    break;
-                case 'SPÉCIALISTE EN STOMATOLOGIE':
-                    return {
-                pane: 'pane_BPE_1',
-                radius: 4.0,
-                opacity: 1,
-                color: 'rgba(35,35,35,1.0)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1,
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(211,106,53,1.0)',
-                interactive: true,
-            }
-                    break;
-                case 'STATION-SERVICE':
-                    return {
-                pane: 'pane_BPE_1',
-                radius: 4.0,
-                opacity: 1,
-                color: 'rgba(35,35,35,1.0)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1,
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(112,77,210,1.0)',
-                interactive: true,
-            }
-                    break;
-                case 'STRUCTURE PSYCHIATRIQUE EN AMBULATOIRE':
-                    return {
-                pane: 'pane_BPE_1',
-                radius: 4.0,
-                opacity: 1,
-                color: 'rgba(35,35,35,1.0)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1,
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(176,92,221,1.0)',
-                interactive: true,
-            }
-                    break;
-                case 'STS SECTION TECHNICIEN SUPÉRIEUR, CPGE CLASSE PRÉPARATOIRE AUX GRANDES ÉCOLES':
-                    return {
-                pane: 'pane_BPE_1',
-                radius: 4.0,
-                opacity: 1,
-                color: 'rgba(35,35,35,1.0)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1,
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(88,237,230,1.0)',
-                interactive: true,
+        function style_Ecoquartier_2_0() {
+            return {
+                pane: 'pane_Ecoquartier_2',
+                opacity: 1,
+                color: 'rgba(206,29,26,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 2.0,
+                fillOpacity: 0,
+                interactive: false,
+            }
+        }
+        map.createPane('pane_Ecoquartier_2');
+        map.getPane('pane_Ecoquartier_2').style.zIndex = 402;
+        map.getPane('pane_Ecoquartier_2').style['mix-blend-mode'] = 'normal';
+        var layer_Ecoquartier_2 = new L.geoJson(json_Ecoquartier_2, {
+            attribution: '',
+            interactive: false,
+            dataVar: 'json_Ecoquartier_2',
+            layerName: 'layer_Ecoquartier_2',
+            pane: 'pane_Ecoquartier_2',
+            onEachFeature: pop_Ecoquartier_2,
+            style: style_Ecoquartier_2_0,
+        });
+        bounds_group.addLayer(layer_Ecoquartier_2);
+        map.addLayer(layer_Ecoquartier_2);
+        function pop_IRISEcoquartier_3(feature, layer) {
+            var popupContent = '<table>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+            var popup = layer.getPopup();
+            var content = popup.getContent();
+            var updatedContent = removeEmptyRowsFromPopupContent(content, feature);
+            popup.setContent(updatedContent);
+        }
+
+        function style_IRISEcoquartier_3_0() {
+            return {
+                pane: 'pane_IRISEcoquartier_3',
+                opacity: 1,
+                color: 'rgba(35,35,35,0.5)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(243,228,115,0.5)',
+                interactive: false,
             }
-                    break;
-                case 'SUPÉRETTE':
-                    return {
-                pane: 'pane_BPE_1',
-                radius: 4.0,
-                opacity: 1,
-                color: 'rgba(35,35,35,1.0)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1,
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(63,84,240,1.0)',
-                interactive: true,
-            }
-                    break;
-                case 'SUPERMARCHÉ':
-                    return {
-                pane: 'pane_BPE_1',
-                radius: 4.0,
+        }
+        map.createPane('pane_IRISEcoquartier_3');
+        map.getPane('pane_IRISEcoquartier_3').style.zIndex = 403;
+        map.getPane('pane_IRISEcoquartier_3').style['mix-blend-mode'] = 'normal';
+        var layer_IRISEcoquartier_3 = new L.geoJson(json_IRISEcoquartier_3, {
+            attribution: '',
+            interactive: false,
+            dataVar: 'json_IRISEcoquartier_3',
+            layerName: 'layer_IRISEcoquartier_3',
+            pane: 'pane_IRISEcoquartier_3',
+            onEachFeature: pop_IRISEcoquartier_3,
+            style: style_IRISEcoquartier_3_0,
+        });
+        bounds_group.addLayer(layer_IRISEcoquartier_3);
+        function pop_IRIS17meArrondissement_4(feature, layer) {
+            var popupContent = '<table>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+            var popup = layer.getPopup();
+            var content = popup.getContent();
+            var updatedContent = removeEmptyRowsFromPopupContent(content, feature);
+            popup.setContent(updatedContent);
+        }
+
+        function style_IRIS17meArrondissement_4_0() {
+            return {
+                pane: 'pane_IRIS17meArrondissement_4',
                 opacity: 1,
-                color: 'rgba(35,35,35,1.0)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1,
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(137,240,151,1.0)',
-                interactive: true,
-            }
-                    break;
-                case 'TAXI-VTC':
-                    return {
-                pane: 'pane_BPE_1',
-                radius: 4.0,
-                opacity: 1,
-                color: 'rgba(35,35,35,1.0)',
+                color: 'rgba(35,35,35,0.5)',
                 dashArray: '',
                 lineCap: 'butt',
                 lineJoin: 'miter',
-                weight: 1,
+                weight: 4.0, 
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(98,23,236,1.0)',
-                interactive: true,
+                fillColor: 'rgba(243,228,115,0.5)',
+                interactive: false,
             }
-                    break;
-                case 'TENNIS':
+        }
+        map.createPane('pane_IRIS17meArrondissement_4');
+        map.getPane('pane_IRIS17meArrondissement_4').style.zIndex = 404;
+        map.getPane('pane_IRIS17meArrondissement_4').style['mix-blend-mode'] = 'normal';
+        var layer_IRIS17meArrondissement_4 = new L.geoJson(json_IRIS17meArrondissement_4, {
+            attribution: '',
+            interactive: false,
+            dataVar: 'json_IRIS17meArrondissement_4',
+            layerName: 'layer_IRIS17meArrondissement_4',
+            pane: 'pane_IRIS17meArrondissement_4',
+            onEachFeature: pop_IRIS17meArrondissement_4,
+            style: style_IRIS17meArrondissement_4_0,
+        });
+        bounds_group.addLayer(layer_IRIS17meArrondissement_4);
+        function pop_BPE_5(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2"><strong>Code INSEE</strong><br />' + (feature.properties['typequ'] !== null ? autolinker.link(feature.properties['typequ'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"><strong>Libelle de l\'equipement</strong><br />' + (feature.properties['libelle'] !== null ? autolinker.link(feature.properties['libelle'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"><strong>Equipement</strong><br />' + (feature.properties['Equipement'] !== null ? autolinker.link(feature.properties['Equipement'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+            var popup = layer.getPopup();
+            var content = popup.getContent();
+            var updatedContent = removeEmptyRowsFromPopupContent(content, feature);
+            popup.setContent(updatedContent);
+        }
+
+        function style_BPE_5_0(feature) {
+            switch(String(feature.properties['Equipement'])) {
+                case 'Commerces':
                     return {
-                pane: 'pane_BPE_1',
+                pane: 'pane_BPE_5',
                 radius: 4.0,
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
@@ -2255,13 +295,13 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(216,223,113,1.0)',
+                fillColor: 'rgba(148,138,236,1.0)',
                 interactive: true,
             }
                     break;
-                case 'TERRAINS DE GRANDS JEUX':
+                case 'Enseignement':
                     return {
-                pane: 'pane_BPE_1',
+                pane: 'pane_BPE_5',
                 radius: 4.0,
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
@@ -2271,13 +311,13 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(98,181,209,1.0)',
+                fillColor: 'rgba(191,82,210,1.0)',
                 interactive: true,
             }
                     break;
-                case 'TRAVAIL PROTÉGÉ':
+                case 'Sante':
                     return {
-                pane: 'pane_BPE_1',
+                pane: 'pane_BPE_5',
                 radius: 4.0,
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
@@ -2287,13 +327,13 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(101,44,225,1.0)',
+                fillColor: 'rgba(204,116,153,1.0)',
                 interactive: true,
             }
                     break;
-                case 'TRIBUNAL JUDICIAIRE (TJ)':
+                case 'Services aux particuliers':
                     return {
-                pane: 'pane_BPE_1',
+                pane: 'pane_BPE_5',
                 radius: 4.0,
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
@@ -2303,13 +343,13 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(55,118,226,1.0)',
+                fillColor: 'rgba(106,231,82,1.0)',
                 interactive: true,
             }
                     break;
-                case 'UFR':
+                case 'Sports, loisir et culture':
                     return {
-                pane: 'pane_BPE_1',
+                pane: 'pane_BPE_5',
                 radius: 4.0,
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
@@ -2319,13 +359,13 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(99,222,122,1.0)',
+                fillColor: 'rgba(107,230,179,1.0)',
                 interactive: true,
             }
                     break;
-                case 'VÉTÉRINAIRE':
+                case 'Tourisme':
                     return {
-                pane: 'pane_BPE_1',
+                pane: 'pane_BPE_5',
                 radius: 4.0,
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
@@ -2335,13 +375,13 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(204,18,37,1.0)',
+                fillColor: 'rgba(220,230,111,1.0)',
                 interactive: true,
             }
                     break;
-                default:
+                case 'Transport et deplacements':
                     return {
-                pane: 'pane_BPE_1',
+                pane: 'pane_BPE_5',
                 radius: 4.0,
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
@@ -2351,181 +391,32 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(227,164,119,1.0)',
+                fillColor: 'rgba(207,124,82,1.0)',
                 interactive: true,
             }
                     break;
             }
         }
-        map.createPane('pane_BPE_1');
-        map.getPane('pane_BPE_1').style.zIndex = 401;
-        map.getPane('pane_BPE_1').style['mix-blend-mode'] = 'normal';
-        var layer_BPE_1 = new L.geoJson(json_BPE_1, {
+        map.createPane('pane_BPE_5');
+        map.getPane('pane_BPE_5').style.zIndex = 405;
+        map.getPane('pane_BPE_5').style['mix-blend-mode'] = 'normal';
+        var layer_BPE_5 = new L.geoJson(json_BPE_5, {
             attribution: '',
             interactive: true,
-            dataVar: 'json_BPE_1',
-            layerName: 'layer_BPE_1',
-            pane: 'pane_BPE_1',
-            onEachFeature: pop_BPE_1,
+            dataVar: 'json_BPE_5',
+            layerName: 'layer_BPE_5',
+            pane: 'pane_BPE_5',
+            onEachFeature: pop_BPE_5,
             pointToLayer: function (feature, latlng) {
                 var context = {
                     feature: feature,
                     variables: {}
                 };
-                return L.circleMarker(latlng, style_BPE_1_0(feature));
+                return L.circleMarker(latlng, style_BPE_5_0(feature));
             },
         });
-        var cluster_BPE_1 = new L.MarkerClusterGroup({showCoverageOnHover: false,
-            spiderfyDistanceMultiplier: 2});
-        cluster_BPE_1.addLayer(layer_BPE_1);
-
-        bounds_group.addLayer(layer_BPE_1);
-        function pop_Nombredindividu_2(feature, layer) {
-            var popupContent = '<table>\
-                    <tr>\
-                        <th scope="row">Nombre d’individus</th>\
-                        <td>' + (feature.properties['ind'] !== null ? autolinker.link(feature.properties['ind'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <th scope="row">Nombre de ménages</th>\
-                        <td>' + (feature.properties['men'] !== null ? autolinker.link(feature.properties['men'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <th scope="row">Nombre de ménages pauvres</th>\
-                        <td>' + (feature.properties['men_pauv'] !== null ? autolinker.link(feature.properties['men_pauv'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <th scope="row">Nombre de ménages d’un seul individu</th>\
-                        <td>' + (feature.properties['men_1ind'] !== null ? autolinker.link(feature.properties['men_1ind'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <th scope="row">Nombre de ménages de 5 individus ou plus</th>\
-                        <td>' + (feature.properties['men_5ind'] !== null ? autolinker.link(feature.properties['men_5ind'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <th scope="row">Nombre de ménages propriétaires</th>\
-                        <td>' + (feature.properties['men_prop'] !== null ? autolinker.link(feature.properties['men_prop'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <th scope="row">Nombre de ménages monoparentaux</th>\
-                        <td>' + (feature.properties['men_fmp'] !== null ? autolinker.link(feature.properties['men_fmp'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <th scope="row">Somme des niveaux de vie winsorisés des individus</th>\
-                        <td>' + (feature.properties['ind_snv'] !== null ? autolinker.link(feature.properties['ind_snv'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <th scope="row">Somme de la surface des logements* du carreau</th>\
-                        <td>' + (feature.properties['men_surf'] !== null ? autolinker.link(feature.properties['men_surf'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <th scope="row">Nombre de ménages en logement collectif</th>\
-                        <td>' + (feature.properties['men_coll'] !== null ? autolinker.link(feature.properties['men_coll'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <th scope="row">Nombre de ménages en maison</th>\
-                        <td>' + (feature.properties['men_mais'] !== null ? autolinker.link(feature.properties['men_mais'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                </table>';
-            layer.bindPopup(popupContent, {maxHeight: 400});
-            var popup = layer.getPopup();
-            var content = popup.getContent();
-            var updatedContent = removeEmptyRowsFromPopupContent(content, feature);
-            popup.setContent(updatedContent);
-        }
-
-        function style_Nombredindividu_2_0(feature) {
-            if (feature.properties['ind'] >= 3.000000 && feature.properties['ind'] <= 417.000000 ) {
-                return {
-                pane: 'pane_Nombredindividu_2',
-                opacity: 1,
-                color: 'rgba(35,35,35,0.6)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1.0, 
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(255,245,240,0.6)',
-                interactive: true,
-            }
-            }
-            if (feature.properties['ind'] >= 417.000000 && feature.properties['ind'] <= 885.500000 ) {
-                return {
-                pane: 'pane_Nombredindividu_2',
-                opacity: 1,
-                color: 'rgba(35,35,35,0.6)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1.0, 
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(252,190,165,0.6)',
-                interactive: true,
-            }
-            }
-            if (feature.properties['ind'] >= 885.500000 && feature.properties['ind'] <= 1406.500000 ) {
-                return {
-                pane: 'pane_Nombredindividu_2',
-                opacity: 1,
-                color: 'rgba(35,35,35,0.6)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1.0, 
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(251,112,80,0.6)',
-                interactive: true,
-            }
-            }
-            if (feature.properties['ind'] >= 1406.500000 && feature.properties['ind'] <= 1862.500000 ) {
-                return {
-                pane: 'pane_Nombredindividu_2',
-                opacity: 1,
-                color: 'rgba(35,35,35,0.6)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1.0, 
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(211,32,32,0.6)',
-                interactive: true,
-            }
-            }
-            if (feature.properties['ind'] >= 1862.500000 && feature.properties['ind'] <= 2542.000000 ) {
-                return {
-                pane: 'pane_Nombredindividu_2',
-                opacity: 1,
-                color: 'rgba(35,35,35,0.6)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1.0, 
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(103,0,13,0.6)',
-                interactive: true,
-            }
-            }
-        }
-        map.createPane('pane_Nombredindividu_2');
-        map.getPane('pane_Nombredindividu_2').style.zIndex = 402;
-        map.getPane('pane_Nombredindividu_2').style['mix-blend-mode'] = 'normal';
-        var layer_Nombredindividu_2 = new L.geoJson(json_Nombredindividu_2, {
-            attribution: '',
-            interactive: true,
-            dataVar: 'json_Nombredindividu_2',
-            layerName: 'layer_Nombredindividu_2',
-            pane: 'pane_Nombredindividu_2',
-            onEachFeature: pop_Nombredindividu_2,
-            style: style_Nombredindividu_2_0,
-        });
-        bounds_group.addLayer(layer_Nombredindividu_2);
-        map.addLayer(layer_Nombredindividu_2);
-        function pop_Bicyclerental_3(feature, layer) {
+        bounds_group.addLayer(layer_BPE_5);
+        function pop_Bicyclerental_6(feature, layer) {
             var popupContent = '<table>\
                     <tr>\
                         <th scope="row">operator</th>\
@@ -2543,9 +434,9 @@
             popup.setContent(updatedContent);
         }
 
-        function style_Bicyclerental_3_0() {
+        function style_Bicyclerental_6_0() {
             return {
-                pane: 'pane_Bicyclerental_3',
+                pane: 'pane_Bicyclerental_6',
                 radius: 4.0,
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
@@ -2559,26 +450,26 @@
                 interactive: true,
             }
         }
-        map.createPane('pane_Bicyclerental_3');
-        map.getPane('pane_Bicyclerental_3').style.zIndex = 403;
-        map.getPane('pane_Bicyclerental_3').style['mix-blend-mode'] = 'normal';
-        var layer_Bicyclerental_3 = new L.geoJson(json_Bicyclerental_3, {
+        map.createPane('pane_Bicyclerental_6');
+        map.getPane('pane_Bicyclerental_6').style.zIndex = 406;
+        map.getPane('pane_Bicyclerental_6').style['mix-blend-mode'] = 'normal';
+        var layer_Bicyclerental_6 = new L.geoJson(json_Bicyclerental_6, {
             attribution: '',
             interactive: true,
-            dataVar: 'json_Bicyclerental_3',
-            layerName: 'layer_Bicyclerental_3',
-            pane: 'pane_Bicyclerental_3',
-            onEachFeature: pop_Bicyclerental_3,
+            dataVar: 'json_Bicyclerental_6',
+            layerName: 'layer_Bicyclerental_6',
+            pane: 'pane_Bicyclerental_6',
+            onEachFeature: pop_Bicyclerental_6,
             pointToLayer: function (feature, latlng) {
                 var context = {
                     feature: feature,
                     variables: {}
                 };
-                return L.circleMarker(latlng, style_Bicyclerental_3_0(feature));
+                return L.circleMarker(latlng, style_Bicyclerental_6_0(feature));
             },
         });
-        bounds_group.addLayer(layer_Bicyclerental_3);
-        function pop_Bicycleparking_4(feature, layer) {
+        bounds_group.addLayer(layer_Bicyclerental_6);
+        function pop_Bicycleparking_7(feature, layer) {
             var popupContent = '<table>\
                     <tr>\
                         <th scope="row">cargo_bike</th>\
@@ -2604,9 +495,9 @@
             popup.setContent(updatedContent);
         }
 
-        function style_Bicycleparking_4_0() {
+        function style_Bicycleparking_7_0() {
             return {
-                pane: 'pane_Bicycleparking_4',
+                pane: 'pane_Bicycleparking_7',
                 radius: 4.0,
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
@@ -2620,26 +511,26 @@
                 interactive: true,
             }
         }
-        map.createPane('pane_Bicycleparking_4');
-        map.getPane('pane_Bicycleparking_4').style.zIndex = 404;
-        map.getPane('pane_Bicycleparking_4').style['mix-blend-mode'] = 'normal';
-        var layer_Bicycleparking_4 = new L.geoJson(json_Bicycleparking_4, {
+        map.createPane('pane_Bicycleparking_7');
+        map.getPane('pane_Bicycleparking_7').style.zIndex = 407;
+        map.getPane('pane_Bicycleparking_7').style['mix-blend-mode'] = 'normal';
+        var layer_Bicycleparking_7 = new L.geoJson(json_Bicycleparking_7, {
             attribution: '',
             interactive: true,
-            dataVar: 'json_Bicycleparking_4',
-            layerName: 'layer_Bicycleparking_4',
-            pane: 'pane_Bicycleparking_4',
-            onEachFeature: pop_Bicycleparking_4,
+            dataVar: 'json_Bicycleparking_7',
+            layerName: 'layer_Bicycleparking_7',
+            pane: 'pane_Bicycleparking_7',
+            onEachFeature: pop_Bicycleparking_7,
             pointToLayer: function (feature, latlng) {
                 var context = {
                     feature: feature,
                     variables: {}
                 };
-                return L.circleMarker(latlng, style_Bicycleparking_4_0(feature));
+                return L.circleMarker(latlng, style_Bicycleparking_7_0(feature));
             },
         });
-        bounds_group.addLayer(layer_Bicycleparking_4);
-        function pop_Pedestrianareas_5(feature, layer) {
+        bounds_group.addLayer(layer_Bicycleparking_7);
+        function pop_Pedestrianareas_8(feature, layer) {
             var popupContent = '<table>\
                 </table>';
             layer.bindPopup(popupContent, {maxHeight: 400});
@@ -2649,9 +540,9 @@
             popup.setContent(updatedContent);
         }
 
-        function style_Pedestrianareas_5_0() {
+        function style_Pedestrianareas_8_0() {
             return {
-                pane: 'pane_Pedestrianareas_5',
+                pane: 'pane_Pedestrianareas_8',
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
                 dashArray: '',
@@ -2661,23 +552,23 @@
                 fill: true,
                 fillOpacity: 1,
                 fillColor: 'rgba(231,252,39,1.0)',
-                interactive: false,
+                interactive: true,
             }
         }
-        map.createPane('pane_Pedestrianareas_5');
-        map.getPane('pane_Pedestrianareas_5').style.zIndex = 405;
-        map.getPane('pane_Pedestrianareas_5').style['mix-blend-mode'] = 'normal';
-        var layer_Pedestrianareas_5 = new L.geoJson(json_Pedestrianareas_5, {
+        map.createPane('pane_Pedestrianareas_8');
+        map.getPane('pane_Pedestrianareas_8').style.zIndex = 408;
+        map.getPane('pane_Pedestrianareas_8').style['mix-blend-mode'] = 'normal';
+        var layer_Pedestrianareas_8 = new L.geoJson(json_Pedestrianareas_8, {
             attribution: '',
-            interactive: false,
-            dataVar: 'json_Pedestrianareas_5',
-            layerName: 'layer_Pedestrianareas_5',
-            pane: 'pane_Pedestrianareas_5',
-            onEachFeature: pop_Pedestrianareas_5,
-            style: style_Pedestrianareas_5_0,
+            interactive: true,
+            dataVar: 'json_Pedestrianareas_8',
+            layerName: 'layer_Pedestrianareas_8',
+            pane: 'pane_Pedestrianareas_8',
+            onEachFeature: pop_Pedestrianareas_8,
+            style: style_Pedestrianareas_8_0,
         });
-        bounds_group.addLayer(layer_Pedestrianareas_5);
-        function pop_sidewalks_6(feature, layer) {
+        bounds_group.addLayer(layer_Pedestrianareas_8);
+        function pop_sidewalks_9(feature, layer) {
             var popupContent = '<table>\
                 </table>';
             layer.bindPopup(popupContent, {maxHeight: 400});
@@ -2687,9 +578,9 @@
             popup.setContent(updatedContent);
         }
 
-        function style_sidewalks_6_0() {
+        function style_sidewalks_9_0() {
             return {
-                pane: 'pane_sidewalks_6',
+                pane: 'pane_sidewalks_9',
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
                 dashArray: '',
@@ -2699,23 +590,23 @@
                 fill: true,
                 fillOpacity: 1,
                 fillColor: 'rgba(119,243,125,1.0)',
-                interactive: false,
+                interactive: true,
             }
         }
-        map.createPane('pane_sidewalks_6');
-        map.getPane('pane_sidewalks_6').style.zIndex = 406;
-        map.getPane('pane_sidewalks_6').style['mix-blend-mode'] = 'normal';
-        var layer_sidewalks_6 = new L.geoJson(json_sidewalks_6, {
+        map.createPane('pane_sidewalks_9');
+        map.getPane('pane_sidewalks_9').style.zIndex = 409;
+        map.getPane('pane_sidewalks_9').style['mix-blend-mode'] = 'normal';
+        var layer_sidewalks_9 = new L.geoJson(json_sidewalks_9, {
             attribution: '',
-            interactive: false,
-            dataVar: 'json_sidewalks_6',
-            layerName: 'layer_sidewalks_6',
-            pane: 'pane_sidewalks_6',
-            onEachFeature: pop_sidewalks_6,
-            style: style_sidewalks_6_0,
+            interactive: true,
+            dataVar: 'json_sidewalks_9',
+            layerName: 'layer_sidewalks_9',
+            pane: 'pane_sidewalks_9',
+            onEachFeature: pop_sidewalks_9,
+            style: style_sidewalks_9_0,
         });
-        bounds_group.addLayer(layer_sidewalks_6);
-        function pop_Parkingspace_7(feature, layer) {
+        bounds_group.addLayer(layer_sidewalks_9);
+        function pop_Parkingspace_10(feature, layer) {
             var popupContent = '<table>\
                     <tr>\
                         <td class="visible-with-data" id="maxstay"colspan="2"><strong>maxstay</strong><br />' + (feature.properties['maxstay'] !== null ? autolinker.link(feature.properties['maxstay'].toLocaleString()) : '') + '</td>\
@@ -2732,9 +623,9 @@
             popup.setContent(updatedContent);
         }
 
-        function style_Parkingspace_7_0() {
+        function style_Parkingspace_10_0() {
             return {
-                pane: 'pane_Parkingspace_7',
+                pane: 'pane_Parkingspace_10',
                 radius: 4.0,
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
@@ -2748,30 +639,26 @@
                 interactive: true,
             }
         }
-        map.createPane('pane_Parkingspace_7');
-        map.getPane('pane_Parkingspace_7').style.zIndex = 407;
-        map.getPane('pane_Parkingspace_7').style['mix-blend-mode'] = 'normal';
-        var layer_Parkingspace_7 = new L.geoJson(json_Parkingspace_7, {
+        map.createPane('pane_Parkingspace_10');
+        map.getPane('pane_Parkingspace_10').style.zIndex = 410;
+        map.getPane('pane_Parkingspace_10').style['mix-blend-mode'] = 'normal';
+        var layer_Parkingspace_10 = new L.geoJson(json_Parkingspace_10, {
             attribution: '',
             interactive: true,
-            dataVar: 'json_Parkingspace_7',
-            layerName: 'layer_Parkingspace_7',
-            pane: 'pane_Parkingspace_7',
-            onEachFeature: pop_Parkingspace_7,
+            dataVar: 'json_Parkingspace_10',
+            layerName: 'layer_Parkingspace_10',
+            pane: 'pane_Parkingspace_10',
+            onEachFeature: pop_Parkingspace_10,
             pointToLayer: function (feature, latlng) {
                 var context = {
                     feature: feature,
                     variables: {}
                 };
-                return L.circleMarker(latlng, style_Parkingspace_7_0(feature));
+                return L.circleMarker(latlng, style_Parkingspace_10_0(feature));
             },
         });
-        var cluster_Parkingspace_7 = new L.MarkerClusterGroup({showCoverageOnHover: false,
-            spiderfyDistanceMultiplier: 2});
-        cluster_Parkingspace_7.addLayer(layer_Parkingspace_7);
-
-        bounds_group.addLayer(layer_Parkingspace_7);
-        function pop_Motorcycleparking_8(feature, layer) {
+        bounds_group.addLayer(layer_Parkingspace_10);
+        function pop_Motorcycleparking_11(feature, layer) {
             var popupContent = '<table>\
                 </table>';
             layer.bindPopup(popupContent, {maxHeight: 400});
@@ -2781,9 +668,9 @@
             popup.setContent(updatedContent);
         }
 
-        function style_Motorcycleparking_8_0() {
+        function style_Motorcycleparking_11_0() {
             return {
-                pane: 'pane_Motorcycleparking_8',
+                pane: 'pane_Motorcycleparking_11',
                 radius: 4.0,
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
@@ -2794,29 +681,29 @@
                 fill: true,
                 fillOpacity: 1,
                 fillColor: 'rgba(255,191,53,1.0)',
-                interactive: false,
+                interactive: true,
             }
         }
-        map.createPane('pane_Motorcycleparking_8');
-        map.getPane('pane_Motorcycleparking_8').style.zIndex = 408;
-        map.getPane('pane_Motorcycleparking_8').style['mix-blend-mode'] = 'normal';
-        var layer_Motorcycleparking_8 = new L.geoJson(json_Motorcycleparking_8, {
+        map.createPane('pane_Motorcycleparking_11');
+        map.getPane('pane_Motorcycleparking_11').style.zIndex = 411;
+        map.getPane('pane_Motorcycleparking_11').style['mix-blend-mode'] = 'normal';
+        var layer_Motorcycleparking_11 = new L.geoJson(json_Motorcycleparking_11, {
             attribution: '',
-            interactive: false,
-            dataVar: 'json_Motorcycleparking_8',
-            layerName: 'layer_Motorcycleparking_8',
-            pane: 'pane_Motorcycleparking_8',
-            onEachFeature: pop_Motorcycleparking_8,
+            interactive: true,
+            dataVar: 'json_Motorcycleparking_11',
+            layerName: 'layer_Motorcycleparking_11',
+            pane: 'pane_Motorcycleparking_11',
+            onEachFeature: pop_Motorcycleparking_11,
             pointToLayer: function (feature, latlng) {
                 var context = {
                     feature: feature,
                     variables: {}
                 };
-                return L.circleMarker(latlng, style_Motorcycleparking_8_0(feature));
+                return L.circleMarker(latlng, style_Motorcycleparking_11_0(feature));
             },
         });
-        bounds_group.addLayer(layer_Motorcycleparking_8);
-        function pop_Parking_9(feature, layer) {
+        bounds_group.addLayer(layer_Motorcycleparking_11);
+        function pop_Parking_12(feature, layer) {
             var popupContent = '<table>\
                     <tr>\
                         <td colspan="2"><strong>capacity</strong><br />' + (feature.properties['capacity'] !== null ? autolinker.link(feature.properties['capacity'].toLocaleString()) : '') + '</td>\
@@ -2829,9 +716,9 @@
             popup.setContent(updatedContent);
         }
 
-        function style_Parking_9_0() {
+        function style_Parking_12_0() {
             return {
-                pane: 'pane_Parking_9',
+                pane: 'pane_Parking_12',
                 radius: 4.0,
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
@@ -2842,29 +729,29 @@
                 fill: true,
                 fillOpacity: 1,
                 fillColor: 'rgba(207,255,13,1.0)',
-                interactive: false,
+                interactive: true,
             }
         }
-        map.createPane('pane_Parking_9');
-        map.getPane('pane_Parking_9').style.zIndex = 409;
-        map.getPane('pane_Parking_9').style['mix-blend-mode'] = 'normal';
-        var layer_Parking_9 = new L.geoJson(json_Parking_9, {
+        map.createPane('pane_Parking_12');
+        map.getPane('pane_Parking_12').style.zIndex = 412;
+        map.getPane('pane_Parking_12').style['mix-blend-mode'] = 'normal';
+        var layer_Parking_12 = new L.geoJson(json_Parking_12, {
             attribution: '',
-            interactive: false,
-            dataVar: 'json_Parking_9',
-            layerName: 'layer_Parking_9',
-            pane: 'pane_Parking_9',
-            onEachFeature: pop_Parking_9,
+            interactive: true,
+            dataVar: 'json_Parking_12',
+            layerName: 'layer_Parking_12',
+            pane: 'pane_Parking_12',
+            onEachFeature: pop_Parking_12,
             pointToLayer: function (feature, latlng) {
                 var context = {
                     feature: feature,
                     variables: {}
                 };
-                return L.circleMarker(latlng, style_Parking_9_0(feature));
+                return L.circleMarker(latlng, style_Parking_12_0(feature));
             },
         });
-        bounds_group.addLayer(layer_Parking_9);
-        function pop_Carchargingstation_10(feature, layer) {
+        bounds_group.addLayer(layer_Parking_12);
+        function pop_Carchargingstation_13(feature, layer) {
             var popupContent = '<table>\
                     <tr>\
                         <th scope="row">owner</th>\
@@ -2890,9 +777,9 @@
             popup.setContent(updatedContent);
         }
 
-        function style_Carchargingstation_10_0() {
+        function style_Carchargingstation_13_0() {
             return {
-                pane: 'pane_Carchargingstation_10',
+                pane: 'pane_Carchargingstation_13',
                 radius: 4.0,
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
@@ -2906,29 +793,29 @@
                 interactive: true,
             }
         }
-        map.createPane('pane_Carchargingstation_10');
-        map.getPane('pane_Carchargingstation_10').style.zIndex = 410;
-        map.getPane('pane_Carchargingstation_10').style['mix-blend-mode'] = 'normal';
-        var layer_Carchargingstation_10 = new L.geoJson(json_Carchargingstation_10, {
+        map.createPane('pane_Carchargingstation_13');
+        map.getPane('pane_Carchargingstation_13').style.zIndex = 413;
+        map.getPane('pane_Carchargingstation_13').style['mix-blend-mode'] = 'normal';
+        var layer_Carchargingstation_13 = new L.geoJson(json_Carchargingstation_13, {
             attribution: '',
             interactive: true,
-            dataVar: 'json_Carchargingstation_10',
-            layerName: 'layer_Carchargingstation_10',
-            pane: 'pane_Carchargingstation_10',
-            onEachFeature: pop_Carchargingstation_10,
+            dataVar: 'json_Carchargingstation_13',
+            layerName: 'layer_Carchargingstation_13',
+            pane: 'pane_Carchargingstation_13',
+            onEachFeature: pop_Carchargingstation_13,
             pointToLayer: function (feature, latlng) {
                 var context = {
                     feature: feature,
                     variables: {}
                 };
-                return L.circleMarker(latlng, style_Carchargingstation_10_0(feature));
+                return L.circleMarker(latlng, style_Carchargingstation_13_0(feature));
             },
         });
-        bounds_group.addLayer(layer_Carchargingstation_10);
-        function pop_Pistescyclablesetcouloirsdebus_11(feature, layer) {
+        bounds_group.addLayer(layer_Carchargingstation_13);
+        function pop_BuslaneandBikelane_14(feature, layer) {
             var popupContent = '<table>\
                     <tr>\
-                        <th scope="row">lib_classe</th>\
+                        <th scope="row">Type</th>\
                         <td>' + (feature.properties['lib_classe'] !== null ? autolinker.link(feature.properties['lib_classe'].toLocaleString()) : '') + '</td>\
                     </tr>\
                 </table>';
@@ -2939,11 +826,11 @@
             popup.setContent(updatedContent);
         }
 
-        function style_Pistescyclablesetcouloirsdebus_11_0(feature) {
+        function style_BuslaneandBikelane_14_0(feature) {
             switch(String(feature.properties['lib_classe'])) {
                 case 'Couloir bus':
                     return {
-                pane: 'pane_Pistescyclablesetcouloirsdebus_11',
+                pane: 'pane_BuslaneandBikelane_14',
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
                 dashArray: '',
@@ -2958,7 +845,7 @@
                     break;
                 case 'Couloir mixte bus-vélo':
                     return {
-                pane: 'pane_Pistescyclablesetcouloirsdebus_11',
+                pane: 'pane_BuslaneandBikelane_14',
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
                 dashArray: '',
@@ -2973,7 +860,7 @@
                     break;
                 case 'Piste':
                     return {
-                pane: 'pane_Pistescyclablesetcouloirsdebus_11',
+                pane: 'pane_BuslaneandBikelane_14',
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
                 dashArray: '',
@@ -2988,7 +875,7 @@
                     break;
                 case 'Piste cyclable':
                     return {
-                pane: 'pane_Pistescyclablesetcouloirsdebus_11',
+                pane: 'pane_BuslaneandBikelane_14',
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
                 dashArray: '',
@@ -3003,7 +890,7 @@
                     break;
                 default:
                     return {
-                pane: 'pane_Pistescyclablesetcouloirsdebus_11',
+                pane: 'pane_BuslaneandBikelane_14',
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
                 dashArray: '',
@@ -3018,31 +905,23 @@
                     break;
             }
         }
-        map.createPane('pane_Pistescyclablesetcouloirsdebus_11');
-        map.getPane('pane_Pistescyclablesetcouloirsdebus_11').style.zIndex = 411;
-        map.getPane('pane_Pistescyclablesetcouloirsdebus_11').style['mix-blend-mode'] = 'normal';
-        var layer_Pistescyclablesetcouloirsdebus_11 = new L.geoJson(json_Pistescyclablesetcouloirsdebus_11, {
+        map.createPane('pane_BuslaneandBikelane_14');
+        map.getPane('pane_BuslaneandBikelane_14').style.zIndex = 414;
+        map.getPane('pane_BuslaneandBikelane_14').style['mix-blend-mode'] = 'normal';
+        var layer_BuslaneandBikelane_14 = new L.geoJson(json_BuslaneandBikelane_14, {
             attribution: '',
             interactive: true,
-            dataVar: 'json_Pistescyclablesetcouloirsdebus_11',
-            layerName: 'layer_Pistescyclablesetcouloirsdebus_11',
-            pane: 'pane_Pistescyclablesetcouloirsdebus_11',
-            onEachFeature: pop_Pistescyclablesetcouloirsdebus_11,
-            style: style_Pistescyclablesetcouloirsdebus_11_0,
+            dataVar: 'json_BuslaneandBikelane_14',
+            layerName: 'layer_BuslaneandBikelane_14',
+            pane: 'pane_BuslaneandBikelane_14',
+            onEachFeature: pop_BuslaneandBikelane_14,
+            style: style_BuslaneandBikelane_14_0,
         });
-        bounds_group.addLayer(layer_Pistescyclablesetcouloirsdebus_11);
-        function pop_BusStop_12(feature, layer) {
+        bounds_group.addLayer(layer_BuslaneandBikelane_14);
+        function pop_BusStop_15(feature, layer) {
             var popupContent = '<table>\
                     <tr>\
                         <td colspan="2">' + (feature.properties['stop_name'] !== null ? autolinker.link(feature.properties['stop_name'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <th scope="row">location_type</th>\
-                        <td>' + (feature.properties['location_type'] !== null ? autolinker.link(feature.properties['location_type'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <th scope="row">wheelchair_boarding</th>\
-                        <td>' + (feature.properties['wheelchair_boarding'] !== null ? autolinker.link(feature.properties['wheelchair_boarding'].toLocaleString()) : '') + '</td>\
                     </tr>\
                 </table>';
             layer.bindPopup(popupContent, {maxHeight: 400});
@@ -3052,222 +931,58 @@
             popup.setContent(updatedContent);
         }
 
-        function style_BusStop_12_0() {
+        function style_BusStop_15_0() {
             return {
-                pane: 'pane_BusStop_12',
+                pane: 'pane_BusStop_15',
         rotationAngle: 0.0,
         rotationOrigin: 'center center',
         icon: L.icon({
-            iconUrl: 'markers/BusStop_12.svg',
-            iconSize: [13.680000000000003, 13.680000000000003]
+            iconUrl: 'markers/BusStop_15.svg',
+            iconSize: [13.68, 13.68]
         }),
                 interactive: true,
             }
         }
-        map.createPane('pane_BusStop_12');
-        map.getPane('pane_BusStop_12').style.zIndex = 412;
-        map.getPane('pane_BusStop_12').style['mix-blend-mode'] = 'normal';
-        var layer_BusStop_12 = new L.geoJson(json_BusStop_12, {
+        map.createPane('pane_BusStop_15');
+        map.getPane('pane_BusStop_15').style.zIndex = 415;
+        map.getPane('pane_BusStop_15').style['mix-blend-mode'] = 'normal';
+        var layer_BusStop_15 = new L.geoJson(json_BusStop_15, {
             attribution: '',
             interactive: true,
-            dataVar: 'json_BusStop_12',
-            layerName: 'layer_BusStop_12',
-            pane: 'pane_BusStop_12',
-            onEachFeature: pop_BusStop_12,
+            dataVar: 'json_BusStop_15',
+            layerName: 'layer_BusStop_15',
+            pane: 'pane_BusStop_15',
+            onEachFeature: pop_BusStop_15,
             pointToLayer: function (feature, latlng) {
                 var context = {
                     feature: feature,
                     variables: {}
                 };
-                return L.marker(latlng, style_BusStop_12_0(feature));
+                return L.marker(latlng, style_BusStop_15_0(feature));
             },
         });
-        bounds_group.addLayer(layer_BusStop_12);
-        function pop_Arrondissements_13(feature, layer) {
-            var popupContent = '<table>\
-                </table>';
-            layer.bindPopup(popupContent, {maxHeight: 400});
-            var popup = layer.getPopup();
-            var content = popup.getContent();
-            var updatedContent = removeEmptyRowsFromPopupContent(content, feature);
-            popup.setContent(updatedContent);
-        }
-
-        function style_Arrondissements_13_0() {
-            return {
-                pane: 'pane_Arrondissements_13',
-                opacity: 1,
-                color: 'rgba(35,35,35,1.0)',
-                dashArray: '',
-                lineCap: 'square',
-                lineJoin: 'bevel',
-                weight: 2.0,
-                fillOpacity: 0,
-                interactive: false,
-            }
-        }
-        map.createPane('pane_Arrondissements_13');
-        map.getPane('pane_Arrondissements_13').style.zIndex = 413;
-        map.getPane('pane_Arrondissements_13').style['mix-blend-mode'] = 'normal';
-        var layer_Arrondissements_13 = new L.geoJson(json_Arrondissements_13, {
-            attribution: '',
-            interactive: false,
-            dataVar: 'json_Arrondissements_13',
-            layerName: 'layer_Arrondissements_13',
-            pane: 'pane_Arrondissements_13',
-            onEachFeature: pop_Arrondissements_13,
-            style: style_Arrondissements_13_0,
-        });
-        bounds_group.addLayer(layer_Arrondissements_13);
-        map.addLayer(layer_Arrondissements_13);
-        function pop_Ecoquartier_14(feature, layer) {
-            var popupContent = '<table>\
-                    <tr>\
-                        <th scope="row">nom</th>\
-                        <td>' + (feature.properties['nom'] !== null ? autolinker.link(feature.properties['nom'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['descr'] !== null ? autolinker.link(feature.properties['descr'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <th scope="row">typeop</th>\
-                        <td>' + (feature.properties['typeop'] !== null ? autolinker.link(feature.properties['typeop'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                </table>';
-            layer.bindPopup(popupContent, {maxHeight: 400});
-            var popup = layer.getPopup();
-            var content = popup.getContent();
-            var updatedContent = removeEmptyRowsFromPopupContent(content, feature);
-            popup.setContent(updatedContent);
-        }
-
-        function style_Ecoquartier_14_0() {
-            return {
-                pane: 'pane_Ecoquartier_14',
-                opacity: 1,
-                color: 'rgba(206,29,26,1.0)',
-                dashArray: '',
-                lineCap: 'square',
-                lineJoin: 'bevel',
-                weight: 2.0,
-                fillOpacity: 0,
-                interactive: false,
-            }
-        }
-        map.createPane('pane_Ecoquartier_14');
-        map.getPane('pane_Ecoquartier_14').style.zIndex = 414;
-        map.getPane('pane_Ecoquartier_14').style['mix-blend-mode'] = 'normal';
-        var layer_Ecoquartier_14 = new L.geoJson(json_Ecoquartier_14, {
-            attribution: '',
-            interactive: false,
-            dataVar: 'json_Ecoquartier_14',
-            layerName: 'layer_Ecoquartier_14',
-            pane: 'pane_Ecoquartier_14',
-            onEachFeature: pop_Ecoquartier_14,
-            style: style_Ecoquartier_14_0,
-        });
-        bounds_group.addLayer(layer_Ecoquartier_14);
-        map.addLayer(layer_Ecoquartier_14);
-        function pop_IRISEcoquartier_15(feature, layer) {
-            var popupContent = '<table>\
-                </table>';
-            layer.bindPopup(popupContent, {maxHeight: 400});
-            var popup = layer.getPopup();
-            var content = popup.getContent();
-            var updatedContent = removeEmptyRowsFromPopupContent(content, feature);
-            popup.setContent(updatedContent);
-        }
-
-        function style_IRISEcoquartier_15_0() {
-            return {
-                pane: 'pane_IRISEcoquartier_15',
-                opacity: 1,
-                color: 'rgba(35,35,35,0.5)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1.0, 
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(243,228,115,0.5)',
-                interactive: false,
-            }
-        }
-        map.createPane('pane_IRISEcoquartier_15');
-        map.getPane('pane_IRISEcoquartier_15').style.zIndex = 415;
-        map.getPane('pane_IRISEcoquartier_15').style['mix-blend-mode'] = 'normal';
-        var layer_IRISEcoquartier_15 = new L.geoJson(json_IRISEcoquartier_15, {
-            attribution: '',
-            interactive: false,
-            dataVar: 'json_IRISEcoquartier_15',
-            layerName: 'layer_IRISEcoquartier_15',
-            pane: 'pane_IRISEcoquartier_15',
-            onEachFeature: pop_IRISEcoquartier_15,
-            style: style_IRISEcoquartier_15_0,
-        });
-        bounds_group.addLayer(layer_IRISEcoquartier_15);
-        function pop_IRIS17meArrondissement_16(feature, layer) {
-            var popupContent = '<table>\
-                </table>';
-            layer.bindPopup(popupContent, {maxHeight: 400});
-            var popup = layer.getPopup();
-            var content = popup.getContent();
-            var updatedContent = removeEmptyRowsFromPopupContent(content, feature);
-            popup.setContent(updatedContent);
-        }
-
-        function style_IRIS17meArrondissement_16_0() {
-            return {
-                pane: 'pane_IRIS17meArrondissement_16',
-                opacity: 1,
-                color: 'rgba(35,35,35,0.5)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 4.0, 
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(243,228,115,0.5)',
-                interactive: false,
-            }
-        }
-        map.createPane('pane_IRIS17meArrondissement_16');
-        map.getPane('pane_IRIS17meArrondissement_16').style.zIndex = 416;
-        map.getPane('pane_IRIS17meArrondissement_16').style['mix-blend-mode'] = 'normal';
-        var layer_IRIS17meArrondissement_16 = new L.geoJson(json_IRIS17meArrondissement_16, {
-            attribution: '',
-            interactive: false,
-            dataVar: 'json_IRIS17meArrondissement_16',
-            layerName: 'layer_IRIS17meArrondissement_16',
-            pane: 'pane_IRIS17meArrondissement_16',
-            onEachFeature: pop_IRIS17meArrondissement_16,
-            style: style_IRIS17meArrondissement_16_0,
-        });
-        bounds_group.addLayer(layer_IRIS17meArrondissement_16);
+        bounds_group.addLayer(layer_BusStop_15);
         var baseMaps = {};
         var overlaysTree = [
-        {label: '<b>Limites administratives</b>', selectAllCheckbox: true, children: [
-            {label: '<img src="legend/IRIS17meArrondissement_16.png" /> IRIS 17ème Arrondissement', layer: layer_IRIS17meArrondissement_16},
-            {label: '<img src="legend/IRISEcoquartier_15.png" /> IRIS Ecoquartier', layer: layer_IRISEcoquartier_15},
-            {label: '<img src="legend/Ecoquartier_14.png" /> Ecoquartier', layer: layer_Ecoquartier_14},
-            {label: '<img src="legend/Arrondissements_13.png" /> Arrondissements', layer: layer_Arrondissements_13},]},
-            {label: '<img src="legend/BusStop_12.png" /> Bus Stop', layer: layer_BusStop_12},
-            {label: 'Pistes cyclables et couloirs de bus<br /><table><tr><td style="text-align: center;"><img src="legend/Pistescyclablesetcouloirsdebus_11_Couloirbus0.png" /></td><td>Couloir bus</td></tr><tr><td style="text-align: center;"><img src="legend/Pistescyclablesetcouloirsdebus_11_Couloirmixtebusvélo1.png" /></td><td>Couloir mixte bus-vélo</td></tr><tr><td style="text-align: center;"><img src="legend/Pistescyclablesetcouloirsdebus_11_Piste2.png" /></td><td>Piste</td></tr><tr><td style="text-align: center;"><img src="legend/Pistescyclablesetcouloirsdebus_11_Pistecyclable3.png" /></td><td>Piste cyclable</td></tr><tr><td style="text-align: center;"><img src="legend/Pistescyclablesetcouloirsdebus_11_4.png" /></td><td></td></tr></table>', layer: layer_Pistescyclablesetcouloirsdebus_11},
+            {label: '<img src="legend/BusStop_15.png" /> Bus Stop', layer: layer_BusStop_15},
+            {label: 'Bus lane and Bike lane<br /><table><tr><td style="text-align: center;"><img src="legend/BuslaneandBikelane_14_Couloirbus0.png" /></td><td>Couloir bus</td></tr><tr><td style="text-align: center;"><img src="legend/BuslaneandBikelane_14_Couloirmixtebusvélo1.png" /></td><td>Couloir mixte bus-vélo</td></tr><tr><td style="text-align: center;"><img src="legend/BuslaneandBikelane_14_Piste2.png" /></td><td>Piste</td></tr><tr><td style="text-align: center;"><img src="legend/BuslaneandBikelane_14_Pistecyclable3.png" /></td><td>Piste cyclable</td></tr><tr><td style="text-align: center;"><img src="legend/BuslaneandBikelane_14_4.png" /></td><td></td></tr></table>', layer: layer_BuslaneandBikelane_14},
         {label: '<b>Car - Motorcycles</b>', selectAllCheckbox: true, children: [
-            {label: '<img src="legend/Carchargingstation_10.png" /> Car charging station', layer: layer_Carchargingstation_10},
-            {label: '<img src="legend/Parking_9.png" /> Parking', layer: layer_Parking_9},
-            {label: '<img src="legend/Motorcycleparking_8.png" /> Motorcycle parking', layer: layer_Motorcycleparking_8},
-            {label: '<img src="legend/Parkingspace_7.png" /> Parking space', layer: cluster_Parkingspace_7},]},
+            {label: '<img src="legend/Carchargingstation_13.png" /> Car charging station', layer: layer_Carchargingstation_13},
+            {label: '<img src="legend/Parking_12.png" /> Parking', layer: layer_Parking_12},
+            {label: '<img src="legend/Motorcycleparking_11.png" /> Motorcycle parking', layer: layer_Motorcycleparking_11},
+            {label: '<img src="legend/Parkingspace_10.png" /> Parking space', layer: layer_Parkingspace_10},]},
         {label: '<b>Walk</b>', selectAllCheckbox: true, children: [
-            {label: '<img src="legend/sidewalks_6.png" /> sidewalks', layer: layer_sidewalks_6},
-            {label: '<img src="legend/Pedestrianareas_5.png" /> Pedestrian areas', layer: layer_Pedestrianareas_5},]},
+            {label: '<img src="legend/sidewalks_9.png" /> sidewalks', layer: layer_sidewalks_9},
+            {label: '<img src="legend/Pedestrianareas_8.png" /> Pedestrian areas', layer: layer_Pedestrianareas_8},]},
         {label: '<b>Bike</b>', selectAllCheckbox: true, children: [
-            {label: '<img src="legend/Bicycleparking_4.png" /> Bicycle parking', layer: layer_Bicycleparking_4},
-            {label: '<img src="legend/Bicyclerental_3.png" /> Bicycle rental', layer: layer_Bicyclerental_3},]},
-        {label: '<b>Filosofi (2019)</b>', selectAllCheckbox: true, children: [
-            {label: 'Nombre d\'individu<br /><table><tr><td style="text-align: center;"><img src="legend/Nombredindividu_2_34170.png" /></td><td>3 - 417</td></tr><tr><td style="text-align: center;"><img src="legend/Nombredindividu_2_4178861.png" /></td><td>417 - 886</td></tr><tr><td style="text-align: center;"><img src="legend/Nombredindividu_2_88614072.png" /></td><td>886 - 1407</td></tr><tr><td style="text-align: center;"><img src="legend/Nombredindividu_2_140718633.png" /></td><td>1407 - 1863</td></tr><tr><td style="text-align: center;"><img src="legend/Nombredindividu_2_186325424.png" /></td><td>1863 - 2542</td></tr></table>', layer: layer_Nombredindividu_2},]},
-        {label: '<b>BPE</b>', selectAllCheckbox: true, children: [
-            {label: 'BPE<br /><table><tr><td style="text-align: center;"><img src="legend/BPE_1_ADULTESHANDICAPÉSACCUEILHÉBERGEMENT0.png" /></td><td>ADULTES HANDICAPÉS : ACCUEIL/HÉBERGEMENT</td></tr><tr><td style="text-align: center;"><img src="legend/BPE_1_ADULTESHANDICAPÉSSERVICESDAIDE1.png" /></td><td>ADULTES HANDICAPÉS : SERVICES D’AIDE</td></tr><tr><td style="text-align: center;"><img src="legend/BPE_1_ADULTESHANDICAPÉSSERVICESDESOINSÀDOMICILE2.png" /></td><td>ADULTES HANDICAPÉS : SERVICES DE SOINS À DOMICILE</td></tr><tr><td style="text-align: center;"><img src="legend/BPE_1_AGENCEDETRAVAILTEMPORAIRE3.png" /></td><td>AGENCE DE TRAVAIL TEMPORAIRE</td></tr><tr><td style="text-align: center;"><img src="legend/BPE_1_AGENCEDEVOYAGE4.png" /></td><td>AGENCE DE VOYAGE</td></tr><tr><td style="text-align: center;"><img src="legend/BPE_1_AGENCEIMMOBILIÈRE5.png" /></td><td>AGENCE IMMOBILIÈRE</td></tr><tr><td style="text-align: center;"><img src="legend/BPE_1_AMBULANCE6.png" /></td><td>AMBULANCE</td></tr><tr><td style="text-align: center;"><img src="legend/BPE_1_ARTSDUSPECTACLE7.png" /></td><td>ARTS DU SPECTACLE</td></tr><tr><td style="text-align: center;"><img src="legend/BPE_1_ATHLÉTISME8.png" /></td><td>ATHLÉTISME</td></tr><tr><td style="text-align: center;"><img src="legend/BPE_1_AUDIOPROTHÉSISTE9.png" /></td><td>AUDIO PROTHÉSISTE</td></tr><tr><td style="text-align: center;"><img src="legend/BPE_1_AUTREFORMATIONCONTINUE10.png" /></td><td>AUTRE FORMATION CONTINUE</td></tr><tr><td style="text-align: center;"><img src="legend/BPE_1_AUTREFORMATIONPOSTBACNONUNIVERSITAIRE11.png" /></td><td>AUTRE FORMATION POST BAC NON UNIVERSITAIRE</td></tr><tr><td style="text-align: center;"><img src="legend/BPE_1_AUTRESÉTABLISSEMENTSPOURADULTESETFAMILLESENDIFFICULTÉ12.png" /></td><td>AUTRES ÉTABLISSEMENTS POUR ADULTES ET FAMILLES EN DIFFICULTÉ</td></tr><tr><td style="text-align: center;"><img src="legend/BPE_1_BANQUECAISSEDÉPARGNE13.png" /></td><td>BANQUE, CAISSE D’ÉPARGNE</td></tr><tr><td style="text-align: center;"><img src="legend/BPE_1_BASSINDENATATION14.png" /></td><td>BASSIN DE NATATION</td></tr><tr><td style="text-align: center;"><img src="legend/BPE_1_BIBLIOTHÈQUE15.png" /></td><td>BIBLIOTHÈQUE</td></tr><tr><td style="text-align: center;"><img src="legend/BPE_1_BOUCHERIECHARCUTERIE16.png" /></td><td>BOUCHERIE CHARCUTERIE</td></tr><tr><td style="text-align: center;"><img src="legend/BPE_1_BOULANGERIE17.png" /></td><td>BOULANGERIE</td></tr><tr><td style="text-align: center;"><img src="legend/BPE_1_BOULODROME18.png" /></td><td>BOULODROME</td></tr><tr><td style="text-align: center;"><img src="legend/BPE_1_BOWLING19.png" /></td><td>BOWLING</td></tr><tr><td style="text-align: center;"><img src="legend/BPE_1_BUREAUDAIDEJURIDICTIONNELLEBAJ20.png" /></td><td>BUREAU D’AIDE JURIDICTIONNELLE (BAJ)</td></tr><tr><td style="text-align: center;"><img src="legend/BPE_1_BUREAUDEPOSTE21.png" /></td><td>BUREAU DE POSTE</td></tr><tr><td style="text-align: center;"><img src="legend/BPE_1_CENTREDEFORMATIONDAPPRENTISHORSAGRICULTURE22.png" /></td><td>CENTRE DE FORMATION D’APPRENTIS HORS AGRICULTURE</td></tr><tr><td style="text-align: center;"><img src="legend/BPE_1_CENTREDESANTÉ23.png" /></td><td>CENTRE DE SANTÉ</td></tr><tr><td style="text-align: center;"><img src="legend/BPE_1_CHIRURGIENDENTISTE24.png" /></td><td>CHIRURGIEN DENTISTE</td></tr><tr><td style="text-align: center;"><img src="legend/BPE_1_CHRSCENTREDHÉBERGEMENTETDERÉINSERTIONSOCIALE25.png" /></td><td>CHRS : CENTRE D’HÉBERGEMENT ET DE RÉINSERTION SOCIALE</td></tr><tr><td style="text-align: center;"><img src="legend/BPE_1_CINÉMA26.png" /></td><td>CINÉMA</td></tr><tr><td style="text-align: center;"><img src="legend/BPE_1_COIFFURE27.png" /></td><td>COIFFURE</td></tr><tr><td style="text-align: center;"><img src="legend/BPE_1_COLLÈGE28.png" /></td><td>COLLÈGE</td></tr><tr><td style="text-align: center;"><img src="legend/BPE_1_CONSEILDÉPARTEMENTALDACCÈSAUDROITCDAD29.png" /></td><td>CONSEIL DÉPARTEMENTAL D’ACCÈS AU DROIT (CDAD)</td></tr><tr><td style="text-align: center;"><img src="legend/BPE_1_CONSERVATOIRE30.png" /></td><td>CONSERVATOIRE</td></tr><tr><td style="text-align: center;"><img src="legend/BPE_1_CONTRÔLETECHNIQUEAUTOMOBILE31.png" /></td><td>CONTRÔLE TECHNIQUE AUTOMOBILE</td></tr><tr><td style="text-align: center;"><img src="legend/BPE_1_DIALYSE32.png" /></td><td>DIALYSE</td></tr><tr><td style="text-align: center;"><img src="legend/BPE_1_DIÉTÉTICIEN33.png" /></td><td>DIÉTÉTICIEN</td></tr><tr><td style="text-align: center;"><img src="legend/BPE_1_DRFIPDIRECTIONRÉGIONALEDESFINANCESPUBLIQUES34.png" /></td><td>DRFIP (DIRECTION RÉGIONALE  DES FINANCES PUBLIQUES)</td></tr><tr><td style="text-align: center;"><img src="legend/BPE_1_DROGUERIEQUINCAILLERIEBRICOLAGE35.png" /></td><td>DROGUERIE QUINCAILLERIE BRICOLAGE</td></tr><tr><td style="text-align: center;"><img src="legend/BPE_1_ÉCOLEDECONDUITE36.png" /></td><td>ÉCOLE DE CONDUITE</td></tr><tr><td style="text-align: center;"><img src="legend/BPE_1_ÉCOLEÉLÉMENTAIRE37.png" /></td><td>ÉCOLE ÉLÉMENTAIRE</td></tr><tr><td style="text-align: center;"><img src="legend/BPE_1_ÉCOLEMATERNELLE38.png" /></td><td>ÉCOLE MATERNELLE</td></tr><tr><td style="text-align: center;"><img src="legend/BPE_1_ÉLECTRICIEN39.png" /></td><td>ÉLECTRICIEN</td></tr><tr><td style="text-align: center;"><img src="legend/BPE_1_ENFANTSHANDICAPÉSHÉBERGEMENT40.png" /></td><td>ENFANTS HANDICAPÉS : HÉBERGEMENT</td></tr><tr><td style="text-align: center;"><img src="legend/BPE_1_ENSEIGNEMENTGÉNÉRALSUPÉRIEURPRIVÉ41.png" /></td><td>ENSEIGNEMENT GÉNÉRAL SUPÉRIEUR PRIVÉ</td></tr><tr><td style="text-align: center;"><img src="legend/BPE_1_ENTREPRISEGÉNÉRALEDUBÂTIMENT42.png" /></td><td>ENTREPRISE GÉNÉRALE DU BÂTIMENT</td></tr><tr><td style="text-align: center;"><img src="legend/BPE_1_ÉPICERIE43.png" /></td><td>ÉPICERIE</td></tr><tr><td style="text-align: center;"><img src="legend/BPE_1_ERGOTHÉRAPEUTE44.png" /></td><td>ERGOTHÉRAPEUTE</td></tr><tr><td style="text-align: center;"><img src="legend/BPE_1_ÉTABLISSEMENTDACCUEILDUJEUNEENFANTEAJE45.png" /></td><td>ÉTABLISSEMENT D’ACCUEIL DU JEUNE ENFANT (EAJE)</td></tr><tr><td style="text-align: center;"><img src="legend/BPE_1_ÉTABLISSEMENTPSYCHIATRIQUE46.png" /></td><td>ÉTABLISSEMENT PSYCHIATRIQUE</td></tr><tr><td style="text-align: center;"><img src="legend/BPE_1_ÉTABLISSEMENTSANTÉCOURTSÉJOUR47.png" /></td><td>ÉTABLISSEMENT SANTÉ COURT SÉJOUR</td></tr><tr><td style="text-align: center;"><img src="legend/BPE_1_ÉTABLISSEMENTSANTÉMOYENSÉJOUR48.png" /></td><td>ÉTABLISSEMENT SANTÉ MOYEN SÉJOUR</td></tr><tr><td style="text-align: center;"><img src="legend/BPE_1_EXPOSITIONETMEDIATIONCULTURELLE49.png" /></td><td>EXPOSITION ET MEDIATION CULTURELLE</td></tr><tr><td style="text-align: center;"><img src="legend/BPE_1_FLEURISTEJARDINERIEANIMALERIE50.png" /></td><td>FLEURISTE-JARDINERIE-ANIMALERIE</td></tr><tr><td style="text-align: center;"><img src="legend/BPE_1_FORMATIONCOMMERCE51.png" /></td><td>FORMATION COMMERCE</td></tr><tr><td style="text-align: center;"><img src="legend/BPE_1_FORMATIONSANTÉ52.png" /></td><td>FORMATION SANTÉ</td></tr><tr><td style="text-align: center;"><img src="legend/BPE_1_GAREDEVOYAGEURSDINTÉRÊTRÉGIONAL53.png" /></td><td>GARE DE VOYAGEURS D’INTÉRÊT RÉGIONAL</td></tr><tr><td style="text-align: center;"><img src="legend/BPE_1_GRANDESURFACEDEBRICOLAGE54.png" /></td><td>GRANDE SURFACE DE BRICOLAGE</td></tr><tr><td style="text-align: center;"><img src="legend/BPE_1_GRETA55.png" /></td><td>GRETA</td></tr><tr><td style="text-align: center;"><img src="legend/BPE_1_HORLOGERIEBIJOUTERIE56.png" /></td><td>HORLOGERIE-BIJOUTERIE</td></tr><tr><td style="text-align: center;"><img src="legend/BPE_1_HÔTEL57.png" /></td><td>HÔTEL</td></tr><tr><td style="text-align: center;"><img src="legend/BPE_1_HYPERMARCHÉ58.png" /></td><td>HYPERMARCHÉ</td></tr><tr><td style="text-align: center;"><img src="legend/BPE_1_INFIRMIER59.png" /></td><td>INFIRMIER</td></tr><tr><td style="text-align: center;"><img src="legend/BPE_1_INFORMATIONTOURISTIQUE60.png" /></td><td>INFORMATION TOURISTIQUE</td></tr><tr><td style="text-align: center;"><img src="legend/BPE_1_INSTITUTDEBEAUTÉONGLERIE61.png" /></td><td>INSTITUT DE BEAUTÉ-ONGLERIE</td></tr><tr><td style="text-align: center;"><img src="legend/BPE_1_LABORATOIREDANALYSESETDEBIOLOGIEMÉDICALE62.png" /></td><td>LABORATOIRE D ANALYSES ET DE BIOLOGIE MÉDICALE</td></tr><tr><td style="text-align: center;"><img src="legend/BPE_1_LIBRAIRIEPAPETERIEJOURNAUX63.png" /></td><td>LIBRAIRIE, PAPETERIE, JOURNAUX</td></tr><tr><td style="text-align: center;"><img src="legend/BPE_1_LIVRESETPRESSE64.png" /></td><td>LIVRES ET PRESSE</td></tr><tr><td style="text-align: center;"><img src="legend/BPE_1_LOCATIONAUTOUTILITAIRESLÉGERS65.png" /></td><td>LOCATION AUTO-UTILITAIRES LÉGERS</td></tr><tr><td style="text-align: center;"><img src="legend/BPE_1_LYCÉEDENSEIGNEMENTGÉNÉRALETOUTECHNOLOGIQUE66.png" /></td><td>LYCÉE D’ENSEIGNEMENT GÉNÉRAL ET/OU TECHNOLOGIQUE</td></tr><tr><td style="text-align: center;"><img src="legend/BPE_1_LYCÉEDENSEIGNEMENTPROFESSIONNEL67.png" /></td><td>LYCÉE D’ENSEIGNEMENT PROFESSIONNEL</td></tr><tr><td style="text-align: center;"><img src="legend/BPE_1_MAÇON68.png" /></td><td>MAÇON</td></tr><tr><td style="text-align: center;"><img src="legend/BPE_1_MAGASINDARTICLESDESPORTSETDELOISIRS69.png" /></td><td>MAGASIN D’ARTICLES DE SPORTS ET DE LOISIRS</td></tr><tr><td style="text-align: center;"><img src="legend/BPE_1_MAGASINDÉLECTROMÉNAGERETDEMATAUDIOVIDEO70.png" /></td><td>MAGASIN D’ÉLECTROMÉNAGER ET DE MAT. AUDIO-VIDEO</td></tr><tr><td style="text-align: center;"><img src="legend/BPE_1_MAGASINDÉQUIPEMENTSDUFOYER71.png" /></td><td>MAGASIN D’ÉQUIPEMENTS DU FOYER</td></tr><tr><td style="text-align: center;"><img src="legend/BPE_1_MAGASINDOPTIQUE72.png" /></td><td>MAGASIN D’OPTIQUE</td></tr><tr><td style="text-align: center;"><img src="legend/BPE_1_MAGASINDECHAUSSURES73.png" /></td><td>MAGASIN DE CHAUSSURES</td></tr><tr><td style="text-align: center;"><img src="legend/BPE_1_MAGASINDEMATÉRIELMÉDICALETORTHOPÉDIQUE74.png" /></td><td>MAGASIN DE MATÉRIEL MÉDICAL ET ORTHOPÉDIQUE</td></tr><tr><td style="text-align: center;"><img src="legend/BPE_1_MAGASINDEMEUBLES75.png" /></td><td>MAGASIN DE MEUBLES</td></tr><tr><td style="text-align: center;"><img src="legend/BPE_1_MAGASINDEREVÊTEMENTSMURSETSOLS76.png" /></td><td>MAGASIN DE REVÊTEMENTS MURS ET SOLS</td></tr><tr><td style="text-align: center;"><img src="legend/BPE_1_MAGASINDEVÊTEMENTS77.png" /></td><td>MAGASIN DE VÊTEMENTS</td></tr><tr><td style="text-align: center;"><img src="legend/BPE_1_MAISONDEJUSTICEETDUDROIT78.png" /></td><td>MAISON DE JUSTICE ET DU DROIT</td></tr><tr><td style="text-align: center;"><img src="legend/BPE_1_MASSEURKINÉSITHÉRAPEUTE79.png" /></td><td>MASSEUR KINÉSITHÉRAPEUTE</td></tr><tr><td style="text-align: center;"><img src="legend/BPE_1_MATERNITÉ80.png" /></td><td>MATERNITÉ</td></tr><tr><td style="text-align: center;"><img src="legend/BPE_1_MÉDECINGÉNÉRALISTE81.png" /></td><td>MÉDECIN GÉNÉRALISTE</td></tr><tr><td style="text-align: center;"><img src="legend/BPE_1_MENUISIERCHARPENTIERSERRURIER82.png" /></td><td>MENUISIER CHARPENTIER SERRURIER</td></tr><tr><td style="text-align: center;"><img src="legend/BPE_1_ORTHOPHONISTE83.png" /></td><td>ORTHOPHONISTE</td></tr><tr><td style="text-align: center;"><img src="legend/BPE_1_ORTHOPTISTE84.png" /></td><td>ORTHOPTISTE</td></tr><tr><td style="text-align: center;"><img src="legend/BPE_1_PARFUMERIECOSMÉTIQUE85.png" /></td><td>PARFUMERIE-COSMÉTIQUE</td></tr><tr><td style="text-align: center;"><img src="legend/BPE_1_PÉDICUREPODOLOGUE86.png" /></td><td>PÉDICURE-PODOLOGUE</td></tr><tr><td style="text-align: center;"><img src="legend/BPE_1_PERSONNESÂGÉESHÉBERGEMENT87.png" /></td><td>PERSONNES ÂGÉES : HÉBERGEMENT</td></tr><tr><td style="text-align: center;"><img src="legend/BPE_1_PERSONNESÂGÉESSERVICESDAIDE88.png" /></td><td>PERSONNES ÂGÉES : SERVICES D’AIDE</td></tr><tr><td style="text-align: center;"><img src="legend/BPE_1_PERSONNESÂGÉESSOINSÀDOMICILE89.png" /></td><td>PERSONNES ÂGÉES : SOINS À DOMICILE</td></tr><tr><td style="text-align: center;"><img src="legend/BPE_1_PHARMACIE90.png" /></td><td>PHARMACIE</td></tr><tr><td style="text-align: center;"><img src="legend/BPE_1_PLATEAUXETTERRAINSDEJEUXEXTÉRIEURS91.png" /></td><td>PLATEAUX ET TERRAINS DE JEUX EXTÉRIEURS</td></tr><tr><td style="text-align: center;"><img src="legend/BPE_1_PLÂTRIERPEINTRE92.png" /></td><td>PLÂTRIER PEINTRE</td></tr><tr><td style="text-align: center;"><img src="legend/BPE_1_PLOMBIERCOUVREURCHAUFFAGISTE93.png" /></td><td>PLOMBIER COUVREUR CHAUFFAGISTE</td></tr><tr><td style="text-align: center;"><img src="legend/BPE_1_POISSONNERIE94.png" /></td><td>POISSONNERIE</td></tr><tr><td style="text-align: center;"><img src="legend/BPE_1_POLICE95.png" /></td><td>POLICE</td></tr><tr><td style="text-align: center;"><img src="legend/BPE_1_PRESSINGLAVERIEAUTOMATIQUE96.png" /></td><td>PRESSING-LAVERIE AUTOMATIQUE</td></tr><tr><td style="text-align: center;"><img src="legend/BPE_1_PRODUITSSURGELÉS97.png" /></td><td>PRODUITS SURGELÉS</td></tr><tr><td style="text-align: center;"><img src="legend/BPE_1_PROTECTIONDELENFANCEHÉBERGEMENT98.png" /></td><td>PROTECTION DE L’ENFANCE - HÉBERGEMENT</td></tr><tr><td style="text-align: center;"><img src="legend/BPE_1_PSYCHOLOGUE99.png" /></td><td>PSYCHOLOGUE</td></tr><tr><td style="text-align: center;"><img src="legend/BPE_1_PSYCHOMOTRICIEN100.png" /></td><td>PSYCHOMOTRICIEN</td></tr><tr><td style="text-align: center;"><img src="legend/BPE_1_RELAISPOSTE101.png" /></td><td>RELAIS POSTE</td></tr><tr><td style="text-align: center;"><img src="legend/BPE_1_RÉPARATIONAUTOMOBILEETDEMATÉRIELAGRICOLE102.png" /></td><td>RÉPARATION AUTOMOBILE ET DE MATÉRIEL AGRICOLE</td></tr><tr><td style="text-align: center;"><img src="legend/BPE_1_RÉSEAUDEPROXIMITÉPÔLEEMPLOI103.png" /></td><td>RÉSEAU DE PROXIMITÉ PÔLE EMPLOI</td></tr><tr><td style="text-align: center;"><img src="legend/BPE_1_RÉSIDENCEUNIVERSITAIRE104.png" /></td><td>RÉSIDENCE UNIVERSITAIRE</td></tr><tr><td style="text-align: center;"><img src="legend/BPE_1_RESTAURANTUNIVERSITAIRE105.png" /></td><td>RESTAURANT UNIVERSITAIRE</td></tr><tr><td style="text-align: center;"><img src="legend/BPE_1_RESTAURANTRESTAURATIONRAPIDE106.png" /></td><td>RESTAURANT- RESTAURATION RAPIDE</td></tr><tr><td style="text-align: center;"><img src="legend/BPE_1_ROLLERSKATEVÉLOBICROSSOUFREESTYLE107.png" /></td><td>ROLLER-SKATE-VÉLO BICROSS OU FREESTYLE</td></tr><tr><td style="text-align: center;"><img src="legend/BPE_1_SAGEFEMME108.png" /></td><td>SAGE-FEMME</td></tr><tr><td style="text-align: center;"><img src="legend/BPE_1_SALLESDECOMBAT109.png" /></td><td>SALLES DE COMBAT</td></tr><tr><td style="text-align: center;"><img src="legend/BPE_1_SALLESDEREMISEENFORME110.png" /></td><td>SALLES DE REMISE EN FORME</td></tr><tr><td style="text-align: center;"><img src="legend/BPE_1_SALLESMULTISPORTSGYMNASES111.png" /></td><td>SALLES MULTISPORTS (GYMNASES)</td></tr><tr><td style="text-align: center;"><img src="legend/BPE_1_SALLESNONSPÉCIALISÉES112.png" /></td><td>SALLES NON SPÉCIALISÉES</td></tr><tr><td style="text-align: center;"><img src="legend/BPE_1_SALLESSPÉCIALISÉES113.png" /></td><td>SALLES SPÉCIALISÉES</td></tr><tr><td style="text-align: center;"><img src="legend/BPE_1_SEPSECTIONDENSEIGNEMENTPROFESSIONNEL114.png" /></td><td>SEP SECTION D’ENSEIGNEMENT PROFESSIONNEL</td></tr><tr><td style="text-align: center;"><img src="legend/BPE_1_SERVICESFUNÉRAIRES115.png" /></td><td>SERVICES FUNÉRAIRES</td></tr><tr><td style="text-align: center;"><img src="legend/BPE_1_SPÉCIALISTEENCARDIOLOGIE116.png" /></td><td>SPÉCIALISTE EN CARDIOLOGIE</td></tr><tr><td style="text-align: center;"><img src="legend/BPE_1_SPÉCIALISTEENDERMATOLOGIEVÉNÉRÉOLOGIE117.png" /></td><td>SPÉCIALISTE EN DERMATOLOGIE VÉNÉRÉOLOGIE</td></tr><tr><td style="text-align: center;"><img src="legend/BPE_1_SPÉCIALISTEENGASTROENTÉROLOGIEHÉPATOLOGIE118.png" /></td><td>SPÉCIALISTE EN GASTRO-ENTÉROLOGIE HÉPATOLOGIE</td></tr><tr><td style="text-align: center;"><img src="legend/BPE_1_SPÉCIALISTEENGYNÉCOLOGIEMÉDICALEETOUOBSTÉTRIQUE119.png" /></td><td>SPÉCIALISTE EN GYNÉCOLOGIE (MÉDICALE ET/OU OBSTÉTRIQUE)</td></tr><tr><td style="text-align: center;"><img src="legend/BPE_1_SPÉCIALISTEENOPHTALMOLOGIE120.png" /></td><td>SPÉCIALISTE EN OPHTALMOLOGIE</td></tr><tr><td style="text-align: center;"><img src="legend/BPE_1_SPÉCIALISTEENOTORHINOLARYNGOLOGIE121.png" /></td><td>SPÉCIALISTE EN OTO-RHINO-LARYNGOLOGIE</td></tr><tr><td style="text-align: center;"><img src="legend/BPE_1_SPÉCIALISTEENPÉDIATRIE122.png" /></td><td>SPÉCIALISTE EN PÉDIATRIE</td></tr><tr><td style="text-align: center;"><img src="legend/BPE_1_SPÉCIALISTEENPNEUMOLOGIE123.png" /></td><td>SPÉCIALISTE EN PNEUMOLOGIE</td></tr><tr><td style="text-align: center;"><img src="legend/BPE_1_SPÉCIALISTEENPSYCHIATRIE124.png" /></td><td>SPÉCIALISTE EN PSYCHIATRIE</td></tr><tr><td style="text-align: center;"><img src="legend/BPE_1_SPÉCIALISTEENRADIODIAGNOSTICETIMAGERIEMÉDICALE125.png" /></td><td>SPÉCIALISTE EN RADIODIAGNOSTIC ET IMAGERIE MÉDICALE</td></tr><tr><td style="text-align: center;"><img src="legend/BPE_1_SPÉCIALISTEENSTOMATOLOGIE126.png" /></td><td>SPÉCIALISTE EN STOMATOLOGIE</td></tr><tr><td style="text-align: center;"><img src="legend/BPE_1_STATIONSERVICE127.png" /></td><td>STATION-SERVICE</td></tr><tr><td style="text-align: center;"><img src="legend/BPE_1_STRUCTUREPSYCHIATRIQUEENAMBULATOIRE128.png" /></td><td>STRUCTURE PSYCHIATRIQUE EN AMBULATOIRE</td></tr><tr><td style="text-align: center;"><img src="legend/BPE_1_STSSECTIONTECHNICIENSUPÉRIEURCPGECLASSEPRÉPARATOIREAUXGRANDESÉCOLES129.png" /></td><td>STS SECTION TECHNICIEN SUPÉRIEUR, CPGE CLASSE PRÉPARATOIRE AUX GRANDES ÉCOLES</td></tr><tr><td style="text-align: center;"><img src="legend/BPE_1_SUPÉRETTE130.png" /></td><td>SUPÉRETTE</td></tr><tr><td style="text-align: center;"><img src="legend/BPE_1_SUPERMARCHÉ131.png" /></td><td>SUPERMARCHÉ</td></tr><tr><td style="text-align: center;"><img src="legend/BPE_1_TAXIVTC132.png" /></td><td>TAXI-VTC</td></tr><tr><td style="text-align: center;"><img src="legend/BPE_1_TENNIS133.png" /></td><td>TENNIS</td></tr><tr><td style="text-align: center;"><img src="legend/BPE_1_TERRAINSDEGRANDSJEUX134.png" /></td><td>TERRAINS DE GRANDS JEUX</td></tr><tr><td style="text-align: center;"><img src="legend/BPE_1_TRAVAILPROTÉGÉ135.png" /></td><td>TRAVAIL PROTÉGÉ</td></tr><tr><td style="text-align: center;"><img src="legend/BPE_1_TRIBUNALJUDICIAIRETJ136.png" /></td><td>TRIBUNAL JUDICIAIRE (TJ)</td></tr><tr><td style="text-align: center;"><img src="legend/BPE_1_UFR137.png" /></td><td>UFR</td></tr><tr><td style="text-align: center;"><img src="legend/BPE_1_VÉTÉRINAIRE138.png" /></td><td>VÉTÉRINAIRE</td></tr><tr><td style="text-align: center;"><img src="legend/BPE_1_139.png" /></td><td></td></tr></table>', layer: cluster_BPE_1},]},
+            {label: '<img src="legend/Bicycleparking_7.png" /> Bicycle parking', layer: layer_Bicycleparking_7},
+            {label: '<img src="legend/Bicyclerental_6.png" /> Bicycle rental', layer: layer_Bicyclerental_6},]},
+            {label: 'BPE<br /><table><tr><td style="text-align: center;"><img src="legend/BPE_5_Commerces0.png" /></td><td>Commerces</td></tr><tr><td style="text-align: center;"><img src="legend/BPE_5_Enseignement1.png" /></td><td>Enseignement</td></tr><tr><td style="text-align: center;"><img src="legend/BPE_5_Sante2.png" /></td><td>Sante</td></tr><tr><td style="text-align: center;"><img src="legend/BPE_5_Servicesauxparticuliers3.png" /></td><td>Services aux particuliers</td></tr><tr><td style="text-align: center;"><img src="legend/BPE_5_Sportsloisiretculture4.png" /></td><td>Sports, loisir et culture</td></tr><tr><td style="text-align: center;"><img src="legend/BPE_5_Tourisme5.png" /></td><td>Tourisme</td></tr><tr><td style="text-align: center;"><img src="legend/BPE_5_Transportetdeplacements6.png" /></td><td>Transport et deplacements</td></tr></table>', layer: layer_BPE_5},
+        {label: '<b>Limites administratives</b>', selectAllCheckbox: true, children: [
+            {label: '<img src="legend/IRIS17meArrondissement_4.png" /> IRIS 17ème Arrondissement', layer: layer_IRIS17meArrondissement_4},
+            {label: '<img src="legend/IRISEcoquartier_3.png" /> IRIS Ecoquartier', layer: layer_IRISEcoquartier_3},
+            {label: '<img src="legend/Ecoquartier_2.png" /> Ecoquartier', layer: layer_Ecoquartier_2},
+            {label: '<img src="legend/Arrondissements_1.png" /> Arrondissements', layer: layer_Arrondissements_1},]},
             {label: "OSM Standard", layer: layer_OSMStandard_0},]
         var lay = L.control.layers.tree(null, overlaysTree,{
             //namedToggle: true,
@@ -3280,16 +995,296 @@
         });
         lay.addTo(map);
         setBounds();
-        resetLabels([layer_Nombredindividu_2]);
-        map.on("zoomend", function(){
-            resetLabels([layer_Nombredindividu_2]);
-        });
-        map.on("layeradd", function(){
-            resetLabels([layer_Nombredindividu_2]);
-        });
-        map.on("layerremove", function(){
-            resetLabels([layer_Nombredindividu_2]);
-        });
+        var mapDiv = document.getElementById('map');
+        var row = document.createElement('div');
+        row.className="row";
+        row.id="all";
+        row.style.height = "100%";
+        var col1 = document.createElement('div');
+        col1.className="col9";
+        col1.id = "mapWindow";
+        col1.style.height = "99%";
+        col1.style.width = "80%";
+        col1.style.display = "inline-block";
+        var col2 = document.createElement('div');
+        col2.className="col3";
+        col2.id = "menu";
+        col2.style.display = "inline-block";
+        mapDiv.parentNode.insertBefore(row, mapDiv);
+        document.getElementById("all").appendChild(col1);
+        document.getElementById("all").appendChild(col2);
+        col1.appendChild(mapDiv)
+        var Filters = {"libelle": "str","Equipement": "str"};
+        function filterFunc() {
+          map.eachLayer(function(lyr){
+          if ("options" in lyr && "dataVar" in lyr["options"]){
+            features = this[lyr["options"]["dataVar"]].features.slice(0);
+            try{
+              for (key in Filters){
+                keyS = key.replace(/[^a-zA-Z0-9_]/g, "")
+                if (Filters[key] == "str" || Filters[key] == "bool"){
+                  var selection = [];
+                  var options = document.getElementById("sel_" + keyS).options
+                  for (var i=0; i < options.length; i++) {
+                    if (options[i].selected) selection.push(options[i].value);
+                  }
+                    try{
+                      if (key in features[0].properties){
+                        for (i = features.length - 1;
+                          i >= 0; --i){
+                          if (selection.indexOf(
+                          features[i].properties[key])<0
+                          && selection.length>0) {
+                          features.splice(i,1);
+                          }
+                        }
+                      }
+                    } catch(err){
+                  }
+                }
+                if (Filters[key] == "int"){
+                  sliderVals =  document.getElementById(
+                    "div_" + keyS).noUiSlider.get();
+                  try{
+                    if (key in features[0].properties){
+                    for (i = features.length - 1; i >= 0; --i){
+                      if (parseInt(features[i].properties[key])
+                          < sliderVals[0]
+                          || parseInt(features[i].properties[key])
+                          > sliderVals[1]){
+                            features.splice(i,1);
+                          }
+                        }
+                      }
+                    } catch(err){
+                    }
+                  }
+                if (Filters[key] == "real"){
+                  sliderVals =  document.getElementById(
+                    "div_" + keyS).noUiSlider.get();
+                  try{
+                    if (key in features[0].properties){
+                    for (i = features.length - 1; i >= 0; --i){
+                      if (features[i].properties[key]
+                          < sliderVals[0]
+                          || features[i].properties[key]
+                          > sliderVals[1]){
+                            features.splice(i,1);
+                          }
+                        }
+                      }
+                    } catch(err){
+                    }
+                  }
+                if (Filters[key] == "date"
+                  || Filters[key] == "datetime"
+                  || Filters[key] == "time"){
+                  try{
+                    if (key in features[0].properties){
+                      HTMLkey = key.replace(/[&\/\\#,+()$~%.'":*?<>{} ]/g, '');
+                      startdate = document.getElementById("dat_" +
+                        HTMLkey + "_date1").value.replace(" ", "T");
+                      enddate = document.getElementById("dat_" +
+                        HTMLkey + "_date2").value.replace(" ", "T");
+                      for (i = features.length - 1; i >= 0; --i){
+                        if (features[i].properties[key] < startdate
+                          || features[i].properties[key] > enddate){
+                          features.splice(i,1);
+                        }
+                      }
+                    }
+                  } catch(err){
+                  }
+                }
+              }
+            } catch(err){
+            }
+          this[lyr["options"]["layerName"]].clearLayers();
+          this[lyr["options"]["layerName"]].addData(features);
+          }
+          })
+        }
+            document.getElementById("menu").appendChild(
+                document.createElement("div"));
+            var div_libelle = document.createElement('div');
+            div_libelle.id = "div_libelle";
+            div_libelle.className= "filterselect";
+            document.getElementById("menu").appendChild(div_libelle);
+            sel_libelle = document.createElement('select');
+            sel_libelle.multiple = true;
+            sel_libelle.size = 10;
+            sel_libelle.id = "sel_libelle";
+            var libelle_options_str = "<option value='' unselected></option>";
+            sel_libelle.onchange = function(){filterFunc()};
+            libelle_options_str  += '<option value="NULL">NULL</option>';
+            libelle_options_str  += '<option value="ADULTES HANDICAPÉS : ACCUEIL/HÉBERGEMENT">ADULTES HANDICAPÉS : ACCUEIL/HÉBERGEMENT</option>';
+            libelle_options_str  += '<option value="ADULTES HANDICAPÉS : SERVICES DE SOINS À DOMICILE">ADULTES HANDICAPÉS : SERVICES DE SOINS À DOMICILE</option>';
+            libelle_options_str  += '<option value="ADULTES HANDICAPÉS : SERVICES D’AIDE">ADULTES HANDICAPÉS : SERVICES D’AIDE</option>';
+            libelle_options_str  += '<option value="AGENCE DE TRAVAIL TEMPORAIRE">AGENCE DE TRAVAIL TEMPORAIRE</option>';
+            libelle_options_str  += '<option value="AGENCE DE VOYAGE">AGENCE DE VOYAGE</option>';
+            libelle_options_str  += '<option value="AGENCE IMMOBILIÈRE">AGENCE IMMOBILIÈRE</option>';
+            libelle_options_str  += '<option value="AMBULANCE">AMBULANCE</option>';
+            libelle_options_str  += '<option value="ARTS DU SPECTACLE">ARTS DU SPECTACLE</option>';
+            libelle_options_str  += '<option value="ATHLÉTISME">ATHLÉTISME</option>';
+            libelle_options_str  += '<option value="AUDIO PROTHÉSISTE">AUDIO PROTHÉSISTE</option>';
+            libelle_options_str  += '<option value="AUTRE FORMATION CONTINUE">AUTRE FORMATION CONTINUE</option>';
+            libelle_options_str  += '<option value="AUTRE FORMATION POST BAC NON UNIVERSITAIRE">AUTRE FORMATION POST BAC NON UNIVERSITAIRE</option>';
+            libelle_options_str  += '<option value="AUTRES ÉTABLISSEMENTS POUR ADULTES ET FAMILLES EN DIFFICULTÉ">AUTRES ÉTABLISSEMENTS POUR ADULTES ET FAMILLES EN DIFFICULTÉ</option>';
+            libelle_options_str  += '<option value="BANQUE, CAISSE D’ÉPARGNE">BANQUE, CAISSE D’ÉPARGNE</option>';
+            libelle_options_str  += '<option value="BASSIN DE NATATION">BASSIN DE NATATION</option>';
+            libelle_options_str  += '<option value="BIBLIOTHÈQUE">BIBLIOTHÈQUE</option>';
+            libelle_options_str  += '<option value="BOULODROME">BOULODROME</option>';
+            libelle_options_str  += '<option value="BOWLING">BOWLING</option>';
+            libelle_options_str  += '<option value="BUREAU DE POSTE">BUREAU DE POSTE</option>';
+            libelle_options_str  += '<option value="BUREAU D’AIDE JURIDICTIONNELLE (BAJ)">BUREAU D’AIDE JURIDICTIONNELLE (BAJ)</option>';
+            libelle_options_str  += '<option value="CENTRE DE FORMATION D’APPRENTIS HORS AGRICULTURE">CENTRE DE FORMATION D’APPRENTIS HORS AGRICULTURE</option>';
+            libelle_options_str  += '<option value="CENTRE DE SANTÉ">CENTRE DE SANTÉ</option>';
+            libelle_options_str  += '<option value="CHIRURGIEN DENTISTE">CHIRURGIEN DENTISTE</option>';
+            libelle_options_str  += '<option value="CHRS : CENTRE D’HÉBERGEMENT ET DE RÉINSERTION SOCIALE">CHRS : CENTRE D’HÉBERGEMENT ET DE RÉINSERTION SOCIALE</option>';
+            libelle_options_str  += '<option value="CINÉMA">CINÉMA</option>';
+            libelle_options_str  += '<option value="COIFFURE">COIFFURE</option>';
+            libelle_options_str  += '<option value="COLLÈGE">COLLÈGE</option>';
+            libelle_options_str  += '<option value="CONSEIL DÉPARTEMENTAL D’ACCÈS AU DROIT (CDAD)">CONSEIL DÉPARTEMENTAL D’ACCÈS AU DROIT (CDAD)</option>';
+            libelle_options_str  += '<option value="CONSERVATOIRE">CONSERVATOIRE</option>';
+            libelle_options_str  += '<option value="CONTRÔLE TECHNIQUE AUTOMOBILE">CONTRÔLE TECHNIQUE AUTOMOBILE</option>';
+            libelle_options_str  += '<option value="DIALYSE">DIALYSE</option>';
+            libelle_options_str  += '<option value="DIÉTÉTICIEN">DIÉTÉTICIEN</option>';
+            libelle_options_str  += '<option value="DRFIP (DIRECTION RÉGIONALE  DES FINANCES PUBLIQUES)">DRFIP (DIRECTION RÉGIONALE  DES FINANCES PUBLIQUES)</option>';
+            libelle_options_str  += '<option value="ENFANTS HANDICAPÉS : HÉBERGEMENT">ENFANTS HANDICAPÉS : HÉBERGEMENT</option>';
+            libelle_options_str  += '<option value="ENSEIGNEMENT GÉNÉRAL SUPÉRIEUR PRIVÉ">ENSEIGNEMENT GÉNÉRAL SUPÉRIEUR PRIVÉ</option>';
+            libelle_options_str  += '<option value="ENTREPRISE GÉNÉRALE DU BÂTIMENT">ENTREPRISE GÉNÉRALE DU BÂTIMENT</option>';
+            libelle_options_str  += '<option value="ERGOTHÉRAPEUTE">ERGOTHÉRAPEUTE</option>';
+            libelle_options_str  += '<option value="EXPOSITION ET MEDIATION CULTURELLE">EXPOSITION ET MEDIATION CULTURELLE</option>';
+            libelle_options_str  += '<option value="FORMATION COMMERCE">FORMATION COMMERCE</option>';
+            libelle_options_str  += '<option value="FORMATION SANTÉ">FORMATION SANTÉ</option>';
+            libelle_options_str  += '<option value="GARE DE VOYAGEURS D’INTÉRÊT RÉGIONAL">GARE DE VOYAGEURS D’INTÉRÊT RÉGIONAL</option>';
+            libelle_options_str  += '<option value="GRETA">GRETA</option>';
+            libelle_options_str  += '<option value="HÔTEL">HÔTEL</option>';
+            libelle_options_str  += '<option value="INFIRMIER">INFIRMIER</option>';
+            libelle_options_str  += '<option value="INFORMATION TOURISTIQUE">INFORMATION TOURISTIQUE</option>';
+            libelle_options_str  += '<option value="INSTITUT DE BEAUTÉ-ONGLERIE">INSTITUT DE BEAUTÉ-ONGLERIE</option>';
+            libelle_options_str  += '<option value="LABORATOIRE D ANALYSES ET DE BIOLOGIE MÉDICALE">LABORATOIRE D ANALYSES ET DE BIOLOGIE MÉDICALE</option>';
+            libelle_options_str  += '<option value="LIVRES ET PRESSE">LIVRES ET PRESSE</option>';
+            libelle_options_str  += '<option value="LOCATION AUTO-UTILITAIRES LÉGERS">LOCATION AUTO-UTILITAIRES LÉGERS</option>';
+            libelle_options_str  += '<option value="LYCÉE D’ENSEIGNEMENT GÉNÉRAL ET/OU TECHNOLOGIQUE">LYCÉE D’ENSEIGNEMENT GÉNÉRAL ET/OU TECHNOLOGIQUE</option>';
+            libelle_options_str  += '<option value="LYCÉE D’ENSEIGNEMENT PROFESSIONNEL">LYCÉE D’ENSEIGNEMENT PROFESSIONNEL</option>';
+            libelle_options_str  += '<option value="MAISON DE JUSTICE ET DU DROIT">MAISON DE JUSTICE ET DU DROIT</option>';
+            libelle_options_str  += '<option value="MASSEUR KINÉSITHÉRAPEUTE">MASSEUR KINÉSITHÉRAPEUTE</option>';
+            libelle_options_str  += '<option value="MATERNITÉ">MATERNITÉ</option>';
+            libelle_options_str  += '<option value="MAÇON">MAÇON</option>';
+            libelle_options_str  += '<option value="MENUISIER CHARPENTIER SERRURIER">MENUISIER CHARPENTIER SERRURIER</option>';
+            libelle_options_str  += '<option value="MÉDECIN GÉNÉRALISTE">MÉDECIN GÉNÉRALISTE</option>';
+            libelle_options_str  += '<option value="ORTHOPHONISTE">ORTHOPHONISTE</option>';
+            libelle_options_str  += '<option value="ORTHOPTISTE">ORTHOPTISTE</option>';
+            libelle_options_str  += '<option value="PERSONNES ÂGÉES : HÉBERGEMENT">PERSONNES ÂGÉES : HÉBERGEMENT</option>';
+            libelle_options_str  += '<option value="PERSONNES ÂGÉES : SERVICES D’AIDE">PERSONNES ÂGÉES : SERVICES D’AIDE</option>';
+            libelle_options_str  += '<option value="PERSONNES ÂGÉES : SOINS À DOMICILE">PERSONNES ÂGÉES : SOINS À DOMICILE</option>';
+            libelle_options_str  += '<option value="PHARMACIE">PHARMACIE</option>';
+            libelle_options_str  += '<option value="PLATEAUX ET TERRAINS DE JEUX EXTÉRIEURS">PLATEAUX ET TERRAINS DE JEUX EXTÉRIEURS</option>';
+            libelle_options_str  += '<option value="PLOMBIER COUVREUR CHAUFFAGISTE">PLOMBIER COUVREUR CHAUFFAGISTE</option>';
+            libelle_options_str  += '<option value="PLÂTRIER PEINTRE">PLÂTRIER PEINTRE</option>';
+            libelle_options_str  += '<option value="POLICE">POLICE</option>';
+            libelle_options_str  += '<option value="PRESSING-LAVERIE AUTOMATIQUE">PRESSING-LAVERIE AUTOMATIQUE</option>';
+            libelle_options_str  += '<option value="PROTECTION DE L’ENFANCE - HÉBERGEMENT">PROTECTION DE L’ENFANCE - HÉBERGEMENT</option>';
+            libelle_options_str  += '<option value="PSYCHOLOGUE">PSYCHOLOGUE</option>';
+            libelle_options_str  += '<option value="PSYCHOMOTRICIEN">PSYCHOMOTRICIEN</option>';
+            libelle_options_str  += '<option value="PÉDICURE-PODOLOGUE">PÉDICURE-PODOLOGUE</option>';
+            libelle_options_str  += '<option value="RELAIS POSTE">RELAIS POSTE</option>';
+            libelle_options_str  += '<option value="RESTAURANT UNIVERSITAIRE">RESTAURANT UNIVERSITAIRE</option>';
+            libelle_options_str  += '<option value="RESTAURANT- RESTAURATION RAPIDE">RESTAURANT- RESTAURATION RAPIDE</option>';
+            libelle_options_str  += '<option value="ROLLER-SKATE-VÉLO BICROSS OU FREESTYLE">ROLLER-SKATE-VÉLO BICROSS OU FREESTYLE</option>';
+            libelle_options_str  += '<option value="RÉPARATION AUTOMOBILE ET DE MATÉRIEL AGRICOLE">RÉPARATION AUTOMOBILE ET DE MATÉRIEL AGRICOLE</option>';
+            libelle_options_str  += '<option value="RÉSEAU DE PROXIMITÉ PÔLE EMPLOI">RÉSEAU DE PROXIMITÉ PÔLE EMPLOI</option>';
+            libelle_options_str  += '<option value="RÉSIDENCE UNIVERSITAIRE">RÉSIDENCE UNIVERSITAIRE</option>';
+            libelle_options_str  += '<option value="SAGE-FEMME">SAGE-FEMME</option>';
+            libelle_options_str  += '<option value="SALLES DE COMBAT">SALLES DE COMBAT</option>';
+            libelle_options_str  += '<option value="SALLES DE REMISE EN FORME">SALLES DE REMISE EN FORME</option>';
+            libelle_options_str  += '<option value="SALLES MULTISPORTS (GYMNASES)">SALLES MULTISPORTS (GYMNASES)</option>';
+            libelle_options_str  += '<option value="SALLES NON SPÉCIALISÉES">SALLES NON SPÉCIALISÉES</option>';
+            libelle_options_str  += '<option value="SALLES SPÉCIALISÉES">SALLES SPÉCIALISÉES</option>';
+            libelle_options_str  += '<option value="SEP SECTION D’ENSEIGNEMENT PROFESSIONNEL">SEP SECTION D’ENSEIGNEMENT PROFESSIONNEL</option>';
+            libelle_options_str  += '<option value="SERVICES FUNÉRAIRES">SERVICES FUNÉRAIRES</option>';
+            libelle_options_str  += '<option value="SPÉCIALISTE EN CARDIOLOGIE">SPÉCIALISTE EN CARDIOLOGIE</option>';
+            libelle_options_str  += '<option value="SPÉCIALISTE EN DERMATOLOGIE VÉNÉRÉOLOGIE">SPÉCIALISTE EN DERMATOLOGIE VÉNÉRÉOLOGIE</option>';
+            libelle_options_str  += '<option value="SPÉCIALISTE EN GASTRO-ENTÉROLOGIE HÉPATOLOGIE">SPÉCIALISTE EN GASTRO-ENTÉROLOGIE HÉPATOLOGIE</option>';
+            libelle_options_str  += '<option value="SPÉCIALISTE EN GYNÉCOLOGIE (MÉDICALE ET/OU OBSTÉTRIQUE)">SPÉCIALISTE EN GYNÉCOLOGIE (MÉDICALE ET/OU OBSTÉTRIQUE)</option>';
+            libelle_options_str  += '<option value="SPÉCIALISTE EN OPHTALMOLOGIE">SPÉCIALISTE EN OPHTALMOLOGIE</option>';
+            libelle_options_str  += '<option value="SPÉCIALISTE EN OTO-RHINO-LARYNGOLOGIE">SPÉCIALISTE EN OTO-RHINO-LARYNGOLOGIE</option>';
+            libelle_options_str  += '<option value="SPÉCIALISTE EN PNEUMOLOGIE">SPÉCIALISTE EN PNEUMOLOGIE</option>';
+            libelle_options_str  += '<option value="SPÉCIALISTE EN PSYCHIATRIE">SPÉCIALISTE EN PSYCHIATRIE</option>';
+            libelle_options_str  += '<option value="SPÉCIALISTE EN PÉDIATRIE">SPÉCIALISTE EN PÉDIATRIE</option>';
+            libelle_options_str  += '<option value="SPÉCIALISTE EN RADIODIAGNOSTIC ET IMAGERIE MÉDICALE">SPÉCIALISTE EN RADIODIAGNOSTIC ET IMAGERIE MÉDICALE</option>';
+            libelle_options_str  += '<option value="SPÉCIALISTE EN STOMATOLOGIE">SPÉCIALISTE EN STOMATOLOGIE</option>';
+            libelle_options_str  += '<option value="STRUCTURE PSYCHIATRIQUE EN AMBULATOIRE">STRUCTURE PSYCHIATRIQUE EN AMBULATOIRE</option>';
+            libelle_options_str  += '<option value="STS SECTION TECHNICIEN SUPÉRIEUR, CPGE CLASSE PRÉPARATOIRE AUX GRANDES ÉCOLES">STS SECTION TECHNICIEN SUPÉRIEUR, CPGE CLASSE PRÉPARATOIRE AUX GRANDES ÉCOLES</option>';
+            libelle_options_str  += '<option value="TAXI-VTC">TAXI-VTC</option>';
+            libelle_options_str  += '<option value="TENNIS">TENNIS</option>';
+            libelle_options_str  += '<option value="TERRAINS DE GRANDS JEUX">TERRAINS DE GRANDS JEUX</option>';
+            libelle_options_str  += '<option value="TRAVAIL PROTÉGÉ">TRAVAIL PROTÉGÉ</option>';
+            libelle_options_str  += '<option value="TRIBUNAL JUDICIAIRE (TJ)">TRIBUNAL JUDICIAIRE (TJ)</option>';
+            libelle_options_str  += '<option value="UFR">UFR</option>';
+            libelle_options_str  += '<option value="VÉTÉRINAIRE">VÉTÉRINAIRE</option>';
+            libelle_options_str  += '<option value="ÉCOLE DE CONDUITE">ÉCOLE DE CONDUITE</option>';
+            libelle_options_str  += '<option value="ÉCOLE MATERNELLE">ÉCOLE MATERNELLE</option>';
+            libelle_options_str  += '<option value="ÉCOLE ÉLÉMENTAIRE">ÉCOLE ÉLÉMENTAIRE</option>';
+            libelle_options_str  += '<option value="ÉLECTRICIEN">ÉLECTRICIEN</option>';
+            libelle_options_str  += '<option value="ÉTABLISSEMENT D’ACCUEIL DU JEUNE ENFANT (EAJE)">ÉTABLISSEMENT D’ACCUEIL DU JEUNE ENFANT (EAJE)</option>';
+            libelle_options_str  += '<option value="ÉTABLISSEMENT PSYCHIATRIQUE">ÉTABLISSEMENT PSYCHIATRIQUE</option>';
+            libelle_options_str  += '<option value="ÉTABLISSEMENT SANTÉ COURT SÉJOUR">ÉTABLISSEMENT SANTÉ COURT SÉJOUR</option>';
+            libelle_options_str  += '<option value="ÉTABLISSEMENT SANTÉ MOYEN SÉJOUR">ÉTABLISSEMENT SANTÉ MOYEN SÉJOUR</option>';
+            sel_libelle.innerHTML = libelle_options_str;
+            div_libelle.appendChild(sel_libelle);
+            var lab_libelle = document.createElement('div');
+            lab_libelle.innerHTML = 'libelle';
+            lab_libelle.className = 'filterlabel';
+            div_libelle.appendChild(lab_libelle);
+            var reset_libelle = document.createElement('div');
+            reset_libelle.innerHTML = 'clear filter';
+            reset_libelle.className = 'filterlabel';
+            reset_libelle.onclick = function() {
+                var options = document.getElementById("sel_libelle").options;
+                for (var i=0; i < options.length; i++) {
+                    options[i].selected = false;
+                }
+                filterFunc();
+            };
+            div_libelle.appendChild(reset_libelle);
+            document.getElementById("menu").appendChild(
+                document.createElement("div"));
+            var div_Equipement = document.createElement('div');
+            div_Equipement.id = "div_Equipement";
+            div_Equipement.className= "filterselect";
+            document.getElementById("menu").appendChild(div_Equipement);
+            sel_Equipement = document.createElement('select');
+            sel_Equipement.multiple = true;
+            sel_Equipement.size = 7;
+            sel_Equipement.id = "sel_Equipement";
+            var Equipement_options_str = "<option value='' unselected></option>";
+            sel_Equipement.onchange = function(){filterFunc()};
+            Equipement_options_str  += '<option value="Commerces">Commerces</option>';
+            Equipement_options_str  += '<option value="Enseignement">Enseignement</option>';
+            Equipement_options_str  += '<option value="Sante">Sante</option>';
+            Equipement_options_str  += '<option value="Services aux particuliers">Services aux particuliers</option>';
+            Equipement_options_str  += '<option value="Sports, loisir et culture">Sports, loisir et culture</option>';
+            Equipement_options_str  += '<option value="Tourisme">Tourisme</option>';
+            Equipement_options_str  += '<option value="Transport et deplacements">Transport et deplacements</option>';
+            sel_Equipement.innerHTML = Equipement_options_str;
+            div_Equipement.appendChild(sel_Equipement);
+            var lab_Equipement = document.createElement('div');
+            lab_Equipement.innerHTML = 'Equipement';
+            lab_Equipement.className = 'filterlabel';
+            div_Equipement.appendChild(lab_Equipement);
+            var reset_Equipement = document.createElement('div');
+            reset_Equipement.innerHTML = 'clear filter';
+            reset_Equipement.className = 'filterlabel';
+            reset_Equipement.onclick = function() {
+                var options = document.getElementById("sel_Equipement").options;
+                for (var i=0; i < options.length; i++) {
+                    options[i].selected = false;
+                }
+                filterFunc();
+            };
+            div_Equipement.appendChild(reset_Equipement);
         </script>
     </body>
 </html>
