@@ -42,17 +42,18 @@
         <script src="data/Ecoquartier_2.js"></script>
         <script src="data/IRISEcoquartier_3.js"></script>
         <script src="data/IRIS17meArrondissement_4.js"></script>
-        <script src="data/BPE_5.js"></script>
-        <script src="data/Bicyclerental_6.js"></script>
-        <script src="data/Bicycleparking_7.js"></script>
-        <script src="data/Pedestrianareas_8.js"></script>
-        <script src="data/sidewalks_9.js"></script>
-        <script src="data/Parkingspace_10.js"></script>
-        <script src="data/Motorcycleparking_11.js"></script>
-        <script src="data/Parking_12.js"></script>
-        <script src="data/Carchargingstation_13.js"></script>
-        <script src="data/BuslaneandBikelane_14.js"></script>
-        <script src="data/BusStop_15.js"></script>
+        <script src="data/Filosofi_2019_5.js"></script>
+        <script src="data/BPE_6.js"></script>
+        <script src="data/Bicyclerental_7.js"></script>
+        <script src="data/Bicycleparking_8.js"></script>
+        <script src="data/Pedestrianareas_9.js"></script>
+        <script src="data/sidewalks_10.js"></script>
+        <script src="data/Parkingspace_11.js"></script>
+        <script src="data/Motorcycleparking_12.js"></script>
+        <script src="data/Parking_13.js"></script>
+        <script src="data/Carchargingstation_14.js"></script>
+        <script src="data/BuslaneandBikelane_15.js"></script>
+        <script src="data/BusStop_16.js"></script>
         <script>
         var map = L.map('map', {
             zoomControl:true, maxZoom:28, minZoom:1
@@ -262,7 +263,155 @@
             style: style_IRIS17meArrondissement_4_0,
         });
         bounds_group.addLayer(layer_IRIS17meArrondissement_4);
-        function pop_BPE_5(feature, layer) {
+        function pop_Filosofi_2019_5(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <th scope="row">Nombre d\'individus</th>\
+                        <td>' + (feature.properties['ind'] !== null ? autolinker.link(feature.properties['ind'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Nombre de ménages</th>\
+                        <td>' + (feature.properties['men'] !== null ? autolinker.link(feature.properties['men'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Nombre de ménages pauvres</th>\
+                        <td>' + (feature.properties['men_pauv'] !== null ? autolinker.link(feature.properties['men_pauv'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Nombre de ménages d’un seul individu</th>\
+                        <td>' + (feature.properties['men_1ind'] !== null ? autolinker.link(feature.properties['men_1ind'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Nombre de ménages de 5 individus ou plus</th>\
+                        <td>' + (feature.properties['men_5ind'] !== null ? autolinker.link(feature.properties['men_5ind'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Nombre de ménages propriétaires</th>\
+                        <td>' + (feature.properties['men_prop'] !== null ? autolinker.link(feature.properties['men_prop'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Nombre de ménages monoparentaux</th>\
+                        <td>' + (feature.properties['men_fmp'] !== null ? autolinker.link(feature.properties['men_fmp'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Somme des niveaux de vie winsorisés des individus</th>\
+                        <td>' + (feature.properties['ind_snv'] !== null ? autolinker.link(feature.properties['ind_snv'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Somme de la surface des logements du carreau</th>\
+                        <td>' + (feature.properties['men_surf'] !== null ? autolinker.link(feature.properties['men_surf'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Nombre de ménages en logements collectifs</th>\
+                        <td>' + (feature.properties['men_coll'] !== null ? autolinker.link(feature.properties['men_coll'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Nombre de ménages en maison</th>\
+                        <td>' + (feature.properties['men_mais'] !== null ? autolinker.link(feature.properties['men_mais'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Nombre de logements construits avant 1945</th>\
+                        <td>' + (feature.properties['log_av45'] !== null ? autolinker.link(feature.properties['log_av45'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Nombre de logements construits entre 1945 et 1969</th>\
+                        <td>' + (feature.properties['log_45_70'] !== null ? autolinker.link(feature.properties['log_45_70'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Nombre de logements construits entre 1970 et 1989</th>\
+                        <td>' + (feature.properties['log_70_90'] !== null ? autolinker.link(feature.properties['log_70_90'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Nombre de logements construits depuis 1990</th>\
+                        <td>' + (feature.properties['log_ap90'] !== null ? autolinker.link(feature.properties['log_ap90'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Nombre de logements dont la date de construction est inconnue</th>\
+                        <td>' + (feature.properties['log_inc'] !== null ? autolinker.link(feature.properties['log_inc'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Nombre de logements sociaux</th>\
+                        <td>' + (feature.properties['log_soc'] !== null ? autolinker.link(feature.properties['log_soc'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Nombre d’individus de 0 à 3 ans</th>\
+                        <td>' + (feature.properties['ind_0_3'] !== null ? autolinker.link(feature.properties['ind_0_3'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Nombre d’individus de 4 à 5 ans</th>\
+                        <td>' + (feature.properties['ind_4_5'] !== null ? autolinker.link(feature.properties['ind_4_5'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Nombre d’individus de 6 à 10 ans</th>\
+                        <td>' + (feature.properties['ind_6_10'] !== null ? autolinker.link(feature.properties['ind_6_10'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Nombre d’individus de 11 à 17 ans</th>\
+                        <td>' + (feature.properties['ind_11_17'] !== null ? autolinker.link(feature.properties['ind_11_17'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Nombre d’individus de 18 à 24 ans</th>\
+                        <td>' + (feature.properties['ind_18_24'] !== null ? autolinker.link(feature.properties['ind_18_24'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Nombre d’individus de 25 à 39 ans</th>\
+                        <td>' + (feature.properties['ind_25_39'] !== null ? autolinker.link(feature.properties['ind_25_39'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Nombre d’individus de 40 à 54 ans</th>\
+                        <td>' + (feature.properties['ind_40_54'] !== null ? autolinker.link(feature.properties['ind_40_54'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Nombre d’individus de 55 à 64 ans</th>\
+                        <td>' + (feature.properties['ind_55_64'] !== null ? autolinker.link(feature.properties['ind_55_64'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Nombre d’individus de 65 à 79 ans</th>\
+                        <td>' + (feature.properties['ind_65_79'] !== null ? autolinker.link(feature.properties['ind_65_79'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Nombre d’individus de 80 ans ou plus</th>\
+                        <td>' + (feature.properties['ind_80p'] !== null ? autolinker.link(feature.properties['ind_80p'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Nombre d’individus dont l’âge est inconnu</th>\
+                        <td>' + (feature.properties['ind_inc'] !== null ? autolinker.link(feature.properties['ind_inc'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+            var popup = layer.getPopup();
+            var content = popup.getContent();
+            var updatedContent = removeEmptyRowsFromPopupContent(content, feature);
+            popup.setContent(updatedContent);
+        }
+
+        function style_Filosofi_2019_5_0() {
+            return {
+                pane: 'pane_Filosofi_2019_5',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 1.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+        }
+        map.createPane('pane_Filosofi_2019_5');
+        map.getPane('pane_Filosofi_2019_5').style.zIndex = 405;
+        map.getPane('pane_Filosofi_2019_5').style['mix-blend-mode'] = 'normal';
+        var layer_Filosofi_2019_5 = new L.geoJson(json_Filosofi_2019_5, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_Filosofi_2019_5',
+            layerName: 'layer_Filosofi_2019_5',
+            pane: 'pane_Filosofi_2019_5',
+            onEachFeature: pop_Filosofi_2019_5,
+            style: style_Filosofi_2019_5_0,
+        });
+        bounds_group.addLayer(layer_Filosofi_2019_5);
+        function pop_BPE_6(feature, layer) {
             var popupContent = '<table>\
                     <tr>\
                         <td colspan="2"><strong>Code INSEE</strong><br />' + (feature.properties['typequ'] !== null ? autolinker.link(feature.properties['typequ'].toLocaleString()) : '') + '</td>\
@@ -281,11 +430,11 @@
             popup.setContent(updatedContent);
         }
 
-        function style_BPE_5_0(feature) {
+        function style_BPE_6_0(feature) {
             switch(String(feature.properties['Equipement'])) {
                 case 'Commerces':
                     return {
-                pane: 'pane_BPE_5',
+                pane: 'pane_BPE_6',
                 radius: 4.0,
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
@@ -301,7 +450,7 @@
                     break;
                 case 'Enseignement':
                     return {
-                pane: 'pane_BPE_5',
+                pane: 'pane_BPE_6',
                 radius: 4.0,
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
@@ -317,7 +466,7 @@
                     break;
                 case 'Sante':
                     return {
-                pane: 'pane_BPE_5',
+                pane: 'pane_BPE_6',
                 radius: 4.0,
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
@@ -333,7 +482,7 @@
                     break;
                 case 'Services aux particuliers':
                     return {
-                pane: 'pane_BPE_5',
+                pane: 'pane_BPE_6',
                 radius: 4.0,
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
@@ -349,7 +498,7 @@
                     break;
                 case 'Sports, loisir et culture':
                     return {
-                pane: 'pane_BPE_5',
+                pane: 'pane_BPE_6',
                 radius: 4.0,
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
@@ -365,7 +514,7 @@
                     break;
                 case 'Tourisme':
                     return {
-                pane: 'pane_BPE_5',
+                pane: 'pane_BPE_6',
                 radius: 4.0,
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
@@ -381,7 +530,7 @@
                     break;
                 case 'Transport et deplacements':
                     return {
-                pane: 'pane_BPE_5',
+                pane: 'pane_BPE_6',
                 radius: 4.0,
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
@@ -397,26 +546,26 @@
                     break;
             }
         }
-        map.createPane('pane_BPE_5');
-        map.getPane('pane_BPE_5').style.zIndex = 405;
-        map.getPane('pane_BPE_5').style['mix-blend-mode'] = 'normal';
-        var layer_BPE_5 = new L.geoJson(json_BPE_5, {
+        map.createPane('pane_BPE_6');
+        map.getPane('pane_BPE_6').style.zIndex = 406;
+        map.getPane('pane_BPE_6').style['mix-blend-mode'] = 'normal';
+        var layer_BPE_6 = new L.geoJson(json_BPE_6, {
             attribution: '',
             interactive: true,
-            dataVar: 'json_BPE_5',
-            layerName: 'layer_BPE_5',
-            pane: 'pane_BPE_5',
-            onEachFeature: pop_BPE_5,
+            dataVar: 'json_BPE_6',
+            layerName: 'layer_BPE_6',
+            pane: 'pane_BPE_6',
+            onEachFeature: pop_BPE_6,
             pointToLayer: function (feature, latlng) {
                 var context = {
                     feature: feature,
                     variables: {}
                 };
-                return L.circleMarker(latlng, style_BPE_5_0(feature));
+                return L.circleMarker(latlng, style_BPE_6_0(feature));
             },
         });
-        bounds_group.addLayer(layer_BPE_5);
-        function pop_Bicyclerental_6(feature, layer) {
+        bounds_group.addLayer(layer_BPE_6);
+        function pop_Bicyclerental_7(feature, layer) {
             var popupContent = '<table>\
                     <tr>\
                         <th scope="row">operator</th>\
@@ -434,9 +583,9 @@
             popup.setContent(updatedContent);
         }
 
-        function style_Bicyclerental_6_0() {
+        function style_Bicyclerental_7_0() {
             return {
-                pane: 'pane_Bicyclerental_6',
+                pane: 'pane_Bicyclerental_7',
                 radius: 4.0,
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
@@ -450,26 +599,26 @@
                 interactive: true,
             }
         }
-        map.createPane('pane_Bicyclerental_6');
-        map.getPane('pane_Bicyclerental_6').style.zIndex = 406;
-        map.getPane('pane_Bicyclerental_6').style['mix-blend-mode'] = 'normal';
-        var layer_Bicyclerental_6 = new L.geoJson(json_Bicyclerental_6, {
+        map.createPane('pane_Bicyclerental_7');
+        map.getPane('pane_Bicyclerental_7').style.zIndex = 407;
+        map.getPane('pane_Bicyclerental_7').style['mix-blend-mode'] = 'normal';
+        var layer_Bicyclerental_7 = new L.geoJson(json_Bicyclerental_7, {
             attribution: '',
             interactive: true,
-            dataVar: 'json_Bicyclerental_6',
-            layerName: 'layer_Bicyclerental_6',
-            pane: 'pane_Bicyclerental_6',
-            onEachFeature: pop_Bicyclerental_6,
+            dataVar: 'json_Bicyclerental_7',
+            layerName: 'layer_Bicyclerental_7',
+            pane: 'pane_Bicyclerental_7',
+            onEachFeature: pop_Bicyclerental_7,
             pointToLayer: function (feature, latlng) {
                 var context = {
                     feature: feature,
                     variables: {}
                 };
-                return L.circleMarker(latlng, style_Bicyclerental_6_0(feature));
+                return L.circleMarker(latlng, style_Bicyclerental_7_0(feature));
             },
         });
-        bounds_group.addLayer(layer_Bicyclerental_6);
-        function pop_Bicycleparking_7(feature, layer) {
+        bounds_group.addLayer(layer_Bicyclerental_7);
+        function pop_Bicycleparking_8(feature, layer) {
             var popupContent = '<table>\
                     <tr>\
                         <th scope="row">cargo_bike</th>\
@@ -495,9 +644,9 @@
             popup.setContent(updatedContent);
         }
 
-        function style_Bicycleparking_7_0() {
+        function style_Bicycleparking_8_0() {
             return {
-                pane: 'pane_Bicycleparking_7',
+                pane: 'pane_Bicycleparking_8',
                 radius: 4.0,
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
@@ -511,26 +660,26 @@
                 interactive: true,
             }
         }
-        map.createPane('pane_Bicycleparking_7');
-        map.getPane('pane_Bicycleparking_7').style.zIndex = 407;
-        map.getPane('pane_Bicycleparking_7').style['mix-blend-mode'] = 'normal';
-        var layer_Bicycleparking_7 = new L.geoJson(json_Bicycleparking_7, {
+        map.createPane('pane_Bicycleparking_8');
+        map.getPane('pane_Bicycleparking_8').style.zIndex = 408;
+        map.getPane('pane_Bicycleparking_8').style['mix-blend-mode'] = 'normal';
+        var layer_Bicycleparking_8 = new L.geoJson(json_Bicycleparking_8, {
             attribution: '',
             interactive: true,
-            dataVar: 'json_Bicycleparking_7',
-            layerName: 'layer_Bicycleparking_7',
-            pane: 'pane_Bicycleparking_7',
-            onEachFeature: pop_Bicycleparking_7,
+            dataVar: 'json_Bicycleparking_8',
+            layerName: 'layer_Bicycleparking_8',
+            pane: 'pane_Bicycleparking_8',
+            onEachFeature: pop_Bicycleparking_8,
             pointToLayer: function (feature, latlng) {
                 var context = {
                     feature: feature,
                     variables: {}
                 };
-                return L.circleMarker(latlng, style_Bicycleparking_7_0(feature));
+                return L.circleMarker(latlng, style_Bicycleparking_8_0(feature));
             },
         });
-        bounds_group.addLayer(layer_Bicycleparking_7);
-        function pop_Pedestrianareas_8(feature, layer) {
+        bounds_group.addLayer(layer_Bicycleparking_8);
+        function pop_Pedestrianareas_9(feature, layer) {
             var popupContent = '<table>\
                 </table>';
             layer.bindPopup(popupContent, {maxHeight: 400});
@@ -540,9 +689,9 @@
             popup.setContent(updatedContent);
         }
 
-        function style_Pedestrianareas_8_0() {
+        function style_Pedestrianareas_9_0() {
             return {
-                pane: 'pane_Pedestrianareas_8',
+                pane: 'pane_Pedestrianareas_9',
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
                 dashArray: '',
@@ -555,20 +704,20 @@
                 interactive: true,
             }
         }
-        map.createPane('pane_Pedestrianareas_8');
-        map.getPane('pane_Pedestrianareas_8').style.zIndex = 408;
-        map.getPane('pane_Pedestrianareas_8').style['mix-blend-mode'] = 'normal';
-        var layer_Pedestrianareas_8 = new L.geoJson(json_Pedestrianareas_8, {
+        map.createPane('pane_Pedestrianareas_9');
+        map.getPane('pane_Pedestrianareas_9').style.zIndex = 409;
+        map.getPane('pane_Pedestrianareas_9').style['mix-blend-mode'] = 'normal';
+        var layer_Pedestrianareas_9 = new L.geoJson(json_Pedestrianareas_9, {
             attribution: '',
             interactive: true,
-            dataVar: 'json_Pedestrianareas_8',
-            layerName: 'layer_Pedestrianareas_8',
-            pane: 'pane_Pedestrianareas_8',
-            onEachFeature: pop_Pedestrianareas_8,
-            style: style_Pedestrianareas_8_0,
+            dataVar: 'json_Pedestrianareas_9',
+            layerName: 'layer_Pedestrianareas_9',
+            pane: 'pane_Pedestrianareas_9',
+            onEachFeature: pop_Pedestrianareas_9,
+            style: style_Pedestrianareas_9_0,
         });
-        bounds_group.addLayer(layer_Pedestrianareas_8);
-        function pop_sidewalks_9(feature, layer) {
+        bounds_group.addLayer(layer_Pedestrianareas_9);
+        function pop_sidewalks_10(feature, layer) {
             var popupContent = '<table>\
                 </table>';
             layer.bindPopup(popupContent, {maxHeight: 400});
@@ -578,9 +727,9 @@
             popup.setContent(updatedContent);
         }
 
-        function style_sidewalks_9_0() {
+        function style_sidewalks_10_0() {
             return {
-                pane: 'pane_sidewalks_9',
+                pane: 'pane_sidewalks_10',
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
                 dashArray: '',
@@ -593,20 +742,20 @@
                 interactive: true,
             }
         }
-        map.createPane('pane_sidewalks_9');
-        map.getPane('pane_sidewalks_9').style.zIndex = 409;
-        map.getPane('pane_sidewalks_9').style['mix-blend-mode'] = 'normal';
-        var layer_sidewalks_9 = new L.geoJson(json_sidewalks_9, {
+        map.createPane('pane_sidewalks_10');
+        map.getPane('pane_sidewalks_10').style.zIndex = 410;
+        map.getPane('pane_sidewalks_10').style['mix-blend-mode'] = 'normal';
+        var layer_sidewalks_10 = new L.geoJson(json_sidewalks_10, {
             attribution: '',
             interactive: true,
-            dataVar: 'json_sidewalks_9',
-            layerName: 'layer_sidewalks_9',
-            pane: 'pane_sidewalks_9',
-            onEachFeature: pop_sidewalks_9,
-            style: style_sidewalks_9_0,
+            dataVar: 'json_sidewalks_10',
+            layerName: 'layer_sidewalks_10',
+            pane: 'pane_sidewalks_10',
+            onEachFeature: pop_sidewalks_10,
+            style: style_sidewalks_10_0,
         });
-        bounds_group.addLayer(layer_sidewalks_9);
-        function pop_Parkingspace_10(feature, layer) {
+        bounds_group.addLayer(layer_sidewalks_10);
+        function pop_Parkingspace_11(feature, layer) {
             var popupContent = '<table>\
                     <tr>\
                         <td class="visible-with-data" id="maxstay"colspan="2"><strong>maxstay</strong><br />' + (feature.properties['maxstay'] !== null ? autolinker.link(feature.properties['maxstay'].toLocaleString()) : '') + '</td>\
@@ -623,9 +772,9 @@
             popup.setContent(updatedContent);
         }
 
-        function style_Parkingspace_10_0() {
+        function style_Parkingspace_11_0() {
             return {
-                pane: 'pane_Parkingspace_10',
+                pane: 'pane_Parkingspace_11',
                 radius: 4.0,
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
@@ -639,26 +788,26 @@
                 interactive: true,
             }
         }
-        map.createPane('pane_Parkingspace_10');
-        map.getPane('pane_Parkingspace_10').style.zIndex = 410;
-        map.getPane('pane_Parkingspace_10').style['mix-blend-mode'] = 'normal';
-        var layer_Parkingspace_10 = new L.geoJson(json_Parkingspace_10, {
+        map.createPane('pane_Parkingspace_11');
+        map.getPane('pane_Parkingspace_11').style.zIndex = 411;
+        map.getPane('pane_Parkingspace_11').style['mix-blend-mode'] = 'normal';
+        var layer_Parkingspace_11 = new L.geoJson(json_Parkingspace_11, {
             attribution: '',
             interactive: true,
-            dataVar: 'json_Parkingspace_10',
-            layerName: 'layer_Parkingspace_10',
-            pane: 'pane_Parkingspace_10',
-            onEachFeature: pop_Parkingspace_10,
+            dataVar: 'json_Parkingspace_11',
+            layerName: 'layer_Parkingspace_11',
+            pane: 'pane_Parkingspace_11',
+            onEachFeature: pop_Parkingspace_11,
             pointToLayer: function (feature, latlng) {
                 var context = {
                     feature: feature,
                     variables: {}
                 };
-                return L.circleMarker(latlng, style_Parkingspace_10_0(feature));
+                return L.circleMarker(latlng, style_Parkingspace_11_0(feature));
             },
         });
-        bounds_group.addLayer(layer_Parkingspace_10);
-        function pop_Motorcycleparking_11(feature, layer) {
+        bounds_group.addLayer(layer_Parkingspace_11);
+        function pop_Motorcycleparking_12(feature, layer) {
             var popupContent = '<table>\
                 </table>';
             layer.bindPopup(popupContent, {maxHeight: 400});
@@ -668,9 +817,9 @@
             popup.setContent(updatedContent);
         }
 
-        function style_Motorcycleparking_11_0() {
+        function style_Motorcycleparking_12_0() {
             return {
-                pane: 'pane_Motorcycleparking_11',
+                pane: 'pane_Motorcycleparking_12',
                 radius: 4.0,
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
@@ -684,26 +833,26 @@
                 interactive: true,
             }
         }
-        map.createPane('pane_Motorcycleparking_11');
-        map.getPane('pane_Motorcycleparking_11').style.zIndex = 411;
-        map.getPane('pane_Motorcycleparking_11').style['mix-blend-mode'] = 'normal';
-        var layer_Motorcycleparking_11 = new L.geoJson(json_Motorcycleparking_11, {
+        map.createPane('pane_Motorcycleparking_12');
+        map.getPane('pane_Motorcycleparking_12').style.zIndex = 412;
+        map.getPane('pane_Motorcycleparking_12').style['mix-blend-mode'] = 'normal';
+        var layer_Motorcycleparking_12 = new L.geoJson(json_Motorcycleparking_12, {
             attribution: '',
             interactive: true,
-            dataVar: 'json_Motorcycleparking_11',
-            layerName: 'layer_Motorcycleparking_11',
-            pane: 'pane_Motorcycleparking_11',
-            onEachFeature: pop_Motorcycleparking_11,
+            dataVar: 'json_Motorcycleparking_12',
+            layerName: 'layer_Motorcycleparking_12',
+            pane: 'pane_Motorcycleparking_12',
+            onEachFeature: pop_Motorcycleparking_12,
             pointToLayer: function (feature, latlng) {
                 var context = {
                     feature: feature,
                     variables: {}
                 };
-                return L.circleMarker(latlng, style_Motorcycleparking_11_0(feature));
+                return L.circleMarker(latlng, style_Motorcycleparking_12_0(feature));
             },
         });
-        bounds_group.addLayer(layer_Motorcycleparking_11);
-        function pop_Parking_12(feature, layer) {
+        bounds_group.addLayer(layer_Motorcycleparking_12);
+        function pop_Parking_13(feature, layer) {
             var popupContent = '<table>\
                     <tr>\
                         <td colspan="2"><strong>capacity</strong><br />' + (feature.properties['capacity'] !== null ? autolinker.link(feature.properties['capacity'].toLocaleString()) : '') + '</td>\
@@ -716,9 +865,9 @@
             popup.setContent(updatedContent);
         }
 
-        function style_Parking_12_0() {
+        function style_Parking_13_0() {
             return {
-                pane: 'pane_Parking_12',
+                pane: 'pane_Parking_13',
                 radius: 4.0,
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
@@ -732,26 +881,26 @@
                 interactive: true,
             }
         }
-        map.createPane('pane_Parking_12');
-        map.getPane('pane_Parking_12').style.zIndex = 412;
-        map.getPane('pane_Parking_12').style['mix-blend-mode'] = 'normal';
-        var layer_Parking_12 = new L.geoJson(json_Parking_12, {
+        map.createPane('pane_Parking_13');
+        map.getPane('pane_Parking_13').style.zIndex = 413;
+        map.getPane('pane_Parking_13').style['mix-blend-mode'] = 'normal';
+        var layer_Parking_13 = new L.geoJson(json_Parking_13, {
             attribution: '',
             interactive: true,
-            dataVar: 'json_Parking_12',
-            layerName: 'layer_Parking_12',
-            pane: 'pane_Parking_12',
-            onEachFeature: pop_Parking_12,
+            dataVar: 'json_Parking_13',
+            layerName: 'layer_Parking_13',
+            pane: 'pane_Parking_13',
+            onEachFeature: pop_Parking_13,
             pointToLayer: function (feature, latlng) {
                 var context = {
                     feature: feature,
                     variables: {}
                 };
-                return L.circleMarker(latlng, style_Parking_12_0(feature));
+                return L.circleMarker(latlng, style_Parking_13_0(feature));
             },
         });
-        bounds_group.addLayer(layer_Parking_12);
-        function pop_Carchargingstation_13(feature, layer) {
+        bounds_group.addLayer(layer_Parking_13);
+        function pop_Carchargingstation_14(feature, layer) {
             var popupContent = '<table>\
                     <tr>\
                         <th scope="row">owner</th>\
@@ -777,9 +926,9 @@
             popup.setContent(updatedContent);
         }
 
-        function style_Carchargingstation_13_0() {
+        function style_Carchargingstation_14_0() {
             return {
-                pane: 'pane_Carchargingstation_13',
+                pane: 'pane_Carchargingstation_14',
                 radius: 4.0,
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
@@ -793,26 +942,26 @@
                 interactive: true,
             }
         }
-        map.createPane('pane_Carchargingstation_13');
-        map.getPane('pane_Carchargingstation_13').style.zIndex = 413;
-        map.getPane('pane_Carchargingstation_13').style['mix-blend-mode'] = 'normal';
-        var layer_Carchargingstation_13 = new L.geoJson(json_Carchargingstation_13, {
+        map.createPane('pane_Carchargingstation_14');
+        map.getPane('pane_Carchargingstation_14').style.zIndex = 414;
+        map.getPane('pane_Carchargingstation_14').style['mix-blend-mode'] = 'normal';
+        var layer_Carchargingstation_14 = new L.geoJson(json_Carchargingstation_14, {
             attribution: '',
             interactive: true,
-            dataVar: 'json_Carchargingstation_13',
-            layerName: 'layer_Carchargingstation_13',
-            pane: 'pane_Carchargingstation_13',
-            onEachFeature: pop_Carchargingstation_13,
+            dataVar: 'json_Carchargingstation_14',
+            layerName: 'layer_Carchargingstation_14',
+            pane: 'pane_Carchargingstation_14',
+            onEachFeature: pop_Carchargingstation_14,
             pointToLayer: function (feature, latlng) {
                 var context = {
                     feature: feature,
                     variables: {}
                 };
-                return L.circleMarker(latlng, style_Carchargingstation_13_0(feature));
+                return L.circleMarker(latlng, style_Carchargingstation_14_0(feature));
             },
         });
-        bounds_group.addLayer(layer_Carchargingstation_13);
-        function pop_BuslaneandBikelane_14(feature, layer) {
+        bounds_group.addLayer(layer_Carchargingstation_14);
+        function pop_BuslaneandBikelane_15(feature, layer) {
             var popupContent = '<table>\
                     <tr>\
                         <th scope="row">Type</th>\
@@ -826,11 +975,11 @@
             popup.setContent(updatedContent);
         }
 
-        function style_BuslaneandBikelane_14_0(feature) {
+        function style_BuslaneandBikelane_15_0(feature) {
             switch(String(feature.properties['lib_classe'])) {
                 case 'Couloir bus':
                     return {
-                pane: 'pane_BuslaneandBikelane_14',
+                pane: 'pane_BuslaneandBikelane_15',
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
                 dashArray: '',
@@ -845,7 +994,7 @@
                     break;
                 case 'Couloir mixte bus-vélo':
                     return {
-                pane: 'pane_BuslaneandBikelane_14',
+                pane: 'pane_BuslaneandBikelane_15',
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
                 dashArray: '',
@@ -860,7 +1009,7 @@
                     break;
                 case 'Piste':
                     return {
-                pane: 'pane_BuslaneandBikelane_14',
+                pane: 'pane_BuslaneandBikelane_15',
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
                 dashArray: '',
@@ -875,7 +1024,7 @@
                     break;
                 case 'Piste cyclable':
                     return {
-                pane: 'pane_BuslaneandBikelane_14',
+                pane: 'pane_BuslaneandBikelane_15',
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
                 dashArray: '',
@@ -890,7 +1039,7 @@
                     break;
                 default:
                     return {
-                pane: 'pane_BuslaneandBikelane_14',
+                pane: 'pane_BuslaneandBikelane_15',
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
                 dashArray: '',
@@ -905,20 +1054,20 @@
                     break;
             }
         }
-        map.createPane('pane_BuslaneandBikelane_14');
-        map.getPane('pane_BuslaneandBikelane_14').style.zIndex = 414;
-        map.getPane('pane_BuslaneandBikelane_14').style['mix-blend-mode'] = 'normal';
-        var layer_BuslaneandBikelane_14 = new L.geoJson(json_BuslaneandBikelane_14, {
+        map.createPane('pane_BuslaneandBikelane_15');
+        map.getPane('pane_BuslaneandBikelane_15').style.zIndex = 415;
+        map.getPane('pane_BuslaneandBikelane_15').style['mix-blend-mode'] = 'normal';
+        var layer_BuslaneandBikelane_15 = new L.geoJson(json_BuslaneandBikelane_15, {
             attribution: '',
             interactive: true,
-            dataVar: 'json_BuslaneandBikelane_14',
-            layerName: 'layer_BuslaneandBikelane_14',
-            pane: 'pane_BuslaneandBikelane_14',
-            onEachFeature: pop_BuslaneandBikelane_14,
-            style: style_BuslaneandBikelane_14_0,
+            dataVar: 'json_BuslaneandBikelane_15',
+            layerName: 'layer_BuslaneandBikelane_15',
+            pane: 'pane_BuslaneandBikelane_15',
+            onEachFeature: pop_BuslaneandBikelane_15,
+            style: style_BuslaneandBikelane_15_0,
         });
-        bounds_group.addLayer(layer_BuslaneandBikelane_14);
-        function pop_BusStop_15(feature, layer) {
+        bounds_group.addLayer(layer_BuslaneandBikelane_15);
+        function pop_BusStop_16(feature, layer) {
             var popupContent = '<table>\
                     <tr>\
                         <td colspan="2">' + (feature.properties['stop_name'] !== null ? autolinker.link(feature.properties['stop_name'].toLocaleString()) : '') + '</td>\
@@ -931,53 +1080,54 @@
             popup.setContent(updatedContent);
         }
 
-        function style_BusStop_15_0() {
+        function style_BusStop_16_0() {
             return {
-                pane: 'pane_BusStop_15',
+                pane: 'pane_BusStop_16',
         rotationAngle: 0.0,
         rotationOrigin: 'center center',
         icon: L.icon({
-            iconUrl: 'markers/BusStop_15.svg',
+            iconUrl: 'markers/BusStop_16.svg',
             iconSize: [13.68, 13.68]
         }),
                 interactive: true,
             }
         }
-        map.createPane('pane_BusStop_15');
-        map.getPane('pane_BusStop_15').style.zIndex = 415;
-        map.getPane('pane_BusStop_15').style['mix-blend-mode'] = 'normal';
-        var layer_BusStop_15 = new L.geoJson(json_BusStop_15, {
+        map.createPane('pane_BusStop_16');
+        map.getPane('pane_BusStop_16').style.zIndex = 416;
+        map.getPane('pane_BusStop_16').style['mix-blend-mode'] = 'normal';
+        var layer_BusStop_16 = new L.geoJson(json_BusStop_16, {
             attribution: '',
             interactive: true,
-            dataVar: 'json_BusStop_15',
-            layerName: 'layer_BusStop_15',
-            pane: 'pane_BusStop_15',
-            onEachFeature: pop_BusStop_15,
+            dataVar: 'json_BusStop_16',
+            layerName: 'layer_BusStop_16',
+            pane: 'pane_BusStop_16',
+            onEachFeature: pop_BusStop_16,
             pointToLayer: function (feature, latlng) {
                 var context = {
                     feature: feature,
                     variables: {}
                 };
-                return L.marker(latlng, style_BusStop_15_0(feature));
+                return L.marker(latlng, style_BusStop_16_0(feature));
             },
         });
-        bounds_group.addLayer(layer_BusStop_15);
+        bounds_group.addLayer(layer_BusStop_16);
         var baseMaps = {};
         var overlaysTree = [
-            {label: '<img src="legend/BusStop_15.png" /> Bus Stop', layer: layer_BusStop_15},
-            {label: 'Bus lane and Bike lane<br /><table><tr><td style="text-align: center;"><img src="legend/BuslaneandBikelane_14_Couloirbus0.png" /></td><td>Couloir bus</td></tr><tr><td style="text-align: center;"><img src="legend/BuslaneandBikelane_14_Couloirmixtebusvélo1.png" /></td><td>Couloir mixte bus-vélo</td></tr><tr><td style="text-align: center;"><img src="legend/BuslaneandBikelane_14_Piste2.png" /></td><td>Piste</td></tr><tr><td style="text-align: center;"><img src="legend/BuslaneandBikelane_14_Pistecyclable3.png" /></td><td>Piste cyclable</td></tr><tr><td style="text-align: center;"><img src="legend/BuslaneandBikelane_14_4.png" /></td><td></td></tr></table>', layer: layer_BuslaneandBikelane_14},
+            {label: '<img src="legend/BusStop_16.png" /> Bus Stop', layer: layer_BusStop_16},
+            {label: 'Bus lane and Bike lane<br /><table><tr><td style="text-align: center;"><img src="legend/BuslaneandBikelane_15_Couloirbus0.png" /></td><td>Couloir bus</td></tr><tr><td style="text-align: center;"><img src="legend/BuslaneandBikelane_15_Couloirmixtebusvélo1.png" /></td><td>Couloir mixte bus-vélo</td></tr><tr><td style="text-align: center;"><img src="legend/BuslaneandBikelane_15_Piste2.png" /></td><td>Piste</td></tr><tr><td style="text-align: center;"><img src="legend/BuslaneandBikelane_15_Pistecyclable3.png" /></td><td>Piste cyclable</td></tr><tr><td style="text-align: center;"><img src="legend/BuslaneandBikelane_15_4.png" /></td><td></td></tr></table>', layer: layer_BuslaneandBikelane_15},
         {label: '<b>Car - Motorcycles</b>', selectAllCheckbox: true, children: [
-            {label: '<img src="legend/Carchargingstation_13.png" /> Car charging station', layer: layer_Carchargingstation_13},
-            {label: '<img src="legend/Parking_12.png" /> Parking', layer: layer_Parking_12},
-            {label: '<img src="legend/Motorcycleparking_11.png" /> Motorcycle parking', layer: layer_Motorcycleparking_11},
-            {label: '<img src="legend/Parkingspace_10.png" /> Parking space', layer: layer_Parkingspace_10},]},
+            {label: '<img src="legend/Carchargingstation_14.png" /> Car charging station', layer: layer_Carchargingstation_14},
+            {label: '<img src="legend/Parking_13.png" /> Parking', layer: layer_Parking_13},
+            {label: '<img src="legend/Motorcycleparking_12.png" /> Motorcycle parking', layer: layer_Motorcycleparking_12},
+            {label: '<img src="legend/Parkingspace_11.png" /> Parking space', layer: layer_Parkingspace_11},]},
         {label: '<b>Walk</b>', selectAllCheckbox: true, children: [
-            {label: '<img src="legend/sidewalks_9.png" /> sidewalks', layer: layer_sidewalks_9},
-            {label: '<img src="legend/Pedestrianareas_8.png" /> Pedestrian areas', layer: layer_Pedestrianareas_8},]},
+            {label: '<img src="legend/sidewalks_10.png" /> sidewalks', layer: layer_sidewalks_10},
+            {label: '<img src="legend/Pedestrianareas_9.png" /> Pedestrian areas', layer: layer_Pedestrianareas_9},]},
         {label: '<b>Bike</b>', selectAllCheckbox: true, children: [
-            {label: '<img src="legend/Bicycleparking_7.png" /> Bicycle parking', layer: layer_Bicycleparking_7},
-            {label: '<img src="legend/Bicyclerental_6.png" /> Bicycle rental', layer: layer_Bicyclerental_6},]},
-            {label: 'BPE<br /><table><tr><td style="text-align: center;"><img src="legend/BPE_5_Commerces0.png" /></td><td>Commerces</td></tr><tr><td style="text-align: center;"><img src="legend/BPE_5_Enseignement1.png" /></td><td>Enseignement</td></tr><tr><td style="text-align: center;"><img src="legend/BPE_5_Sante2.png" /></td><td>Sante</td></tr><tr><td style="text-align: center;"><img src="legend/BPE_5_Servicesauxparticuliers3.png" /></td><td>Services aux particuliers</td></tr><tr><td style="text-align: center;"><img src="legend/BPE_5_Sportsloisiretculture4.png" /></td><td>Sports, loisir et culture</td></tr><tr><td style="text-align: center;"><img src="legend/BPE_5_Tourisme5.png" /></td><td>Tourisme</td></tr><tr><td style="text-align: center;"><img src="legend/BPE_5_Transportetdeplacements6.png" /></td><td>Transport et deplacements</td></tr></table>', layer: layer_BPE_5},
+            {label: '<img src="legend/Bicycleparking_8.png" /> Bicycle parking', layer: layer_Bicycleparking_8},
+            {label: '<img src="legend/Bicyclerental_7.png" /> Bicycle rental', layer: layer_Bicyclerental_7},]},
+            {label: 'BPE<br /><table><tr><td style="text-align: center;"><img src="legend/BPE_6_Commerces0.png" /></td><td>Commerces</td></tr><tr><td style="text-align: center;"><img src="legend/BPE_6_Enseignement1.png" /></td><td>Enseignement</td></tr><tr><td style="text-align: center;"><img src="legend/BPE_6_Sante2.png" /></td><td>Sante</td></tr><tr><td style="text-align: center;"><img src="legend/BPE_6_Servicesauxparticuliers3.png" /></td><td>Services aux particuliers</td></tr><tr><td style="text-align: center;"><img src="legend/BPE_6_Sportsloisiretculture4.png" /></td><td>Sports, loisir et culture</td></tr><tr><td style="text-align: center;"><img src="legend/BPE_6_Tourisme5.png" /></td><td>Tourisme</td></tr><tr><td style="text-align: center;"><img src="legend/BPE_6_Transportetdeplacements6.png" /></td><td>Transport et deplacements</td></tr></table>', layer: layer_BPE_6},
+            {label: '<img src="legend/Filosofi_2019_5.png" /> Filosofi_2019', layer: layer_Filosofi_2019_5},
         {label: '<b>Limites administratives</b>', selectAllCheckbox: true, children: [
             {label: '<img src="legend/IRIS17meArrondissement_4.png" /> IRIS 17ème Arrondissement', layer: layer_IRIS17meArrondissement_4},
             {label: '<img src="legend/IRISEcoquartier_3.png" /> IRIS Ecoquartier', layer: layer_IRISEcoquartier_3},
