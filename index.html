@@ -48,16 +48,17 @@
         <script src="data/Bicycleparking_8.js"></script>
         <script src="data/Pedestrianareas_9.js"></script>
         <script src="data/sidewalks_10.js"></script>
-        <script src="data/Parkingspace_11.js"></script>
-        <script src="data/Motorcycleparking_12.js"></script>
-        <script src="data/Parking_13.js"></script>
+        <script src="data/Outdoorparkingspace_11.js"></script>
+        <script src="data/Undergroundparking_12.js"></script>
+        <script src="data/Motorcycleparking_13.js"></script>
         <script src="data/Carchargingstation_14.js"></script>
-        <script src="data/BuslaneandBikelane_15.js"></script>
-        <script src="data/BusStop_16.js"></script>
+        <script src="data/CarsharingMobilib_15.js"></script>
+        <script src="data/BuslaneandBikelane_16.js"></script>
+        <script src="data/BusStop_17.js"></script>
         <script>
         var map = L.map('map', {
             zoomControl:true, maxZoom:28, minZoom:1
-        }).fitBounds([[48.86955986658304,2.269093172004109],[48.90946839215669,2.3727014590067417]]);
+        }).fitBounds([[48.869477648434966,2.252395833825778],[48.90938623960547,2.369756158922572]]);
         var hash = new L.Hash(map);
         map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
         var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
@@ -86,19 +87,19 @@
         var bounds_group = new L.featureGroup([]);
         function setBounds() {
         }
-        map.createPane('pane_OSMStandard_0');
-        map.getPane('pane_OSMStandard_0').style.zIndex = 400;
-        var layer_OSMStandard_0 = L.tileLayer('http://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            pane: 'pane_OSMStandard_0',
+        map.createPane('pane_Positron_0');
+        map.getPane('pane_Positron_0').style.zIndex = 400;
+        var layer_Positron_0 = L.tileLayer('https://a.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', {
+            pane: 'pane_Positron_0',
             opacity: 1.0,
-            attribution: '<a href="https://www.openstreetmap.org/copyright">© OpenStreetMap contributors, CC-BY-SA</a>',
+            attribution: '<a href="https://cartodb.com/basemaps/">Map tiles by CartoDB, under CC BY 3.0. Data by OpenStreetMap, under ODbL.</a>',
             minZoom: 1,
             maxZoom: 28,
             minNativeZoom: 0,
-            maxNativeZoom: 19
+            maxNativeZoom: 20
         });
-        layer_OSMStandard_0;
-        map.addLayer(layer_OSMStandard_0);
+        layer_Positron_0;
+        map.addLayer(layer_Positron_0);
         function pop_Arrondissements_1(feature, layer) {
             var popupContent = '<table>\
                 </table>';
@@ -119,7 +120,7 @@
                 lineJoin: 'bevel',
                 weight: 2.0,
                 fillOpacity: 0,
-                interactive: false,
+                interactive: true,
             }
         }
         map.createPane('pane_Arrondissements_1');
@@ -127,7 +128,7 @@
         map.getPane('pane_Arrondissements_1').style['mix-blend-mode'] = 'normal';
         var layer_Arrondissements_1 = new L.geoJson(json_Arrondissements_1, {
             attribution: '',
-            interactive: false,
+            interactive: true,
             dataVar: 'json_Arrondissements_1',
             layerName: 'layer_Arrondissements_1',
             pane: 'pane_Arrondissements_1',
@@ -167,7 +168,7 @@
                 lineJoin: 'bevel',
                 weight: 2.0,
                 fillOpacity: 0,
-                interactive: false,
+                interactive: true,
             }
         }
         map.createPane('pane_Ecoquartier_2');
@@ -175,7 +176,7 @@
         map.getPane('pane_Ecoquartier_2').style['mix-blend-mode'] = 'normal';
         var layer_Ecoquartier_2 = new L.geoJson(json_Ecoquartier_2, {
             attribution: '',
-            interactive: false,
+            interactive: true,
             dataVar: 'json_Ecoquartier_2',
             layerName: 'layer_Ecoquartier_2',
             pane: 'pane_Ecoquartier_2',
@@ -206,7 +207,7 @@
                 fill: true,
                 fillOpacity: 1,
                 fillColor: 'rgba(243,228,115,0.5)',
-                interactive: false,
+                interactive: true,
             }
         }
         map.createPane('pane_IRISEcoquartier_3');
@@ -214,7 +215,7 @@
         map.getPane('pane_IRISEcoquartier_3').style['mix-blend-mode'] = 'normal';
         var layer_IRISEcoquartier_3 = new L.geoJson(json_IRISEcoquartier_3, {
             attribution: '',
-            interactive: false,
+            interactive: true,
             dataVar: 'json_IRISEcoquartier_3',
             layerName: 'layer_IRISEcoquartier_3',
             pane: 'pane_IRISEcoquartier_3',
@@ -244,7 +245,7 @@
                 fill: true,
                 fillOpacity: 1,
                 fillColor: 'rgba(243,228,115,0.5)',
-                interactive: false,
+                interactive: true,
             }
         }
         map.createPane('pane_IRIS17meArrondissement_4');
@@ -252,7 +253,7 @@
         map.getPane('pane_IRIS17meArrondissement_4').style['mix-blend-mode'] = 'normal';
         var layer_IRIS17meArrondissement_4 = new L.geoJson(json_IRIS17meArrondissement_4, {
             attribution: '',
-            interactive: false,
+            interactive: true,
             dataVar: 'json_IRIS17meArrondissement_4',
             layerName: 'layer_IRIS17meArrondissement_4',
             pane: 'pane_IRIS17meArrondissement_4',
@@ -752,7 +753,7 @@
             style: style_sidewalks_10_0,
         });
         bounds_group.addLayer(layer_sidewalks_10);
-        function pop_Parkingspace_11(feature, layer) {
+        function pop_Outdoorparkingspace_11(feature, layer) {
             var popupContent = '<table>\
                     <tr>\
                         <td class="visible-with-data" id="maxstay"colspan="2"><strong>maxstay</strong><br />' + (feature.properties['maxstay'] !== null ? autolinker.link(feature.properties['maxstay'].toLocaleString()) : '') + '</td>\
@@ -769,9 +770,9 @@
             popup.setContent(updatedContent);
         }
 
-        function style_Parkingspace_11_0() {
+        function style_Outdoorparkingspace_11_0() {
             return {
-                pane: 'pane_Parkingspace_11',
+                pane: 'pane_Outdoorparkingspace_11',
                 radius: 4.0,
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
@@ -781,75 +782,30 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(229,83,54,1.0)',
+                fillColor: 'rgba(84,94,222,1.0)',
                 interactive: true,
             }
         }
-        map.createPane('pane_Parkingspace_11');
-        map.getPane('pane_Parkingspace_11').style.zIndex = 411;
-        map.getPane('pane_Parkingspace_11').style['mix-blend-mode'] = 'normal';
-        var layer_Parkingspace_11 = new L.geoJson(json_Parkingspace_11, {
+        map.createPane('pane_Outdoorparkingspace_11');
+        map.getPane('pane_Outdoorparkingspace_11').style.zIndex = 411;
+        map.getPane('pane_Outdoorparkingspace_11').style['mix-blend-mode'] = 'normal';
+        var layer_Outdoorparkingspace_11 = new L.geoJson(json_Outdoorparkingspace_11, {
             attribution: '',
             interactive: true,
-            dataVar: 'json_Parkingspace_11',
-            layerName: 'layer_Parkingspace_11',
-            pane: 'pane_Parkingspace_11',
-            onEachFeature: pop_Parkingspace_11,
+            dataVar: 'json_Outdoorparkingspace_11',
+            layerName: 'layer_Outdoorparkingspace_11',
+            pane: 'pane_Outdoorparkingspace_11',
+            onEachFeature: pop_Outdoorparkingspace_11,
             pointToLayer: function (feature, latlng) {
                 var context = {
                     feature: feature,
                     variables: {}
                 };
-                return L.circleMarker(latlng, style_Parkingspace_11_0(feature));
+                return L.circleMarker(latlng, style_Outdoorparkingspace_11_0(feature));
             },
         });
-        bounds_group.addLayer(layer_Parkingspace_11);
-        function pop_Motorcycleparking_12(feature, layer) {
-            var popupContent = '<table>\
-                </table>';
-            layer.bindPopup(popupContent, {maxHeight: 400});
-            var popup = layer.getPopup();
-            var content = popup.getContent();
-            var updatedContent = removeEmptyRowsFromPopupContent(content, feature);
-            popup.setContent(updatedContent);
-        }
-
-        function style_Motorcycleparking_12_0() {
-            return {
-                pane: 'pane_Motorcycleparking_12',
-                radius: 4.0,
-                opacity: 1,
-                color: 'rgba(35,35,35,1.0)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1,
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(255,191,53,1.0)',
-                interactive: true,
-            }
-        }
-        map.createPane('pane_Motorcycleparking_12');
-        map.getPane('pane_Motorcycleparking_12').style.zIndex = 412;
-        map.getPane('pane_Motorcycleparking_12').style['mix-blend-mode'] = 'normal';
-        var layer_Motorcycleparking_12 = new L.geoJson(json_Motorcycleparking_12, {
-            attribution: '',
-            interactive: true,
-            dataVar: 'json_Motorcycleparking_12',
-            layerName: 'layer_Motorcycleparking_12',
-            pane: 'pane_Motorcycleparking_12',
-            onEachFeature: pop_Motorcycleparking_12,
-            pointToLayer: function (feature, latlng) {
-                var context = {
-                    feature: feature,
-                    variables: {}
-                };
-                return L.circleMarker(latlng, style_Motorcycleparking_12_0(feature));
-            },
-        });
-        bounds_group.addLayer(layer_Motorcycleparking_12);
-        function pop_Parking_13(feature, layer) {
+        bounds_group.addLayer(layer_Outdoorparkingspace_11);
+        function pop_Undergroundparking_12(feature, layer) {
             var popupContent = '<table>\
                     <tr>\
                         <td colspan="2"><strong>capacity</strong><br />' + (feature.properties['capacity'] !== null ? autolinker.link(feature.properties['capacity'].toLocaleString()) : '') + '</td>\
@@ -862,9 +818,9 @@
             popup.setContent(updatedContent);
         }
 
-        function style_Parking_13_0() {
+        function style_Undergroundparking_12_0() {
             return {
-                pane: 'pane_Parking_13',
+                pane: 'pane_Undergroundparking_12',
                 radius: 4.0,
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
@@ -878,42 +834,194 @@
                 interactive: true,
             }
         }
-        map.createPane('pane_Parking_13');
-        map.getPane('pane_Parking_13').style.zIndex = 413;
-        map.getPane('pane_Parking_13').style['mix-blend-mode'] = 'normal';
-        var layer_Parking_13 = new L.geoJson(json_Parking_13, {
+        map.createPane('pane_Undergroundparking_12');
+        map.getPane('pane_Undergroundparking_12').style.zIndex = 412;
+        map.getPane('pane_Undergroundparking_12').style['mix-blend-mode'] = 'normal';
+        var layer_Undergroundparking_12 = new L.geoJson(json_Undergroundparking_12, {
             attribution: '',
             interactive: true,
-            dataVar: 'json_Parking_13',
-            layerName: 'layer_Parking_13',
-            pane: 'pane_Parking_13',
-            onEachFeature: pop_Parking_13,
+            dataVar: 'json_Undergroundparking_12',
+            layerName: 'layer_Undergroundparking_12',
+            pane: 'pane_Undergroundparking_12',
+            onEachFeature: pop_Undergroundparking_12,
             pointToLayer: function (feature, latlng) {
                 var context = {
                     feature: feature,
                     variables: {}
                 };
-                return L.circleMarker(latlng, style_Parking_13_0(feature));
+                return L.circleMarker(latlng, style_Undergroundparking_12_0(feature));
             },
         });
-        bounds_group.addLayer(layer_Parking_13);
+        bounds_group.addLayer(layer_Undergroundparking_12);
+        function pop_Motorcycleparking_13(feature, layer) {
+            var popupContent = '<table>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+            var popup = layer.getPopup();
+            var content = popup.getContent();
+            var updatedContent = removeEmptyRowsFromPopupContent(content, feature);
+            popup.setContent(updatedContent);
+        }
+
+        function style_Motorcycleparking_13_0() {
+            return {
+                pane: 'pane_Motorcycleparking_13',
+                radius: 4.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(255,191,53,1.0)',
+                interactive: true,
+            }
+        }
+        map.createPane('pane_Motorcycleparking_13');
+        map.getPane('pane_Motorcycleparking_13').style.zIndex = 413;
+        map.getPane('pane_Motorcycleparking_13').style['mix-blend-mode'] = 'normal';
+        var layer_Motorcycleparking_13 = new L.geoJson(json_Motorcycleparking_13, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_Motorcycleparking_13',
+            layerName: 'layer_Motorcycleparking_13',
+            pane: 'pane_Motorcycleparking_13',
+            onEachFeature: pop_Motorcycleparking_13,
+            pointToLayer: function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.circleMarker(latlng, style_Motorcycleparking_13_0(feature));
+            },
+        });
+        bounds_group.addLayer(layer_Motorcycleparking_13);
         function pop_Carchargingstation_14(feature, layer) {
             var popupContent = '<table>\
                     <tr>\
-                        <th scope="row">owner</th>\
-                        <td class="visible-with-data" id="owner">' + (feature.properties['owner'] !== null ? autolinker.link(feature.properties['owner'].toLocaleString()) : '') + '</td>\
+                        <td colspan="2">' + (feature.properties['id_pdc_local'] !== null ? autolinker.link(feature.properties['id_pdc_local'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <th scope="row">operator</th>\
-                        <td class="visible-with-data" id="operator">' + (feature.properties['operator'] !== null ? autolinker.link(feature.properties['operator'].toLocaleString()) : '') + '</td>\
+                        <td colspan="2">' + (feature.properties['statut_pdc'] !== null ? autolinker.link(feature.properties['statut_pdc'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <th scope="row">network</th>\
-                        <td class="visible-with-data" id="network">' + (feature.properties['network'] !== null ? autolinker.link(feature.properties['network'].toLocaleString()) : '') + '</td>\
+                        <td colspan="2">' + (feature.properties['arrondissement'] !== null ? autolinker.link(feature.properties['arrondissement'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <th scope="row">capacity</th>\
-                        <td class="visible-with-data" id="capacity">' + (feature.properties['capacity'] !== null ? autolinker.link(feature.properties['capacity'].toLocaleString()) : '') + '</td>\
+                        <td colspan="2">' + (feature.properties['id_station_local'] !== null ? autolinker.link(feature.properties['id_station_local'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['id_station_itinerance'] !== null ? autolinker.link(feature.properties['id_station_itinerance'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['nom_station'] !== null ? autolinker.link(feature.properties['nom_station'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['code_insee_commune'] !== null ? autolinker.link(feature.properties['code_insee_commune'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['implantation_station'] !== null ? autolinker.link(feature.properties['implantation_station'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['nbre_pdc'] !== null ? autolinker.link(feature.properties['nbre_pdc'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['date_maj'] !== null ? autolinker.link(feature.properties['date_maj'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['condition_acces'] !== null ? autolinker.link(feature.properties['condition_acces'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['adresse_station'] !== null ? autolinker.link(feature.properties['adresse_station'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['gratuit'] !== null ? autolinker.link(feature.properties['gratuit'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['paiement_acte'] !== null ? autolinker.link(feature.properties['paiement_acte'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['paiement_cb'] !== null ? autolinker.link(feature.properties['paiement_cb'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['paiement_autre'] !== null ? autolinker.link(feature.properties['paiement_autre'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['reservation'] !== null ? autolinker.link(feature.properties['reservation'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['observations'] !== null ? autolinker.link(feature.properties['observations'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['siren_amenageur'] !== null ? autolinker.link(feature.properties['siren_amenageur'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['contact_amenageur'] !== null ? autolinker.link(feature.properties['contact_amenageur'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['nom_amenageur'] !== null ? autolinker.link(feature.properties['nom_amenageur'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['nom_operateur'] !== null ? autolinker.link(feature.properties['nom_operateur'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['contact_operateur'] !== null ? autolinker.link(feature.properties['contact_operateur'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['telephone_operateur'] !== null ? autolinker.link(feature.properties['telephone_operateur'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['nom_enseigne'] !== null ? autolinker.link(feature.properties['nom_enseigne'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['tarification'] !== null ? autolinker.link(feature.properties['tarification'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['id_pdc_itinerance'] !== null ? autolinker.link(feature.properties['id_pdc_itinerance'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['date_mise_en_service'] !== null ? autolinker.link(feature.properties['date_mise_en_service'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['accessibilite_pmr'] !== null ? autolinker.link(feature.properties['accessibilite_pmr'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['restriction_gabarit'] !== null ? autolinker.link(feature.properties['restriction_gabarit'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['station_deux_roues'] !== null ? autolinker.link(feature.properties['station_deux_roues'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['puissance_nominale'] !== null ? autolinker.link(feature.properties['puissance_nominale'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['prise_type_ef'] !== null ? autolinker.link(feature.properties['prise_type_ef'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['prise_type_2'] !== null ? autolinker.link(feature.properties['prise_type_2'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['prise_type_combo_ccs'] !== null ? autolinker.link(feature.properties['prise_type_combo_ccs'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['prise_type_chademo'] !== null ? autolinker.link(feature.properties['prise_type_chademo'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['prise_type_autre'] !== null ? autolinker.link(feature.properties['prise_type_autre'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['prise_type_3'] !== null ? autolinker.link(feature.properties['prise_type_3'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['num_pdl'] !== null ? autolinker.link(feature.properties['num_pdl'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['horaires'] !== null ? autolinker.link(feature.properties['horaires'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['raccordement'] !== null ? autolinker.link(feature.properties['raccordement'].toLocaleString()) : '') + '</td>\
                     </tr>\
                 </table>';
             layer.bindPopup(popupContent, {maxHeight: 400});
@@ -935,8 +1043,8 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(255,158,23,1.0)',
-                interactive: true,
+                fillColor: 'rgba(225,89,137,1.0)',
+                interactive: false,
             }
         }
         map.createPane('pane_Carchargingstation_14');
@@ -944,7 +1052,7 @@
         map.getPane('pane_Carchargingstation_14').style['mix-blend-mode'] = 'normal';
         var layer_Carchargingstation_14 = new L.geoJson(json_Carchargingstation_14, {
             attribution: '',
-            interactive: true,
+            interactive: false,
             dataVar: 'json_Carchargingstation_14',
             layerName: 'layer_Carchargingstation_14',
             pane: 'pane_Carchargingstation_14',
@@ -958,7 +1066,64 @@
             },
         });
         bounds_group.addLayer(layer_Carchargingstation_14);
-        function pop_BuslaneandBikelane_15(feature, layer) {
+        function pop_CarsharingMobilib_15(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <th scope="row">operateur</th>\
+                        <td>' + (feature.properties['operateur'] !== null ? autolinker.link(feature.properties['operateur'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">motorisation</th>\
+                        <td>' + (feature.properties['motorisation'] !== null ? autolinker.link(feature.properties['motorisation'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">nb_vehicules</th>\
+                        <td>' + (feature.properties['nb_vehicules'] !== null ? autolinker.link(feature.properties['nb_vehicules'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+            var popup = layer.getPopup();
+            var content = popup.getContent();
+            var updatedContent = removeEmptyRowsFromPopupContent(content, feature);
+            popup.setContent(updatedContent);
+        }
+
+        function style_CarsharingMobilib_15_0() {
+            return {
+                pane: 'pane_CarsharingMobilib_15',
+                radius: 4.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(71,185,36,1.0)',
+                interactive: true,
+            }
+        }
+        map.createPane('pane_CarsharingMobilib_15');
+        map.getPane('pane_CarsharingMobilib_15').style.zIndex = 415;
+        map.getPane('pane_CarsharingMobilib_15').style['mix-blend-mode'] = 'normal';
+        var layer_CarsharingMobilib_15 = new L.geoJson(json_CarsharingMobilib_15, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_CarsharingMobilib_15',
+            layerName: 'layer_CarsharingMobilib_15',
+            pane: 'pane_CarsharingMobilib_15',
+            onEachFeature: pop_CarsharingMobilib_15,
+            pointToLayer: function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.circleMarker(latlng, style_CarsharingMobilib_15_0(feature));
+            },
+        });
+        bounds_group.addLayer(layer_CarsharingMobilib_15);
+        function pop_BuslaneandBikelane_16(feature, layer) {
             var popupContent = '<table>\
                     <tr>\
                         <th scope="row">Type</th>\
@@ -972,11 +1137,11 @@
             popup.setContent(updatedContent);
         }
 
-        function style_BuslaneandBikelane_15_0(feature) {
+        function style_BuslaneandBikelane_16_0(feature) {
             switch(String(feature.properties['lib_classe'])) {
                 case 'Couloir bus':
                     return {
-                pane: 'pane_BuslaneandBikelane_15',
+                pane: 'pane_BuslaneandBikelane_16',
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
                 dashArray: '',
@@ -991,7 +1156,7 @@
                     break;
                 case 'Couloir mixte bus-vélo':
                     return {
-                pane: 'pane_BuslaneandBikelane_15',
+                pane: 'pane_BuslaneandBikelane_16',
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
                 dashArray: '',
@@ -1006,7 +1171,7 @@
                     break;
                 case 'Piste':
                     return {
-                pane: 'pane_BuslaneandBikelane_15',
+                pane: 'pane_BuslaneandBikelane_16',
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
                 dashArray: '',
@@ -1021,7 +1186,7 @@
                     break;
                 case 'Piste cyclable':
                     return {
-                pane: 'pane_BuslaneandBikelane_15',
+                pane: 'pane_BuslaneandBikelane_16',
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
                 dashArray: '',
@@ -1036,20 +1201,20 @@
                     break;
             }
         }
-        map.createPane('pane_BuslaneandBikelane_15');
-        map.getPane('pane_BuslaneandBikelane_15').style.zIndex = 415;
-        map.getPane('pane_BuslaneandBikelane_15').style['mix-blend-mode'] = 'normal';
-        var layer_BuslaneandBikelane_15 = new L.geoJson(json_BuslaneandBikelane_15, {
+        map.createPane('pane_BuslaneandBikelane_16');
+        map.getPane('pane_BuslaneandBikelane_16').style.zIndex = 416;
+        map.getPane('pane_BuslaneandBikelane_16').style['mix-blend-mode'] = 'normal';
+        var layer_BuslaneandBikelane_16 = new L.geoJson(json_BuslaneandBikelane_16, {
             attribution: '',
             interactive: true,
-            dataVar: 'json_BuslaneandBikelane_15',
-            layerName: 'layer_BuslaneandBikelane_15',
-            pane: 'pane_BuslaneandBikelane_15',
-            onEachFeature: pop_BuslaneandBikelane_15,
-            style: style_BuslaneandBikelane_15_0,
+            dataVar: 'json_BuslaneandBikelane_16',
+            layerName: 'layer_BuslaneandBikelane_16',
+            pane: 'pane_BuslaneandBikelane_16',
+            onEachFeature: pop_BuslaneandBikelane_16,
+            style: style_BuslaneandBikelane_16_0,
         });
-        bounds_group.addLayer(layer_BuslaneandBikelane_15);
-        function pop_BusStop_16(feature, layer) {
+        bounds_group.addLayer(layer_BuslaneandBikelane_16);
+        function pop_BusStop_17(feature, layer) {
             var popupContent = '<table>\
                     <tr>\
                         <td colspan="2">' + (feature.properties['stop_name'] !== null ? autolinker.link(feature.properties['stop_name'].toLocaleString()) : '') + '</td>\
@@ -1062,46 +1227,47 @@
             popup.setContent(updatedContent);
         }
 
-        function style_BusStop_16_0() {
+        function style_BusStop_17_0() {
             return {
-                pane: 'pane_BusStop_16',
+                pane: 'pane_BusStop_17',
         rotationAngle: 0.0,
         rotationOrigin: 'center center',
         icon: L.icon({
-            iconUrl: 'markers/BusStop_16.svg',
+            iconUrl: 'markers/BusStop_17.svg',
             iconSize: [13.68, 13.68]
         }),
                 interactive: true,
             }
         }
-        map.createPane('pane_BusStop_16');
-        map.getPane('pane_BusStop_16').style.zIndex = 416;
-        map.getPane('pane_BusStop_16').style['mix-blend-mode'] = 'normal';
-        var layer_BusStop_16 = new L.geoJson(json_BusStop_16, {
+        map.createPane('pane_BusStop_17');
+        map.getPane('pane_BusStop_17').style.zIndex = 417;
+        map.getPane('pane_BusStop_17').style['mix-blend-mode'] = 'normal';
+        var layer_BusStop_17 = new L.geoJson(json_BusStop_17, {
             attribution: '',
             interactive: true,
-            dataVar: 'json_BusStop_16',
-            layerName: 'layer_BusStop_16',
-            pane: 'pane_BusStop_16',
-            onEachFeature: pop_BusStop_16,
+            dataVar: 'json_BusStop_17',
+            layerName: 'layer_BusStop_17',
+            pane: 'pane_BusStop_17',
+            onEachFeature: pop_BusStop_17,
             pointToLayer: function (feature, latlng) {
                 var context = {
                     feature: feature,
                     variables: {}
                 };
-                return L.marker(latlng, style_BusStop_16_0(feature));
+                return L.marker(latlng, style_BusStop_17_0(feature));
             },
         });
-        bounds_group.addLayer(layer_BusStop_16);
+        bounds_group.addLayer(layer_BusStop_17);
         var baseMaps = {};
         var overlaysTree = [
-            {label: '<img src="legend/BusStop_16.png" /> Bus Stop', layer: layer_BusStop_16},
-            {label: 'Bus lane and Bike lane<br /><table><tr><td style="text-align: center;"><img src="legend/BuslaneandBikelane_15_Couloirbus0.png" /></td><td>Couloir bus</td></tr><tr><td style="text-align: center;"><img src="legend/BuslaneandBikelane_15_Couloirmixtebusvélo1.png" /></td><td>Couloir mixte bus-vélo</td></tr><tr><td style="text-align: center;"><img src="legend/BuslaneandBikelane_15_Piste2.png" /></td><td>Piste</td></tr><tr><td style="text-align: center;"><img src="legend/BuslaneandBikelane_15_Pistecyclable3.png" /></td><td>Piste cyclable</td></tr></table>', layer: layer_BuslaneandBikelane_15},
+            {label: '<img src="legend/BusStop_17.png" /> Bus Stop', layer: layer_BusStop_17},
+            {label: 'Bus lane and Bike lane<br /><table><tr><td style="text-align: center;"><img src="legend/BuslaneandBikelane_16_Couloirbus0.png" /></td><td>Couloir bus</td></tr><tr><td style="text-align: center;"><img src="legend/BuslaneandBikelane_16_Couloirmixtebusvélo1.png" /></td><td>Couloir mixte bus-vélo</td></tr><tr><td style="text-align: center;"><img src="legend/BuslaneandBikelane_16_Piste2.png" /></td><td>Piste</td></tr><tr><td style="text-align: center;"><img src="legend/BuslaneandBikelane_16_Pistecyclable3.png" /></td><td>Piste cyclable</td></tr></table>', layer: layer_BuslaneandBikelane_16},
         {label: '<b>Car - Motorcycles</b>', selectAllCheckbox: true, children: [
+            {label: '<img src="legend/CarsharingMobilib_15.png" /> Car sharing (Mobilib\')', layer: layer_CarsharingMobilib_15},
             {label: '<img src="legend/Carchargingstation_14.png" /> Car charging station', layer: layer_Carchargingstation_14},
-            {label: '<img src="legend/Parking_13.png" /> Parking', layer: layer_Parking_13},
-            {label: '<img src="legend/Motorcycleparking_12.png" /> Motorcycle parking', layer: layer_Motorcycleparking_12},
-            {label: '<img src="legend/Parkingspace_11.png" /> Parking space', layer: layer_Parkingspace_11},]},
+            {label: '<img src="legend/Motorcycleparking_13.png" /> Motorcycle parking', layer: layer_Motorcycleparking_13},
+            {label: '<img src="legend/Undergroundparking_12.png" /> Underground parking', layer: layer_Undergroundparking_12},
+            {label: '<img src="legend/Outdoorparkingspace_11.png" /> Outdoor parking space', layer: layer_Outdoorparkingspace_11},]},
         {label: '<b>Walk</b>', selectAllCheckbox: true, children: [
             {label: '<img src="legend/sidewalks_10.png" /> sidewalks', layer: layer_sidewalks_10},
             {label: '<img src="legend/Pedestrianareas_9.png" /> Pedestrian areas', layer: layer_Pedestrianareas_9},]},
@@ -1115,7 +1281,7 @@
             {label: '<img src="legend/IRISEcoquartier_3.png" /> IRIS Ecoquartier', layer: layer_IRISEcoquartier_3},
             {label: '<img src="legend/Ecoquartier_2.png" /> Ecoquartier', layer: layer_Ecoquartier_2},
             {label: '<img src="legend/Arrondissements_1.png" /> Arrondissements', layer: layer_Arrondissements_1},]},
-            {label: "OSM Standard", layer: layer_OSMStandard_0},]
+            {label: "Positron", layer: layer_Positron_0},]
         var lay = L.control.layers.tree(null, overlaysTree,{
             //namedToggle: true,
             //selectorBack: false,
@@ -1146,7 +1312,7 @@
         document.getElementById("all").appendChild(col1);
         document.getElementById("all").appendChild(col2);
         col1.appendChild(mapDiv)
-        var Filters = {"libelle": "str","Equipement": "str"};
+        var Filters = {"Equipement": "str"};
         function filterFunc() {
           map.eachLayer(function(lyr){
           if ("options" in lyr && "dataVar" in lyr["options"]){
@@ -1236,151 +1402,6 @@
           }
           })
         }
-            document.getElementById("menu").appendChild(
-                document.createElement("div"));
-            var div_libelle = document.createElement('div');
-            div_libelle.id = "div_libelle";
-            div_libelle.className= "filterselect";
-            document.getElementById("menu").appendChild(div_libelle);
-            sel_libelle = document.createElement('select');
-            sel_libelle.multiple = true;
-            sel_libelle.size = 10;
-            sel_libelle.id = "sel_libelle";
-            var libelle_options_str = "<option value='' unselected></option>";
-            sel_libelle.onchange = function(){filterFunc()};
-            libelle_options_str  += '<option value="NULL">NULL</option>';
-            libelle_options_str  += '<option value="ADULTES HANDICAPÉS : ACCUEIL/HÉBERGEMENT">ADULTES HANDICAPÉS : ACCUEIL/HÉBERGEMENT</option>';
-            libelle_options_str  += '<option value="ADULTES HANDICAPÉS : SERVICES DE SOINS À DOMICILE">ADULTES HANDICAPÉS : SERVICES DE SOINS À DOMICILE</option>';
-            libelle_options_str  += '<option value="ADULTES HANDICAPÉS : SERVICES D’AIDE">ADULTES HANDICAPÉS : SERVICES D’AIDE</option>';
-            libelle_options_str  += '<option value="AGENCE DE TRAVAIL TEMPORAIRE">AGENCE DE TRAVAIL TEMPORAIRE</option>';
-            libelle_options_str  += '<option value="AGENCE DE VOYAGE">AGENCE DE VOYAGE</option>';
-            libelle_options_str  += '<option value="AGENCE IMMOBILIÈRE">AGENCE IMMOBILIÈRE</option>';
-            libelle_options_str  += '<option value="AMBULANCE">AMBULANCE</option>';
-            libelle_options_str  += '<option value="ARTS DU SPECTACLE">ARTS DU SPECTACLE</option>';
-            libelle_options_str  += '<option value="ATHLÉTISME">ATHLÉTISME</option>';
-            libelle_options_str  += '<option value="AUDIO PROTHÉSISTE">AUDIO PROTHÉSISTE</option>';
-            libelle_options_str  += '<option value="AUTRE FORMATION CONTINUE">AUTRE FORMATION CONTINUE</option>';
-            libelle_options_str  += '<option value="AUTRE FORMATION POST BAC NON UNIVERSITAIRE">AUTRE FORMATION POST BAC NON UNIVERSITAIRE</option>';
-            libelle_options_str  += '<option value="AUTRES ÉTABLISSEMENTS POUR ADULTES ET FAMILLES EN DIFFICULTÉ">AUTRES ÉTABLISSEMENTS POUR ADULTES ET FAMILLES EN DIFFICULTÉ</option>';
-            libelle_options_str  += '<option value="BANQUE, CAISSE D’ÉPARGNE">BANQUE, CAISSE D’ÉPARGNE</option>';
-            libelle_options_str  += '<option value="BASSIN DE NATATION">BASSIN DE NATATION</option>';
-            libelle_options_str  += '<option value="BIBLIOTHÈQUE">BIBLIOTHÈQUE</option>';
-            libelle_options_str  += '<option value="BOULODROME">BOULODROME</option>';
-            libelle_options_str  += '<option value="BOWLING">BOWLING</option>';
-            libelle_options_str  += '<option value="BUREAU DE POSTE">BUREAU DE POSTE</option>';
-            libelle_options_str  += '<option value="BUREAU D’AIDE JURIDICTIONNELLE (BAJ)">BUREAU D’AIDE JURIDICTIONNELLE (BAJ)</option>';
-            libelle_options_str  += '<option value="CENTRE DE FORMATION D’APPRENTIS HORS AGRICULTURE">CENTRE DE FORMATION D’APPRENTIS HORS AGRICULTURE</option>';
-            libelle_options_str  += '<option value="CENTRE DE SANTÉ">CENTRE DE SANTÉ</option>';
-            libelle_options_str  += '<option value="CHIRURGIEN DENTISTE">CHIRURGIEN DENTISTE</option>';
-            libelle_options_str  += '<option value="CHRS : CENTRE D’HÉBERGEMENT ET DE RÉINSERTION SOCIALE">CHRS : CENTRE D’HÉBERGEMENT ET DE RÉINSERTION SOCIALE</option>';
-            libelle_options_str  += '<option value="CINÉMA">CINÉMA</option>';
-            libelle_options_str  += '<option value="COIFFURE">COIFFURE</option>';
-            libelle_options_str  += '<option value="COLLÈGE">COLLÈGE</option>';
-            libelle_options_str  += '<option value="CONSEIL DÉPARTEMENTAL D’ACCÈS AU DROIT (CDAD)">CONSEIL DÉPARTEMENTAL D’ACCÈS AU DROIT (CDAD)</option>';
-            libelle_options_str  += '<option value="CONSERVATOIRE">CONSERVATOIRE</option>';
-            libelle_options_str  += '<option value="CONTRÔLE TECHNIQUE AUTOMOBILE">CONTRÔLE TECHNIQUE AUTOMOBILE</option>';
-            libelle_options_str  += '<option value="DIALYSE">DIALYSE</option>';
-            libelle_options_str  += '<option value="DIÉTÉTICIEN">DIÉTÉTICIEN</option>';
-            libelle_options_str  += '<option value="DRFIP (DIRECTION RÉGIONALE  DES FINANCES PUBLIQUES)">DRFIP (DIRECTION RÉGIONALE  DES FINANCES PUBLIQUES)</option>';
-            libelle_options_str  += '<option value="ENFANTS HANDICAPÉS : HÉBERGEMENT">ENFANTS HANDICAPÉS : HÉBERGEMENT</option>';
-            libelle_options_str  += '<option value="ENSEIGNEMENT GÉNÉRAL SUPÉRIEUR PRIVÉ">ENSEIGNEMENT GÉNÉRAL SUPÉRIEUR PRIVÉ</option>';
-            libelle_options_str  += '<option value="ENTREPRISE GÉNÉRALE DU BÂTIMENT">ENTREPRISE GÉNÉRALE DU BÂTIMENT</option>';
-            libelle_options_str  += '<option value="ERGOTHÉRAPEUTE">ERGOTHÉRAPEUTE</option>';
-            libelle_options_str  += '<option value="EXPOSITION ET MEDIATION CULTURELLE">EXPOSITION ET MEDIATION CULTURELLE</option>';
-            libelle_options_str  += '<option value="FORMATION COMMERCE">FORMATION COMMERCE</option>';
-            libelle_options_str  += '<option value="FORMATION SANTÉ">FORMATION SANTÉ</option>';
-            libelle_options_str  += '<option value="GARE DE VOYAGEURS D’INTÉRÊT RÉGIONAL">GARE DE VOYAGEURS D’INTÉRÊT RÉGIONAL</option>';
-            libelle_options_str  += '<option value="GRETA">GRETA</option>';
-            libelle_options_str  += '<option value="HÔTEL">HÔTEL</option>';
-            libelle_options_str  += '<option value="INFIRMIER">INFIRMIER</option>';
-            libelle_options_str  += '<option value="INFORMATION TOURISTIQUE">INFORMATION TOURISTIQUE</option>';
-            libelle_options_str  += '<option value="INSTITUT DE BEAUTÉ-ONGLERIE">INSTITUT DE BEAUTÉ-ONGLERIE</option>';
-            libelle_options_str  += '<option value="LABORATOIRE D ANALYSES ET DE BIOLOGIE MÉDICALE">LABORATOIRE D ANALYSES ET DE BIOLOGIE MÉDICALE</option>';
-            libelle_options_str  += '<option value="LIVRES ET PRESSE">LIVRES ET PRESSE</option>';
-            libelle_options_str  += '<option value="LOCATION AUTO-UTILITAIRES LÉGERS">LOCATION AUTO-UTILITAIRES LÉGERS</option>';
-            libelle_options_str  += '<option value="LYCÉE D’ENSEIGNEMENT GÉNÉRAL ET/OU TECHNOLOGIQUE">LYCÉE D’ENSEIGNEMENT GÉNÉRAL ET/OU TECHNOLOGIQUE</option>';
-            libelle_options_str  += '<option value="LYCÉE D’ENSEIGNEMENT PROFESSIONNEL">LYCÉE D’ENSEIGNEMENT PROFESSIONNEL</option>';
-            libelle_options_str  += '<option value="MAISON DE JUSTICE ET DU DROIT">MAISON DE JUSTICE ET DU DROIT</option>';
-            libelle_options_str  += '<option value="MASSEUR KINÉSITHÉRAPEUTE">MASSEUR KINÉSITHÉRAPEUTE</option>';
-            libelle_options_str  += '<option value="MATERNITÉ">MATERNITÉ</option>';
-            libelle_options_str  += '<option value="MAÇON">MAÇON</option>';
-            libelle_options_str  += '<option value="MENUISIER CHARPENTIER SERRURIER">MENUISIER CHARPENTIER SERRURIER</option>';
-            libelle_options_str  += '<option value="MÉDECIN GÉNÉRALISTE">MÉDECIN GÉNÉRALISTE</option>';
-            libelle_options_str  += '<option value="ORTHOPHONISTE">ORTHOPHONISTE</option>';
-            libelle_options_str  += '<option value="ORTHOPTISTE">ORTHOPTISTE</option>';
-            libelle_options_str  += '<option value="PERSONNES ÂGÉES : HÉBERGEMENT">PERSONNES ÂGÉES : HÉBERGEMENT</option>';
-            libelle_options_str  += '<option value="PERSONNES ÂGÉES : SERVICES D’AIDE">PERSONNES ÂGÉES : SERVICES D’AIDE</option>';
-            libelle_options_str  += '<option value="PERSONNES ÂGÉES : SOINS À DOMICILE">PERSONNES ÂGÉES : SOINS À DOMICILE</option>';
-            libelle_options_str  += '<option value="PHARMACIE">PHARMACIE</option>';
-            libelle_options_str  += '<option value="PLATEAUX ET TERRAINS DE JEUX EXTÉRIEURS">PLATEAUX ET TERRAINS DE JEUX EXTÉRIEURS</option>';
-            libelle_options_str  += '<option value="PLOMBIER COUVREUR CHAUFFAGISTE">PLOMBIER COUVREUR CHAUFFAGISTE</option>';
-            libelle_options_str  += '<option value="PLÂTRIER PEINTRE">PLÂTRIER PEINTRE</option>';
-            libelle_options_str  += '<option value="POLICE">POLICE</option>';
-            libelle_options_str  += '<option value="PRESSING-LAVERIE AUTOMATIQUE">PRESSING-LAVERIE AUTOMATIQUE</option>';
-            libelle_options_str  += '<option value="PROTECTION DE L’ENFANCE - HÉBERGEMENT">PROTECTION DE L’ENFANCE - HÉBERGEMENT</option>';
-            libelle_options_str  += '<option value="PSYCHOLOGUE">PSYCHOLOGUE</option>';
-            libelle_options_str  += '<option value="PSYCHOMOTRICIEN">PSYCHOMOTRICIEN</option>';
-            libelle_options_str  += '<option value="PÉDICURE-PODOLOGUE">PÉDICURE-PODOLOGUE</option>';
-            libelle_options_str  += '<option value="RELAIS POSTE">RELAIS POSTE</option>';
-            libelle_options_str  += '<option value="RESTAURANT UNIVERSITAIRE">RESTAURANT UNIVERSITAIRE</option>';
-            libelle_options_str  += '<option value="RESTAURANT- RESTAURATION RAPIDE">RESTAURANT- RESTAURATION RAPIDE</option>';
-            libelle_options_str  += '<option value="ROLLER-SKATE-VÉLO BICROSS OU FREESTYLE">ROLLER-SKATE-VÉLO BICROSS OU FREESTYLE</option>';
-            libelle_options_str  += '<option value="RÉPARATION AUTOMOBILE ET DE MATÉRIEL AGRICOLE">RÉPARATION AUTOMOBILE ET DE MATÉRIEL AGRICOLE</option>';
-            libelle_options_str  += '<option value="RÉSEAU DE PROXIMITÉ PÔLE EMPLOI">RÉSEAU DE PROXIMITÉ PÔLE EMPLOI</option>';
-            libelle_options_str  += '<option value="RÉSIDENCE UNIVERSITAIRE">RÉSIDENCE UNIVERSITAIRE</option>';
-            libelle_options_str  += '<option value="SAGE-FEMME">SAGE-FEMME</option>';
-            libelle_options_str  += '<option value="SALLES DE COMBAT">SALLES DE COMBAT</option>';
-            libelle_options_str  += '<option value="SALLES DE REMISE EN FORME">SALLES DE REMISE EN FORME</option>';
-            libelle_options_str  += '<option value="SALLES MULTISPORTS (GYMNASES)">SALLES MULTISPORTS (GYMNASES)</option>';
-            libelle_options_str  += '<option value="SALLES NON SPÉCIALISÉES">SALLES NON SPÉCIALISÉES</option>';
-            libelle_options_str  += '<option value="SALLES SPÉCIALISÉES">SALLES SPÉCIALISÉES</option>';
-            libelle_options_str  += '<option value="SEP SECTION D’ENSEIGNEMENT PROFESSIONNEL">SEP SECTION D’ENSEIGNEMENT PROFESSIONNEL</option>';
-            libelle_options_str  += '<option value="SERVICES FUNÉRAIRES">SERVICES FUNÉRAIRES</option>';
-            libelle_options_str  += '<option value="SPÉCIALISTE EN CARDIOLOGIE">SPÉCIALISTE EN CARDIOLOGIE</option>';
-            libelle_options_str  += '<option value="SPÉCIALISTE EN DERMATOLOGIE VÉNÉRÉOLOGIE">SPÉCIALISTE EN DERMATOLOGIE VÉNÉRÉOLOGIE</option>';
-            libelle_options_str  += '<option value="SPÉCIALISTE EN GASTRO-ENTÉROLOGIE HÉPATOLOGIE">SPÉCIALISTE EN GASTRO-ENTÉROLOGIE HÉPATOLOGIE</option>';
-            libelle_options_str  += '<option value="SPÉCIALISTE EN GYNÉCOLOGIE (MÉDICALE ET/OU OBSTÉTRIQUE)">SPÉCIALISTE EN GYNÉCOLOGIE (MÉDICALE ET/OU OBSTÉTRIQUE)</option>';
-            libelle_options_str  += '<option value="SPÉCIALISTE EN OPHTALMOLOGIE">SPÉCIALISTE EN OPHTALMOLOGIE</option>';
-            libelle_options_str  += '<option value="SPÉCIALISTE EN OTO-RHINO-LARYNGOLOGIE">SPÉCIALISTE EN OTO-RHINO-LARYNGOLOGIE</option>';
-            libelle_options_str  += '<option value="SPÉCIALISTE EN PNEUMOLOGIE">SPÉCIALISTE EN PNEUMOLOGIE</option>';
-            libelle_options_str  += '<option value="SPÉCIALISTE EN PSYCHIATRIE">SPÉCIALISTE EN PSYCHIATRIE</option>';
-            libelle_options_str  += '<option value="SPÉCIALISTE EN PÉDIATRIE">SPÉCIALISTE EN PÉDIATRIE</option>';
-            libelle_options_str  += '<option value="SPÉCIALISTE EN RADIODIAGNOSTIC ET IMAGERIE MÉDICALE">SPÉCIALISTE EN RADIODIAGNOSTIC ET IMAGERIE MÉDICALE</option>';
-            libelle_options_str  += '<option value="SPÉCIALISTE EN STOMATOLOGIE">SPÉCIALISTE EN STOMATOLOGIE</option>';
-            libelle_options_str  += '<option value="STRUCTURE PSYCHIATRIQUE EN AMBULATOIRE">STRUCTURE PSYCHIATRIQUE EN AMBULATOIRE</option>';
-            libelle_options_str  += '<option value="STS SECTION TECHNICIEN SUPÉRIEUR, CPGE CLASSE PRÉPARATOIRE AUX GRANDES ÉCOLES">STS SECTION TECHNICIEN SUPÉRIEUR, CPGE CLASSE PRÉPARATOIRE AUX GRANDES ÉCOLES</option>';
-            libelle_options_str  += '<option value="TAXI-VTC">TAXI-VTC</option>';
-            libelle_options_str  += '<option value="TENNIS">TENNIS</option>';
-            libelle_options_str  += '<option value="TERRAINS DE GRANDS JEUX">TERRAINS DE GRANDS JEUX</option>';
-            libelle_options_str  += '<option value="TRAVAIL PROTÉGÉ">TRAVAIL PROTÉGÉ</option>';
-            libelle_options_str  += '<option value="TRIBUNAL JUDICIAIRE (TJ)">TRIBUNAL JUDICIAIRE (TJ)</option>';
-            libelle_options_str  += '<option value="UFR">UFR</option>';
-            libelle_options_str  += '<option value="VÉTÉRINAIRE">VÉTÉRINAIRE</option>';
-            libelle_options_str  += '<option value="ÉCOLE DE CONDUITE">ÉCOLE DE CONDUITE</option>';
-            libelle_options_str  += '<option value="ÉCOLE MATERNELLE">ÉCOLE MATERNELLE</option>';
-            libelle_options_str  += '<option value="ÉCOLE ÉLÉMENTAIRE">ÉCOLE ÉLÉMENTAIRE</option>';
-            libelle_options_str  += '<option value="ÉLECTRICIEN">ÉLECTRICIEN</option>';
-            libelle_options_str  += '<option value="ÉTABLISSEMENT D’ACCUEIL DU JEUNE ENFANT (EAJE)">ÉTABLISSEMENT D’ACCUEIL DU JEUNE ENFANT (EAJE)</option>';
-            libelle_options_str  += '<option value="ÉTABLISSEMENT PSYCHIATRIQUE">ÉTABLISSEMENT PSYCHIATRIQUE</option>';
-            libelle_options_str  += '<option value="ÉTABLISSEMENT SANTÉ COURT SÉJOUR">ÉTABLISSEMENT SANTÉ COURT SÉJOUR</option>';
-            libelle_options_str  += '<option value="ÉTABLISSEMENT SANTÉ MOYEN SÉJOUR">ÉTABLISSEMENT SANTÉ MOYEN SÉJOUR</option>';
-            sel_libelle.innerHTML = libelle_options_str;
-            div_libelle.appendChild(sel_libelle);
-            var lab_libelle = document.createElement('div');
-            lab_libelle.innerHTML = 'libelle';
-            lab_libelle.className = 'filterlabel';
-            div_libelle.appendChild(lab_libelle);
-            var reset_libelle = document.createElement('div');
-            reset_libelle.innerHTML = 'clear filter';
-            reset_libelle.className = 'filterlabel';
-            reset_libelle.onclick = function() {
-                var options = document.getElementById("sel_libelle").options;
-                for (var i=0; i < options.length; i++) {
-                    options[i].selected = false;
-                }
-                filterFunc();
-            };
-            div_libelle.appendChild(reset_libelle);
             document.getElementById("menu").appendChild(
                 document.createElement("div"));
             var div_Equipement = document.createElement('div');
